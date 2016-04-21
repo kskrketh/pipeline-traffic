@@ -1,0 +1,226 @@
+// TODO Separar lo que es general de lo ques particular del demo
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,300);
+
+$color-background:          #002235;
+$color-background-env:      #002a42;
+$color-text:                #7cdbf3;
+$color-teal:                #7dbdc3;
+$color-teal-dark:           #005c66;
+$color-violet:              #a18fff;
+$color-violet-dark:         #582fc0;
+$color-orange:              #f7bd7f;
+$color-orange-dark:         #b35c00;
+$color-yellow:              #f0ab00;
+$color-yellow-dark:         #b58100;
+$color-red:                 #ce0000;
+$color-red-dark:            #8b0000;
+$color-blue:                #00b9e4;
+$color-blue-dark:           #008bad;
+$color-green:               #92d400;
+$color-green-dark:          #2d7623;
+$font-weight-light:         300;
+$font-weight-normal:        400;
+$font-weight-bold:          600;
+$font-size-base:            12px;
+$easeInOutBack: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+html{
+  height: 100%;
+}
+
+body{
+  background:
+  linear-gradient(to right,$color-background 70%, transparent),
+  linear-gradient($color-background 18px, transparent 18px) 0 -2px,
+  linear-gradient(90deg,  $color-background 18px, transparent 0px) -2px 0;
+  background-color: darken($color-blue-dark, 20%);
+  background-size: 100% 100%, 20px 20px, 20px 20px;
+  color: $color-text;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: $font-weight-normal;
+  font-size: $font-size-base;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.container{
+  width: 60%;
+//  &:hover .microservice{
+//    filter: blur(5px) opacity(.6);
+//    &:hover{
+//      filter: blur(0px);
+//      .stage-lg h2{
+//        display: block;
+//      }
+//    }
+//  }
+}
+
+// Microservice ==============
+
+.microservice{
+//  cursor: pointer;
+//  transition: all .3s ease;
+//  transform: scale3d(1 , 1 , 1);
+//  transform-origin: left 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+//  &:hover{
+//    transform: scale3d(1.15 , 1.15 , 1.15);
+//    z-index: 10;
+//  }
+  &:last-of-type .stage-lg h2{
+    display: block;
+  }
+  h1{
+    position: absolute;
+    top:5px;
+    left: 10px;
+    margin: 0;
+    font-size: $font-size-base;
+    line-height: 25px;
+    color: #fff;
+    font-weight: $font-weight-bold;
+    span{
+      font-weight: $font-weight-light;
+      color: rgba(255,255,255,0.7);
+    }
+  }
+}
+
+// Stages ==============
+
+.stages{
+  width: 80%;
+  display: flex;
+}
+// Stage ==============
+
+.stage{
+  flex: 1 0 10%;
+  background-color: $color-background-env;
+  border-radius: 2px;
+  margin: 0px 10px 10px 10px;
+  height: 50px;
+  position: relative;
+  &:after{
+    content: "";
+    background-color: $color-background-env;
+    mask-image: url(https://s3.amazonaws.com/passos/img/link.svg);
+    width: 20px;
+    height: 26px;
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &.stage-lg{
+    margin-right: 0;
+    margin-top: 0;
+    height: 115px;
+    background-image:
+    linear-gradient(to left, $color-background 0%, transparent 80%);
+    h2{
+      display: none;
+    }
+    &:after{
+      display: none;
+    }
+  }
+  h2{
+    margin: 0;
+    line-height: 25px;
+    font-size: $font-size-base - 2;
+    font-weight: normal;
+    text-transform: uppercase;
+    position: absolute;
+    bottom: -25px;
+  }
+}
+
+// Microservice ==============
+
+// @keyframes move{
+//  90%{
+//    filter: opacity(1);
+//  }
+//  100%{
+//    filter: opacity(0);
+//    transform: translateX(-750px);
+//  }
+// }
+@keyframes pulse-red{
+  to{
+    box-shadow: 0 0 10px $color-blue;
+  }
+}
+
+.commit{
+  position: absolute;
+  width: calc(100% - 50px);
+  height: 100%;
+  z-index: 20;
+  top: 0px;
+  bottom: 0px;
+  left: 3px;
+  transition: .3s all ease;
+  &:after{
+    content:"";
+    background-color: $color-violet;
+    border: 3px solid $color-violet-dark;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &.hidden{
+    filter: opacity(0);
+  }
+  &.commit-blue:after{
+    background-color: $color-blue;
+    border-color: $color-blue-dark;
+  }
+  &.commit-green:after{
+    background-color: $color-green;
+    border-color: $color-green-dark;
+  }
+  &.commit-yellow:after{
+    background-color: $color-yellow;
+    border-color: $color-yellow-dark;
+  }
+  &.commit-red:after{
+    background-color: $color-red;
+    border-color: $color-red-dark;
+    animation: pulse-red 1s $easeInOutBack alternate infinite;
+  }
+}
+
+// WebGL Canvas ==============
+
+#traffic {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+.coord-display {
+    position: absolute;
+    bottom: 0;
+    left: 48%;
+    font-family: monospace;
+}
+.internet-traffic-source {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+}
+
