@@ -19,6 +19,10 @@
     "watch": "npm run watch-ify & npm run watch-css",
     "start": "npm run watch-ify & npm run watch-css & npm run bs-sync"
   },
+  "dependencies": {
+    "shader-particle-engine": "^1.0.5",
+    "three": "^0.75.0"
+  },
   "devDependencies": {
     "autoprefixer": "latest",
     "browser-sync": "latest",
@@ -30,10 +34,6 @@
     "postcss-cachify": "latest",
     "postcss-cli": "2.x",
     "uglifyjs": "latest",
-    "watchify": "3.x",
-  },
-  "dependencies": {
-    "shader-particle-engine": "^1.0.5",
-    "three": "^0.75.0"
+    "watchify": "3.x"
   }
 }
