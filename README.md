@@ -3,7 +3,7 @@
 Installation:
 
 ```
-cd scoreboard/
+cd pipeline-traffic/
 npm install
 ```
 
