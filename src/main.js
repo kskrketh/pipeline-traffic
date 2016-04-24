@@ -58,9 +58,9 @@ function moveToNextStage(currentStageID, nextStageID) {
   nextStageID.classList.remove('hidden');
 }
 
-var timer = setInterval(stageStepGen(mircroserviceID), 200);
+var timer = setInterval(stageStepGen, 200, mircroserviceID);
 
-setTimeout(function() {clearInterval(timer)}, 4000);
+setTimeout(function() {clearInterval(timer)}, 10000);
 
 function commitMergedListener() {
 
