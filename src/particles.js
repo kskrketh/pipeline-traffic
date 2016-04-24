@@ -1,6 +1,6 @@
 var THREE = require('three');
 
-var PARTICLE_DURATION  = 3; // seconds
+var PARTICLE_DURATION  = 1.5; // seconds
 var MAX_PARTICLE_COUNT = 5000;
 var ALIVE              = 1;
 var DEAD               = 0;
@@ -227,16 +227,16 @@ function centerPoint(el) {
 }
 
 function onClick(evt) {
-    sendParticle({ 
+    sendParticle({
         from      : centerPoint(internet_traffic_source),
         to        : eventPoint(evt),
-        fromColor : getColor(), // TODO: set correct color here 
+        fromColor : getColor(), // TODO: set correct color here
         toColor   : getColor( evt.target ),
     });
 }
 
 function getColor(element) {
-    var color = 'rgb(0, 0, 255)'; // default color
+    var color = 'rgb(124, 219, 243)'; // default color, other option might be rgb(255, 255, 255)
     if (element instanceof Element) {
         color = window.getComputedStyle( element, ':after' ).backgroundColor;
     }
