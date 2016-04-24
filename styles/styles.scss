@@ -167,7 +167,7 @@ body{
   top: 0px;
   bottom: 0px;
   left: 3px;
-  transition: .3s all ease;
+  transition: .3s all linear;
   &:after{
     content:"";
     background-color: $color-violet;
@@ -223,4 +223,3 @@ body{
     width: 0;
     height: 0;
 }
-
