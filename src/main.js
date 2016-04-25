@@ -22,34 +22,62 @@ function getSupportedPropertyName(properties) {
   return null;
 }
 
-var stageCounter = 0;
-var mircroserviceID = 1;
+var processCounter = 0;
+var microserviceID = 1;
 var currentStageID = 1;
-function stageStepGen(mircroServiceID) {
-  var stageSize = 10;
+function stageStepGen(microServiceID) {
+  var msID = microServiceID;
 
-  var msID = 'ms-' + mircroServiceID;
+  var stageSize = 4;
   var stageID = msID + '-' + currentStageID;
 
   var currentStage = document.getElementById(stageID);
+/*
+  if (processCounter === 0) {
+    currentStage.classList.remove('hidden');
+  }
+*/
 
-  moveBall(currentStage, stageCounter, stageSize);
-  if(stageSize === stageCounter) {
+  if (msID.startsWith('ms-prod')) {
+    moveBallInProd(currentStage, 50);
+  } else {
+    moveBall(currentStage, processCounter, stageSize);
+  }
+
+  if(stageSize < processCounter) {
     // reset counters and move on
     currentStageID++;
-    stageID = msID + currentStageID;
-    stageCounter = 0;
-    moveToNextStage(currentStage, stageID)
+    stageID = msID + '-' + currentStageID;
+    var nextStage = document.getElementById(stageID);
+    processCounter = 0;
+    if (nextStage !== null) {
+      moveToNextStage(currentStage, nextStage);
+    } else {
+      // Go to Prod
+      nextStage = document.getElementById("ms-prod-1-1");
+      moveToNextStage(currentStage, nextStage);
+      stageStepGen('ms-prod-1');
+    }
   }
-  stageCounter++;
+  processCounter++;
 }
 
 function moveBall(stageId, current, total) {
   var location = (current / total) * 100;
 
-  stageId.classList.remove('hidden');
+  if (current === 0) {
+    stageId.classList.remove('hidden');
+  }
   if (transformProperty) {
     stageId.style[transformProperty] = 'translate3d(' + location + '% ,0,0)';
+  }
+}
+
+function moveBallInProd(stageId, prodHeight) {
+  var y = prodHeight || 0;
+  if (transformProperty) {
+    //stageId.style[transformProperty] = 'translate3d(0,0,0)';
+    stageId.style[transformProperty] = 'translate3d(50%, ' + y + '% ,0)';
   }
 }
 
@@ -58,7 +86,7 @@ function moveToNextStage(currentStageID, nextStageID) {
   nextStageID.classList.remove('hidden');
 }
 
-var timer = setInterval(stageStepGen, 200, mircroserviceID);
+var timer = setInterval(stageStepGen, 500, 'ms-' + microserviceID);
 
 setTimeout(function() {clearInterval(timer)}, 10000);
 
