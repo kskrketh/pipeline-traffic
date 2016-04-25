@@ -110,7 +110,7 @@ function initParticles(particles) {
     uniforms = {
         texture:   { type: "t", value: new THREE.TextureLoader().load('./img/traffic-dot.png') },
         TIMER_MAX: { type: "f", value: PARTICLE_DURATION },
-        size:      { type: "f", value: 14 },
+        size:      { type: "f", value: 7 },
     };
     var shaderMaterial = new THREE.ShaderMaterial( {
         uniforms:       uniforms,
