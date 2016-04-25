@@ -298,7 +298,7 @@ function onWindowResize() {
 }
 
 function moveInternet() {
-    internet_traffic_source.style.top = Math.random() * height + 'px';
+    internet_traffic_source.style.top = Math.random() * height/2 + 'px';
 }
 
 function nth(f, n) {
