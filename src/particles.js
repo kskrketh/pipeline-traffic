@@ -349,7 +349,6 @@ socket.onmessage = function onMessage(event) {
     data.map(dataMap).forEach(sendParticle);
 };
 
-
 module.exports = {
-    init
+    init: init
 };
