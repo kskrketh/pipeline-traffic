@@ -230,15 +230,20 @@ function onClick(evt) {
     sendParticle({
         from      : centerPoint(internet_traffic_source),
         to        : eventPoint(evt),
-        fromColor : getColor(), // TODO: set correct color here
+        fromColor : getColor(),
         toColor   : getColor( evt.target ),
     });
 }
 
 function getColor(element) {
-    var color = 'rgb(124, 219, 243)'; // default color, other option might be rgb(255, 255, 255)
+    var default_color = 'rgba(124, 219, 243, 1)'; // default color, other option might be rgb(255, 255, 255)
+    var el_bg_color;
+    var color = default_color;
     if (element instanceof Element) {
-        color = window.getComputedStyle( element, ':after' ).backgroundColor;
+        el_bg_color = window.getComputedStyle( element, ':after' ).backgroundColor;
+        if (el_bg_color !== 'rgba(0, 0, 0, 0)') {
+            color = el_bg_color;
+        }
     }
     return new THREE.Color(color);
 }
