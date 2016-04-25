@@ -331,9 +331,8 @@ function animate() {
 // take a {from:0, to:1} JSON object from the remote server and map it to
 // {from:Element,to:Element,fromColor:white,toColor:black}
 function dataMap(data) {
-    var from = document.querySelector('[id="microservice-' + data.from + '"]');
-    var to   = document.querySelector('[id="microservice-' + data.to + '"]');
-    console.log(from, to);
+    var from = document.querySelector('[id="ms-prod-' + data.from + '-1"]');
+    var to   = document.querySelector('[id="ms-prod-' + data.to + '-1"]');
     return {
         from      : centerPoint(from),
         to        : centerPoint(to),
