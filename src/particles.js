@@ -353,6 +353,10 @@ socket.onmessage = function onMessage(event) {
     data.map(dataMap).forEach(sendParticle);
 };
 
+window.addEventListener('beforeunload', function() {
+    socket.close();
+});
+
 module.exports = {
     init: init
 };
