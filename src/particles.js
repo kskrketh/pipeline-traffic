@@ -221,7 +221,7 @@ function eventPoint(evt) {
 function centerPoint(el) {
     var coords = el.getBoundingClientRect();
     return {
-        x: ( coords.left + coords.right ) / 2 + 22, // 22 is half the ball width plus border
+        x: coords.left + 22, // 22 is half the ball width plus border
         y: ( coords.top + coords.bottom ) / 2,
     };
 }
