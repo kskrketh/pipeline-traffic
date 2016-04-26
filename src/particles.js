@@ -1,4 +1,5 @@
 var THREE = require('three');
+var ReconnectingWebSocket = require('reconnectingwebsocket');
 
 var PARTICLE_DURATION  = 1.5; // seconds
 var MAX_PARTICLE_COUNT = 5000;
@@ -347,7 +348,7 @@ function dataMap(data) {
 }
 
 // set up websocket
-var socket = new WebSocket("ws://localhost:3004");
+var socket = new ReconnectingWebSocket("ws://localhost:3004");
 socket.onmessage = function onMessage(event) {
     var data = JSON.parse(event.data);
     data.map(dataMap).forEach(sendParticle);
