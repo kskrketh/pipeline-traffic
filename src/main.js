@@ -28,7 +28,7 @@ var currentStageID = 1;
 function stageStepGen(microServiceID) {
   var msID = microServiceID;
 
-  var stageSize = 4;
+  var stageSize = 10;
   var stageID = msID + '-' + currentStageID;
 
   var currentStage = document.getElementById(stageID);
@@ -39,12 +39,17 @@ function stageStepGen(microServiceID) {
 */
 
   if (msID.startsWith('ms-prod')) {
-    moveBallInProd(currentStage, 50);
+    moveBallInProd(currentStage, 0);
+    microserviceID = 1;
+    currentStageID = 1;
+    processCounter = 0;
+    return;
+    
   } else {
     moveBall(currentStage, processCounter, stageSize);
   }
 
-  if(stageSize < processCounter) {
+  if((stageSize) === processCounter) {
     // reset counters and move on
     currentStageID++;
     stageID = msID + '-' + currentStageID;
@@ -54,6 +59,7 @@ function stageStepGen(microServiceID) {
       moveToNextStage(currentStage, nextStage);
     } else {
       // Go to Prod
+      currentStageID = 1;
       nextStage = document.getElementById("ms-prod-1-1");
       moveToNextStage(currentStage, nextStage);
       stageStepGen('ms-prod-1');
@@ -65,9 +71,7 @@ function stageStepGen(microServiceID) {
 function moveBall(stageId, current, total) {
   var location = (current / total) * 100;
 
-  if (current === 0) {
     stageId.classList.remove('hidden');
-  }
   if (transformProperty) {
     stageId.style[transformProperty] = 'translate3d(' + location + '% ,0,0)';
   }
@@ -84,11 +88,12 @@ function moveBallInProd(stageId, prodHeight) {
 function moveToNextStage(currentStageID, nextStageID) {
   currentStageID.classList.add('hidden');
   nextStageID.classList.remove('hidden');
+  nextStageID.style[transformProperty] = 'translate3d(0,0,0)';
 }
 
 var timer = setInterval(stageStepGen, 500, 'ms-' + microserviceID);
 
-setTimeout(function() {clearInterval(timer)}, 10000);
+setTimeout(function() {clearInterval(timer)}, 8000);
 
 function commitMergedListener() {
 
@@ -102,3 +107,47 @@ function stageCompleteListener() {
 
 }
 
+var microServiceRegistry = [];
+
+function addMicroServiceToRegistry(msName, msStages) {
+  var stage;
+  var commit = createCommit(msName, msBuild, sha, 1, 0, msStages.length);
+  var ms = {
+    name: msName,
+    stages: msStages,
+    commits: [commit]
+  };
+  microServiceRegistry.push(ms);
+}
+
+function createCommit(jobName, runId, stage, duration) {
+  return {
+    id: jobName + '-' + runId,
+    currentStage: stage,
+    runTime: duration
+  };
+}
+
+function createListOfStages(stagesJSON) {
+  var stages = [
+    {
+      
+    }
+  ];
+  
+  return stages;
+}
+
+function createStage(jobName, stageId, stageName, duration) {
+  return {
+    id: stageId,
+    name: stageName,
+    msName: jobName,
+    runTime: duration
+  };
+}
+
+function addCommitElement(msName, msBuild, stage, sha) {
+  var div = document.createElement('div');
+  div.id = msName + '-' + msBuild;
+}
