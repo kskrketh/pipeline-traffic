@@ -109,32 +109,39 @@ function stageCompleteListener() {
 
 var microServiceRegistry = [];
 
-function addMicroServiceToRegistry(msName, msStages) {
-  var stage;
-  var commit = createCommit(msName, msBuild, sha, 1, 0, msStages.length);
-  var ms = {
-    name: msName,
-    stages: msStages,
-    commits: [commit]
-  };
-  microServiceRegistry.push(ms);
-}
-
-function createCommit(jobName, runId, stage, duration) {
+function createCommit(jobName, runId, runName, stageId, stageName, stageStatus, duration) {
   return {
-    id: jobName + '-' + runId,
-    currentStage: stage,
+    id: jobName + '-' + runId + '-' + runName,
+    currentStageID: stageId,
+    currentStage: stageName,
+    status: stageStatus,
     runTime: duration
   };
 }
+function getCommit(jobName, run) {
+  var i, commit, stages, runId, runName;
+  stages = run[0].stages;
+  runId = run[0].id;
+  runName = run[0].name;
 
-function createListOfStages(stagesJSON) {
-  var stages = [
-    {
-      
+  for (i = 0; i < stages.length; i++) {
+    if (stages[stages.length - 1].status === "SUCCESS") {
+      commit = createCommit(jobName, runId, runName, stages[stages.length - 1].id, stages[stages.length - 1].name, stages[stages.length - 1].status, stages[stages.length - 1].durationMillis);
+      break;
+    } else if (stages[i].status !== "SUCCESS") {
+      commit = createCommit(jobName, runId, runName, stages[i].id, stages[i].name, stages[i].status, stages[i].durationMillis);
+      break;
     }
-  ];
-  
+  }
+
+  return commit;
+}
+
+function createListOfStages(jobName, runStages) {
+  var stages = [];
+  for (var i = 0; i < runStages.length; i++) {
+    stages.push(createStage(jobName, runStages[i].id, runStages[i].name, runStages[i].durationMillis));
+  }
   return stages;
 }
 
@@ -147,7 +154,212 @@ function createStage(jobName, stageId, stageName, duration) {
   };
 }
 
+
+function addMicroServiceToRegistry(jobURL, jobRunsURL) {
+  var i, stages, job, jobRuns;
+  job = getJob(jobURL);
+  jobRuns = getRuns(jobRunsURL);
+  var msName = job.name;
+
+  for (i = 0; i < jobRuns.length; i++) {
+    if (jobRuns[i].status === "SUCCESS") {
+      stages = createListOfStages(msName, jobRuns[i].stages);
+    }
+  }
+
+  var commits = [];
+  // add initial commit to pipeline
+  if (jobRuns[0].status === "SUCCESS") {
+    // Create production marker
+    commits.push(getCommit(msName, jobRuns));
+  } else {
+    // Create marker in pipeline
+    commits.push(getCommit(msName, jobRuns));
+    // Create production marker
+    commits.push(createCommit(msName, msBuild, sha, 1, 0, msStages.length));
+  }
+
+  var ms = {
+    name: msName,
+    stages: stages,
+    commits: commits,
+    job: jobURL,
+    jobRuns: jobRunsURL
+  };
+  microServiceRegistry.push(ms);
+}
+
+// Called by pollJenkins
+function updateMicroService(ms) {
+  var i, stages, jobRuns, commit;
+  jobRuns = getRuns(ms.jobRuns);
+
+  for (i = 0; i < jobRuns.length; i++) {
+    if (jobRuns[i].status === "SUCCESS") {
+      stages = createListOfStages(ms.name, jobRuns[i].stages);
+    }
+  }
+
+  ms.stages = stages;
+
+  // Get the latest active commit
+  // Check if it matches the current one and then check the status
+  //   if the status is Success then we need to check the stage
+  //   if the status is an error then we need to add an error class to the HTML
+  // IF it matches and it's still in the same stage then we are done.
+  // Check older commits, need to loop through all the commits and check status.
+  commit = getCommit(ms.name, jobRuns);
+  if (ms.commits[0].id !== commit.id ) {
+    ms.commits.unshift(commit);
+  }
+
+  return ms;
+}
+
 function addCommitElement(msName, msBuild, stage, sha) {
   var div = document.createElement('div');
   div.id = msName + '-' + msBuild;
 }
+
+var jobExample = {
+  "_links": {
+    "self": {
+      "href": "/jenkins/job/Test%20Workflow/wfapi/describe"
+    },
+    "runs": {
+      "href": "/jenkins/job/Test%20Workflow/wfapi/runs"
+    }
+  },
+  "name": "Test Workflow",
+  "runCount": 17
+};
+
+function getJob(restURL){
+  // use GET /job/:job-name/wfapi
+  return jobExample;
+}
+var runsExample = [
+  {
+    "_links": {
+      "self": {
+        "href": "/jenkins/job/Test%20Workflow/16/wfapi/describe"
+      },
+      "pendingInputActions": {
+        "href": "/jenkins/job/Test%20Workflow/16/wfapi/pendingInputActions"
+      }
+    },
+    "id": "2014-10-16_13-07-52",
+    "name": "#16",
+    "status": "PAUSED_PENDING_INPUT",
+    "startTimeMillis": 1413461275770,
+    "endTimeMillis": 1413461285999,
+    "durationMillis": 10229,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/jenkins/job/Test%20Workflow/16/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Build",
+        "status": "SUCCESS",
+        "startTimeMillis": 1413461275770,
+        "durationMillis": 5228
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/jenkins/job/Test%20Workflow/16/execution/node/8/wfapi/describe"
+          }
+        },
+        "id": "8",
+        "name": "Test",
+        "status": "SUCCESS",
+        "startTimeMillis": 1413461280998,
+        "durationMillis": 4994
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/jenkins/job/Test%20Workflow/16/execution/node/10/wfapi/describe"
+          }
+        },
+        "id": "10",
+        "name": "Deploy",
+        "status": "PAUSED_PENDING_INPUT",
+        "startTimeMillis": 1413461285992,
+        "durationMillis": 7
+      }
+    ]
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "/jenkins/job/Test%20Workflow/15/wfapi/describe"
+      },
+      "artifacts": {
+        "href": "/jenkins/job/Test%20Workflow/15/wfapi/artifacts"
+      }
+    },
+    "id": "2014-10-16_12-45-06",
+    "name": "#15",
+    "status": "SUCCESS",
+    "startTimeMillis": 1413459910289,
+    "endTimeMillis": 1413459937070,
+    "durationMillis": 26781,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/jenkins/job/Test%20Workflow/15/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Build",
+        "status": "SUCCESS",
+        "startTimeMillis": 1413459910289,
+        "durationMillis": 6754
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/jenkins/job/Test%20Workflow/15/execution/node/8/wfapi/describe"
+          }
+        },
+        "id": "8",
+        "name": "Test",
+        "status": "SUCCESS",
+        "startTimeMillis": 1413459917043,
+        "durationMillis": 4998
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/jenkins/job/Test%20Workflow/15/execution/node/10/wfapi/describe"
+          }
+        },
+        "id": "10",
+        "name": "Deploy",
+        "status": "SUCCESS",
+        "startTimeMillis": 1413459922041,
+        "durationMillis": 15029
+      }
+    ]
+  }
+];
+function getRuns(restURL){
+  // use GET /job/:job-name/wfapi/runs
+  return runsExample;
+}
+
+addMicroServiceToRegistry(getJob('url'), getRuns('url'));
+
+function pollJenkins() {
+  for (var i = 0; i < microServiceRegistry.length; i++) {
+    var ms = microServiceRegistry[i];
+    updateMicroService(ms);
+  }
+}
+
+var timer = setInterval(pollJenkins, 500);
