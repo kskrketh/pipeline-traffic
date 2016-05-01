@@ -137,14 +137,6 @@ function getCommit(jobName, run) {
   return commit;
 }
 
-function createListOfStages(jobName, runStages) {
-  var stages = [];
-  for (var i = 0; i < runStages.length; i++) {
-    stages.push(createStage(jobName, runStages[i].id, runStages[i].name, runStages[i].durationMillis));
-  }
-  return stages;
-}
-
 function createStage(jobName, stageId, stageName, duration) {
   return {
     id: stageId,
@@ -154,9 +146,17 @@ function createStage(jobName, stageId, stageName, duration) {
   };
 }
 
+function createListOfStages(jobName, runStages) {
+  var stages = [];
+  for (var i = 0; i < runStages.length; i++) {
+    stages.push(createStage(jobName, runStages[i].id, runStages[i].name, runStages[i].durationMillis));
+  }
+  return stages;
+}
+
 
 function addMicroServiceToRegistry(jobURL, jobRunsURL) {
-  var i, stages, job, jobRuns;
+  var i, stages, job, jobRuns, commit;
   job = getJob(jobURL);
   jobRuns = getRuns(jobRunsURL);
   var msName = job.name;
@@ -167,22 +167,14 @@ function addMicroServiceToRegistry(jobURL, jobRunsURL) {
     }
   }
 
-  var commits = [];
-  // add initial commit to pipeline
-  if (jobRuns[0].status === "SUCCESS") {
-    // Create production marker
-    commits.push(getCommit(msName, jobRuns));
-  } else {
-    // Create marker in pipeline
-    commits.push(getCommit(msName, jobRuns));
-    // Create production marker
-    commits.push(createCommit(msName, msBuild, sha, 1, 0, msStages.length));
+  if (jobRuns[0].status !== "SUCCESS") {
+    commit = getCommit(msName, jobRuns);
   }
 
   var ms = {
     name: msName,
     stages: stages,
-    commits: commits,
+    commit: commit,
     job: jobURL,
     jobRuns: jobRunsURL
   };
@@ -196,26 +188,16 @@ function updateMicroService(ms) {
 
   for (i = 0; i < jobRuns.length; i++) {
     if (jobRuns[i].status === "SUCCESS") {
-      stages = createListOfStages(ms.name, jobRuns[i].stages);
+      ms.stages = createListOfStages(ms.name, jobRuns[i].stages);
     }
   }
 
-  ms.stages = stages;
-
-  // Get the latest active commit
-  // Check if it matches the current one and then check the status
-  //   if the status is Success then we need to check the stage
-  //   if the status is an error then we need to add an error class to the HTML
-  // IF it matches and it's still in the same stage then we are done.
-  // Check older commits, need to loop through all the commits and check status.
-  commit = getCommit(ms.name, jobRuns);
-  if (ms.commits[0].id !== commit.id ) {
-    ms.commits.unshift(commit);
-  }
+  ms.commit = getCommit(ms.name, jobRuns);
 
   return ms;
 }
 
+// IF we want to display multiple commits in a pipeline then we would need this to display more then one at a time.
 function addCommitElement(msName, msBuild, stage, sha) {
   var div = document.createElement('div');
   div.id = msName + '-' + msBuild;
@@ -357,8 +339,7 @@ addMicroServiceToRegistry(getJob('url'), getRuns('url'));
 
 function pollJenkins() {
   for (var i = 0; i < microServiceRegistry.length; i++) {
-    var ms = microServiceRegistry[i];
-    updateMicroService(ms);
+    microServiceRegistry[i] = updateMicroService(microServiceRegistry[i]);
   }
 }
 
