@@ -91,9 +91,9 @@ function moveToNextStage(currentStageID, nextStageID) {
   nextStageID.style[transformProperty] = 'translate3d(0,0,0)';
 }
 
-//var timer = setInterval(stageStepGen, 500, 'ms-' + microserviceID);
+//var timer1 = setInterval(stageStepGen, 500, 'ms-' + microserviceID);
 
-//setTimeout(function() {clearInterval(timer)}, 8000);
+//setTimeout(function() {clearInterval(timer1)}, 8000);
 
 
 
@@ -132,6 +132,33 @@ function getAllCommits(jobName, runs) {
   return commits;
 }
 
+function addCommitElement(commit) {
+  var div = document.createElement('div');
+  div.id = commit.id;
+  div.classList.add('commit', commit.status);
+  div.style = 'transform: translate3d(0%, 0, 0);';
+
+  return div;
+}
+function addAllCommitElements(ms) {
+  for (var i = 0; i < ms.commits.length; i++) {
+    var stageDiv = document.getElementById(ms.stages[i].id);
+    stageDiv.appendChild(addCommitElement(ms.commits[i]));
+  }
+}
+function updateCommitStatus(ms, oldCommits) {
+
+  if (ms.commits.length === oldCommits.length) {
+    for (var i = 0; i < ms.commits.length; i++) {
+      if (ms.commits[i].status != oldCommits[i].status) {
+        var commitDiv = document.getElementById(ms.commits[i].id);
+        commitDiv.classList.add(ms.commits[i].status);
+        commitDiv.classList.remove(oldCommits[i].status);
+      }
+    }
+  }
+}
+
 function createStage(jobName, stageId, stageName, duration) {
   return {
     id: jobName + '-' + 'stage' + '-' + stageId,
@@ -150,7 +177,6 @@ function createListOfStages(jobName, runStages) {
   return stages;
 }
 
-
 function addStagesElement(ms) {
   var stages = document.getElementById(ms.name + '-stages');
   var html = '';
@@ -164,6 +190,7 @@ function addStagesElement(ms) {
 
   stages.innerHTML = html;
 }
+
 function addPipelineElement(ms) {
   var pipeline = document.getElementById("pipeline-container");
   var div = document.createElement('div');
@@ -179,35 +206,13 @@ function addPipelineElement(ms) {
     '</div><!-- /stages -->' +
     '<div class="stage stage-lg">' +
       '<h2>Production</h2>' +
-      '<div id="' + ms.name + '-prod-1-1" class="commit" style="transform: translate3d(50%, 0, 0);"></div>' +
+      '<div id="' + ms.name + '-prod-1" class="commit" style="transform: translate3d(50%, 0, 0);"></div>' +
     '</div><!-- /stage-lg -->';
 
   div.innerHTML = html;
   pipeline.appendChild(div);
   addStagesElement(ms);
   addAllCommitElements(ms)
-}
-
-function addCommitElement(commit) {
-  var div = document.createElement('div');
-  div.id = commit.id;
-  div.classList.add('commit', commit.status);
-  div.style = 'transform: translate3d(0%, 0, 0);';
-
-  return div;
-}
-function addAllCommitElements(ms) {
-
-  /*NOT_EXECUTED,
-   ABORTED,
-   SUCCESS,
-   IN_PROGRESS,
-   PAUSED_PENDING_INPUT,
-   FAILED;*/
-  for (var i = 0; i < ms.commits.length; i++) {
-    var stageDiv = document.getElementById(ms.stages[i].id);
-    stageDiv.appendChild(addCommitElement(ms.commits[i]));
-  }
 }
 
 function addMicroServiceToRegistry(jobURL, jobRunsURL) {
@@ -249,16 +254,35 @@ function addMicroServiceToRegistry(jobURL, jobRunsURL) {
 function updateMicroService(ms) {
   var i;
   var jobRuns = getRuns(ms.jobRuns);
+  var oldNumberOfStages = ms.stages.length;
+  var newNumberOfStages = jobRuns[0].stages.length;
+  var oldCommits = JSON.parse(JSON.stringify(ms.commits));
 
   for (i = 0; i < jobRuns.length; i++) {
+    // Get the latest complete list of stages, we need updated times.
     if (jobRuns[i].status === "SUCCESS") {
       ms.stages = createListOfStages(ms.name, jobRuns[i].stages);
+      break;
     }
   }
 
-  // TODO: compare old stages to new to see if they changed. If they changed then update the html.
-
   ms.commits = getAllCommits(ms.name, jobRuns);
+
+  
+  // Compare old stages to new to see if they changed. If they changed then update the html.
+  if (oldNumberOfStages !== newNumberOfStages) {
+    addStagesElement(ms);
+    addAllCommitElements(ms);
+    // TODO: need to reset position of commits if they are moving/transitioning in the pipeline
+  } else {
+    updateCommitStatus(ms, oldCommits);
+  }
+  
+  if (jobRuns[0].stages[1].status === 'hidden') {
+    jobRuns[0].stages[1].status = 'SUCCESS';
+  } else {
+    jobRuns[0].stages[1].status = 'hidden';
+  }
 
   return ms;
 }
