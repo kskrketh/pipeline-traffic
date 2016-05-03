@@ -180,7 +180,7 @@ body{
     top: 50%;
     transform: translateY(-50%);
   }
-  &.hidden{
+  &.hidden, &.not_executed, &.success{
     filter: opacity(0);
   }
   &.commit-blue:after{
@@ -200,6 +200,21 @@ body{
     border-color: $color-red-dark;
     animation: pulse-red 1s $easeInOutBack alternate infinite;
   }
+
+// different states
+  &.not_executed:after, &.success:after{
+    background: tan;
+  }
+  &.aborted:after, &.failed:after{
+    background: yellow;
+  }
+  &.in_progress:after{
+    background: hotpink;
+  }
+  &.paused_pending_input:after{
+      background: orange;
+  }
+
 }
 
 // WebGL Canvas ==============
