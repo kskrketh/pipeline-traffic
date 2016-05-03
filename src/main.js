@@ -91,47 +91,42 @@ function moveToNextStage(currentStageID, nextStageID) {
   nextStageID.style[transformProperty] = 'translate3d(0,0,0)';
 }
 
-var timer = setInterval(stageStepGen, 500, 'ms-' + microserviceID);
+//var timer = setInterval(stageStepGen, 500, 'ms-' + microserviceID);
 
-setTimeout(function() {clearInterval(timer)}, 8000);
+//setTimeout(function() {clearInterval(timer)}, 8000);
 
-function commitMergedListener() {
 
-}
-
-function processCompleteListener() {
-
-}
-
-function stageCompleteListener() {
-
-}
 
 var microServiceRegistry = [];
 
 function createCommit(jobName, runId, runName, stageId, stageName, stageStatus, duration) {
   return {
-    id: jobName + '-' + runId + '-' + runName,
+    id: jobName + '-' + runId + '-' + runName + '-' + stageId,
     currentStageID: stageId,
     currentStage: stageName,
-    status: stageStatus,
+    status: stageStatus.toLowerCase(),
     runTime: duration
   };
 }
-function getCommit(jobName, run) {
-  var i, commit, stages, runId, runName;
-  stages = run[0].stages;
-  runId = run[0].id;
-  runName = run[0].name;
+function getCommit(jobName, runs) {
+  var i;
+  var commits = [];
+  var runId = runs[0].id;
+  var runName = runs[0].name;
+  var stages = runs[0].stages;
 
   for (i = 0; i < stages.length; i++) {
+/*
+    // This is only needed if we place a commit in the Prod area.
     if (stages[stages.length - 1].status === "SUCCESS") {
       commit = createCommit(jobName, runId, runName, stages[stages.length - 1].id, stages[stages.length - 1].name, stages[stages.length - 1].status, stages[stages.length - 1].durationMillis);
       break;
-    } else if (stages[i].status !== "SUCCESS") {
-      commit = createCommit(jobName, runId, runName, stages[i].id, stages[i].name, stages[i].status, stages[i].durationMillis);
-      break;
+    } else
+*/
+    if (stages[i].status !== "SUCCESS") {
+      commits.push(createCommit(jobName, runId, runName, stages[i].id, stages[i].name, stages[i].status, stages[i].durationMillis));
     }
+    // if it doesn't find anything then the commit should be returned as undefined
   }
 
   return commit;
@@ -139,7 +134,8 @@ function getCommit(jobName, run) {
 
 function createStage(jobName, stageId, stageName, duration) {
   return {
-    id: stageId,
+    id: jobName + '-' + stageId,
+    stageID: stageId,
     name: stageName,
     msName: jobName,
     runTime: duration
@@ -156,35 +152,96 @@ function createListOfStages(jobName, runStages) {
 
 
 function addMicroServiceToRegistry(jobURL, jobRunsURL) {
-  var i, stages, job, jobRuns, commit;
+  var i, stages, job, jobRuns, commits;
   job = getJob(jobURL);
   jobRuns = getRuns(jobRunsURL);
-  var msName = job.name;
+  // Replace the spaces with a dash, so we can use it in an ID attribute
+  var msName = job.name.replace(/\s+/g, '-');
 
   for (i = 0; i < jobRuns.length; i++) {
+    // Find the fist completed run and build a list of the stages in it for reference.
     if (jobRuns[i].status === "SUCCESS") {
       stages = createListOfStages(msName, jobRuns[i].stages);
+      break;
     }
   }
 
-  if (jobRuns[0].status !== "SUCCESS") {
-    commit = getCommit(msName, jobRuns);
-  }
+  // returns undefined if all stages are successful
+  commits = getCommit(msName, jobRuns);
 
   var ms = {
     name: msName,
     stages: stages,
-    commit: commit,
+    commits: commits,
     job: jobURL,
     jobRuns: jobRunsURL
   };
   microServiceRegistry.push(ms);
+  addPipelineElement(ms);
+}
+
+function addStagesElement(ms) {
+  var stages = document.getElementById(ms.name + '-stages');
+  var html = '';
+
+  for (var i = 0; i < ms.stages.length; i++) {
+    html += '<div' + ms.stages[i].id + ' class="stage">' +
+              '<h2>' + ms.stages[i].name + '</h2>' +
+            '</div><!-- /stage -->';
+  }
+
+
+  stages.innerHTML = html;
+}
+function addPipelineElement(ms) {
+  var pipeline = document.getElementById("pipeline-container");
+  var html;
+
+  html = '<div id="' + ms.name + '" class="microservice">' +
+           '<h1>' +
+             ms.name + //':' +
+             //'<span>In production</span>' +
+           '</h1>' +
+           '<div id="' + ms.name + '-stages" class="stages">' +
+           '</div><!-- /stages -->' +
+           '<div class="stage stage-lg">' +
+             '<h2>Production</h2>' +
+             '<div id="' + ms.name + '-prod-1-1" class="commit" style="transform: translate3d(50%, 0, 0);"></div>' +
+           '</div><!-- /stage-lg -->' +
+         '</div><!-- /microservice -->';
+
+  pipeline.innerHTML = html;
+  addStagesElement(ms);
+}
+
+function addCommitElement(commit) {
+  var div = document.createElement('div');
+  div.id = commit.id;
+  div.classList.add('commit', commit.status);
+  div.style = 'transform: translate3d(0%, 0, 0);';
+
+  return div;
+}
+function updateCommitElement(ms) {
+  var div = addCommitElement(commit);
+
+  /*NOT_EXECUTED,
+    ABORTED,
+    SUCCESS,
+    IN_PROGRESS,
+    PAUSED_PENDING_INPUT,
+    FAILED;*/
+  for (i = 0; i < ms.commits.length; i++) {
+    if (ms.commits.status === '') {
+
+    }
+  }
 }
 
 // Called by pollJenkins
 function updateMicroService(ms) {
-  var i, stages, jobRuns, commit;
-  jobRuns = getRuns(ms.jobRuns);
+  var i;
+  var jobRuns = getRuns(ms.jobRuns);
 
   for (i = 0; i < jobRuns.length; i++) {
     if (jobRuns[i].status === "SUCCESS") {
@@ -192,15 +249,11 @@ function updateMicroService(ms) {
     }
   }
 
-  ms.commit = getCommit(ms.name, jobRuns);
+  // TODO: compare old stages to new to see if they changed. If they changed then update the html.
+
+  ms.commits = getCommit(ms.name, jobRuns);
 
   return ms;
-}
-
-// IF we want to display multiple commits in a pipeline then we would need this to display more then one at a time.
-function addCommitElement(msName, msBuild, stage, sha) {
-  var div = document.createElement('div');
-  div.id = msName + '-' + msBuild;
 }
 
 var jobExample = {
