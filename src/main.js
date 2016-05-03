@@ -278,12 +278,6 @@ function updateMicroService(ms) {
     updateCommitStatus(ms, oldCommits);
   }
   
-  if (jobRuns[0].stages[1].status === 'hidden') {
-    jobRuns[0].stages[1].status = 'SUCCESS';
-  } else {
-    jobRuns[0].stages[1].status = 'hidden';
-  }
-
   return ms;
 }
 
