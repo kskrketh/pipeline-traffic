@@ -108,7 +108,7 @@ function createCommit(jobName, runId, runName, stageId, stageName, stageStatus, 
     runTime: duration
   };
 }
-function getCommit(jobName, runs) {
+function getAllCommits(jobName, runs) {
   var i;
   var commits = [];
   var runId = runs[0].id;
@@ -123,18 +123,18 @@ function getCommit(jobName, runs) {
       break;
     } else
 */
-    if (stages[i].status !== "SUCCESS") {
+    //if (stages[i].status !== "SUCCESS") {
       commits.push(createCommit(jobName, runId, runName, stages[i].id, stages[i].name, stages[i].status, stages[i].durationMillis));
-    }
+    //}
     // if it doesn't find anything then the commit should be returned as undefined
   }
 
-  return commit;
+  return commits;
 }
 
 function createStage(jobName, stageId, stageName, duration) {
   return {
-    id: jobName + '-' + stageId,
+    id: jobName + '-' + 'stage' + '-' + stageId,
     stageID: stageId,
     name: stageName,
     msName: jobName,
@@ -150,6 +150,65 @@ function createListOfStages(jobName, runStages) {
   return stages;
 }
 
+
+function addStagesElement(ms) {
+  var stages = document.getElementById(ms.name + '-stages');
+  var html = '';
+
+  for (var i = 0; i < ms.stages.length; i++) {
+    html += 
+      '<div id="' + ms.stages[i].id + '" class="stage">' +
+        '<h2>' + ms.stages[i].name + '</h2>' +
+      '</div><!-- /stage -->';
+  }
+
+  stages.innerHTML = html;
+}
+function addPipelineElement(ms) {
+  var pipeline = document.getElementById("pipeline-container");
+  var div = document.createElement('div');
+  div.id = ms.name;
+  div.classList.add('microservice');
+
+  var html = 
+    '<h1>' +
+      ms.name + //':' +
+      //'<span>In production</span>' +
+    '</h1>' +
+    '<div id="' + ms.name + '-stages" class="stages">' +
+    '</div><!-- /stages -->' +
+    '<div class="stage stage-lg">' +
+      '<h2>Production</h2>' +
+      '<div id="' + ms.name + '-prod-1-1" class="commit" style="transform: translate3d(50%, 0, 0);"></div>' +
+    '</div><!-- /stage-lg -->';
+
+  div.innerHTML = html;
+  pipeline.appendChild(div);
+  addStagesElement(ms);
+  addAllCommitElements(ms)
+}
+
+function addCommitElement(commit) {
+  var div = document.createElement('div');
+  div.id = commit.id;
+  div.classList.add('commit', commit.status);
+  div.style = 'transform: translate3d(0%, 0, 0);';
+
+  return div;
+}
+function addAllCommitElements(ms) {
+
+  /*NOT_EXECUTED,
+   ABORTED,
+   SUCCESS,
+   IN_PROGRESS,
+   PAUSED_PENDING_INPUT,
+   FAILED;*/
+  for (var i = 0; i < ms.commits.length; i++) {
+    var stageDiv = document.getElementById(ms.stages[i].id);
+    stageDiv.appendChild(addCommitElement(ms.commits[i]));
+  }
+}
 
 function addMicroServiceToRegistry(jobURL, jobRunsURL) {
   var i, stages, job, jobRuns, commits;
@@ -167,7 +226,7 @@ function addMicroServiceToRegistry(jobURL, jobRunsURL) {
   }
 
   // returns undefined if all stages are successful
-  commits = getCommit(msName, jobRuns);
+  commits = getAllCommits(msName, jobRuns);
 
   var ms = {
     name: msName,
@@ -176,65 +235,13 @@ function addMicroServiceToRegistry(jobURL, jobRunsURL) {
     job: jobURL,
     jobRuns: jobRunsURL
   };
-  microServiceRegistry.push(ms);
-  addPipelineElement(ms);
-}
-
-function addStagesElement(ms) {
-  var stages = document.getElementById(ms.name + '-stages');
-  var html = '';
-
-  for (var i = 0; i < ms.stages.length; i++) {
-    html += '<div' + ms.stages[i].id + ' class="stage">' +
-              '<h2>' + ms.stages[i].name + '</h2>' +
-            '</div><!-- /stage -->';
-  }
-
-
-  stages.innerHTML = html;
-}
-function addPipelineElement(ms) {
-  var pipeline = document.getElementById("pipeline-container");
-  var html;
-
-  html = '<div id="' + ms.name + '" class="microservice">' +
-           '<h1>' +
-             ms.name + //':' +
-             //'<span>In production</span>' +
-           '</h1>' +
-           '<div id="' + ms.name + '-stages" class="stages">' +
-           '</div><!-- /stages -->' +
-           '<div class="stage stage-lg">' +
-             '<h2>Production</h2>' +
-             '<div id="' + ms.name + '-prod-1-1" class="commit" style="transform: translate3d(50%, 0, 0);"></div>' +
-           '</div><!-- /stage-lg -->' +
-         '</div><!-- /microservice -->';
-
-  pipeline.innerHTML = html;
-  addStagesElement(ms);
-}
-
-function addCommitElement(commit) {
-  var div = document.createElement('div');
-  div.id = commit.id;
-  div.classList.add('commit', commit.status);
-  div.style = 'transform: translate3d(0%, 0, 0);';
-
-  return div;
-}
-function updateCommitElement(ms) {
-  var div = addCommitElement(commit);
-
-  /*NOT_EXECUTED,
-    ABORTED,
-    SUCCESS,
-    IN_PROGRESS,
-    PAUSED_PENDING_INPUT,
-    FAILED;*/
-  for (i = 0; i < ms.commits.length; i++) {
-    if (ms.commits.status === '') {
-
-    }
+  
+  if (document.getElementById(msName)) {
+    // if this pipeline already exists on the screen then just update it
+    updateMicroService(ms);
+  } else {
+    microServiceRegistry.push(ms);
+    addPipelineElement(ms);
   }
 }
 
@@ -251,7 +258,7 @@ function updateMicroService(ms) {
 
   // TODO: compare old stages to new to see if they changed. If they changed then update the html.
 
-  ms.commits = getCommit(ms.name, jobRuns);
+  ms.commits = getAllCommits(ms.name, jobRuns);
 
   return ms;
 }
