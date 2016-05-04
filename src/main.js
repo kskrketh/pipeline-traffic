@@ -12,18 +12,34 @@ var jenkinsJobs = [
   'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy2/'
 ];
 
-
-
-// Run the particles for traffic display.
-particles.init();
+function getJSON(restURL){
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+      if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+        console.log("xhr succeeded: " + xhr.status + ' results: ' + xhr.responseText);
+        return JSON.parse(xhr.responseText);
+      } else {
+        console.log("xhr failed: " + xhr.status);
+      }
+    }
+  };
+  xhr.open('get', restURL, true);
+  xhr.send(null);
+}
 
 function loadPredefinedJenkinsJobs(jenkinsJobs) {
   for (var i = 0; i < jenkinsJobs.length; i++) {
     addMicroServiceToRegistry(getJSON(jenkinsJobs[i] + 'wfapi'), getJSON(jenkinsJobs[i] + 'wfapi/runs'));
   }
 }
+
 loadPredefinedJenkinsJobs(jenkinsJobs);
 
+
+
+// Run the particles for traffic display.
+particles.init();
 
 
 
@@ -293,22 +309,6 @@ function updateMicroService(ms) {
   }
   
   return ms;
-}
-
-function getJSON(restURL){
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4) {
-      if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
-        console.log("xhr succeeded: " + xhr.status + ' results: ' + xhr.responseText);
-        return JSON.parse(xhr.responseText);
-      } else {
-        console.log("xhr failed: " + xhr.status);
-      }
-    }
-  };
-  xhr.open('get', restURL, true);
-  xhr.send(null);
 }
 
 function pollJenkins() {
