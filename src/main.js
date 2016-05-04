@@ -12,13 +12,29 @@ var jenkinsJobs = [
   'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy2/'
 ];
 
-function getJSON(restURL){
+function getJobJSON(restURL){
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {
       if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
         console.log("xhr succeeded: " + xhr.status + ' results: ' + xhr.responseText);
-        return JSON.parse(xhr.responseText);
+        return getRunsJSON(restURL + '/runs', JSON.parse(xhr.responseText).name);
+      } else {
+        console.log("xhr failed: " + xhr.status);
+      }
+    }
+  };
+  xhr.open('get', restURL, true);
+  xhr.send(null);
+}
+
+function getRunsJSON(restURL, msName){
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+      if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+        console.log("xhr succeeded: " + xhr.status + ' results: ' + xhr.responseText);
+        return addMicroServiceToRegistry(JSON.parse(xhr.responseText), restURL, msName);
       } else {
         console.log("xhr failed: " + xhr.status);
       }
@@ -30,7 +46,7 @@ function getJSON(restURL){
 
 function loadPredefinedJenkinsJobs(jenkinsJobs) {
   for (var i = 0; i < jenkinsJobs.length; i++) {
-    addMicroServiceToRegistry(getJSON(jenkinsJobs[i] + 'wfapi'), getJSON(jenkinsJobs[i] + 'wfapi/runs'));
+    getJobJSON(jenkinsJobs[i] + 'wfapi');
   }
 }
 
@@ -245,30 +261,25 @@ function addPipelineElement(ms) {
   addAllCommitElements(ms)
 }
 
-function addMicroServiceToRegistry(jobURL, jobRunsURL) {
-  var i, stages, job, jobRuns, commits;
-  job = getJSON(jobURL);
-  jobRuns = getJSON(jobRunsURL);
-  // Replace the spaces with a dash, so we can use it in an ID attribute
-  var msName = job.name.replace(/\s+/g, '-');
+function addMicroServiceToRegistry(runJSON, restURL, msName) {
+  var i, stages, commits;
 
-  for (i = 0; i < jobRuns.length; i++) {
+  for (i = 0; i < runJSON.length; i++) {
     // Find the fist completed run and build a list of the stages in it for reference.
-    if (jobRuns[i].status === "SUCCESS") {
-      stages = createListOfStages(msName, jobRuns[i].stages);
+    if (runJSON[i].status === "SUCCESS") {
+      stages = createListOfStages(msName, runJSON[i].stages);
       break;
     }
   }
 
   // returns undefined if all stages are successful
-  commits = getAllCommits(msName, jobRuns);
+  commits = getAllCommits(msName, runJSON);
 
   var ms = {
     name: msName,
     stages: stages,
     commits: commits,
-    job: jobURL,
-    jobRuns: jobRunsURL
+    jobRuns: restURL
   };
   
   if (document.getElementById(msName)) {
@@ -281,9 +292,8 @@ function addMicroServiceToRegistry(jobURL, jobRunsURL) {
 }
 
 // Called by pollJenkins
-function updateMicroService(ms) {
+function updateMicroService(ms, jobRuns) {
   var i;
-  var jobRuns = getJSON(ms.jobRuns);
   var oldNumberOfStages = ms.stages.length;
   var newNumberOfStages = jobRuns[0].stages.length;
   var oldCommits = JSON.parse(JSON.stringify(ms.commits));
@@ -311,10 +321,26 @@ function updateMicroService(ms) {
   return ms;
 }
 
+function getRunsJSONUpdates(microServiceToBeUpdated){
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+      if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+        console.log("xhr succeeded: " + xhr.status + ' results: ' + xhr.responseText);
+        return microServiceToBeUpdated = updateMicroService(microServiceToBeUpdated, JSON.parse(xhr.responseText));
+      } else {
+        console.log("xhr failed: " + xhr.status);
+      }
+    }
+  };
+  xhr.open('get', microServiceToBeUpdated.jobRuns, true);
+  xhr.send(null);
+}
+
 function pollJenkins() {
   for (var i = 0; i < microServiceRegistry.length; i++) {
-    microServiceRegistry[i] = updateMicroService(microServiceRegistry[i]);
+    getRunsJSONUpdates(microServiceRegistry[i]);
   }
 }
 
-var timer = setInterval(pollJenkins, 500);
+var timer = setInterval(pollJenkins, 1000);
