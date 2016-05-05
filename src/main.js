@@ -148,32 +148,35 @@ function moveToNextStage(currentStageID, nextStageID) {
 
 var microServiceRegistry = [];
 
-function createCommit(jobName, runId, runName, stageId, stageName, stageStatus, duration) {
+function createCommit(jobName, runId, runName, runStatus, stageId, stageName, stageStatus, duration) {
   return {
     id: jobName + '-' + runId + '-' + runName + '-' + stageId,
+    runId: runId,
+    runName: runName,
+    runStatus: runStatus,
     currentStageID: stageId,
     currentStage: stageName,
     status: stageStatus.toLowerCase(),
     runTime: duration
   };
 }
-function getAllCommits(jobName, runs) {
-  var i;
+function getAllCommits(jobName, runs, forUpdates) {
   var commits = [];
-  var runId = runs[0].id;
-  var runName = runs[0].name;
-  var stages = runs[0].stages;
 
-  for (i = 0; i < stages.length; i++) {
-/*
-    // This is only needed if we place a commit in the Prod area.
-    if (stages[stages.length - 1].status === "SUCCESS") {
-      commit = createCommit(jobName, runId, runName, stages[stages.length - 1].id, stages[stages.length - 1].name, stages[stages.length - 1].status, stages[stages.length - 1].durationMillis);
-      break;
-    } else
-*/
-      commits.push(createCommit(jobName, runId, runName, stages[i].id, stages[i].name, stages[i].status, stages[i].durationMillis));
-    //}
+  for (var i = 0; i < runs.length; i++) {
+    if (runs[i].status === "SUCCESS" && forUpdates) {
+      var stages = runs[i].stages;
+      var id = '';
+      for (var j = 0; j < stages.length; j++) {
+        id = jobName + '-' + runs[i].id + '-' + runs[i].name + '-' + stages[j].id;
+      }
+    } else {
+      var stages = runs[i].stages;
+      for (var j = 0; j < stages.length; j++) {
+        commits.push(createCommit(jobName, runs[i].id, runs[i].name, runs[i].status, stages[j].id, stages[j].name, stages[j].status, stages[j].durationMillis));
+      }
+
+    }
   }
 
   return commits;
@@ -187,20 +190,46 @@ function addCommitElement(commit) {
 
   return div;
 }
+
 function addAllCommitElements(ms) {
-  for (var i = 0; i < ms.commits.length; i++) {
-    var stageDiv = document.getElementById(ms.stages[i].id);
-    stageDiv.appendChild(addCommitElement(ms.commits[i]));
+  for (var j = 0; j < ms.commits.length; j++) {
+    for (var k = 0; k < ms.stages.length; k++) {
+      if (ms.stages[k].stageID === ms.commits[j].currentStageID) {
+        var stageDiv = document.getElementById(ms.stages[k].id);
+        stageDiv.appendChild(addCommitElement(ms.commits[j]));
+      }
+    }
   }
 }
-function updateCommitStatus(ms, oldCommits) {
 
-  if (ms.commits.length === oldCommits.length) {
-    for (var i = 0; i < ms.commits.length; i++) {
-      if (ms.commits[i].status != oldCommits[i].status) {
-        var commitDiv = document.getElementById(ms.commits[i].id);
-        commitDiv.classList.add(ms.commits[i].status);
-        commitDiv.classList.remove(oldCommits[i].status);
+function updateCommitStatus(ms, prevMs) {
+  for (var i = 0; i < ms.commits.length; i++) {
+    for (var j = 0; j < prevMs.commits.length; j++) {
+      if (ms.commits[i].id === prevMs.commits[j].id) {
+        if (ms.commits[i].status !== prevMs.commits[j].status) {
+          var commitDiv = document.getElementById(ms.commits[i].id);
+          commitDiv.classList.add(ms.commits[i].status);
+          commitDiv.classList.remove(prevMs.commits[j].status);
+        }
+      }
+    }
+  }
+}
+
+// if you can find any completed stages in completed run in the UI then remove them. They should already be hidden.
+function removeOldCommits(prevMs, runs) {
+  for (var i = 0; i < runs.length; i++) {
+    if (runs[i].status === "SUCCESS") {
+      var stages = runs[i].stages;
+      var id = '';
+      for (var j = 0; j < stages.length; j++) {
+        for (var k = 0; k < prevMs.commits.length; k++) {
+          id = jobName + '-' + runs[i].id + '-' + runs[i].name + '-' + stages[j].id;
+          if (prevMs.commits[k].id === id) {
+            var commitDiv = document.getElementById(id);
+            commitDiv.remove();
+          }
+        }
       }
     }
   }
@@ -296,7 +325,7 @@ function updateMicroService(ms, jobRuns) {
   var i;
   var oldNumberOfStages = ms.stages.length;
   var newNumberOfStages = jobRuns[0].stages.length;
-  var oldCommits = JSON.parse(JSON.stringify(ms.commits));
+  var prevMs = JSON.parse(JSON.stringify(ms)); // deep-copy commits
 
   for (i = 0; i < jobRuns.length; i++) {
     // Get the latest complete list of stages, we need updated times.
@@ -315,7 +344,8 @@ function updateMicroService(ms, jobRuns) {
     addAllCommitElements(ms);
     // TODO: need to reset position of commits if they are moving/transitioning in the pipeline
   } else {
-    updateCommitStatus(ms, oldCommits);
+    updateCommitStatus(ms, prevMs);
+    removeOldCommits(ms, prevMs, jobRuns);
   }
   
   return ms;
@@ -343,4 +373,4 @@ function pollJenkins() {
   }
 }
 
-var timer = setInterval(pollJenkins, 1000);
+var timer = setInterval(pollJenkins, 3000);
