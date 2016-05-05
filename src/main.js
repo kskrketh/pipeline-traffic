@@ -160,22 +160,15 @@ function createCommit(jobName, runId, runName, runStatus, stageId, stageName, st
     runTime: duration
   };
 }
-function getAllCommits(jobName, runs, forUpdates) {
-  var commits = [];
+function getAllCommits(jobName, runs) {
+  var commits = [], stages, i, j;
 
-  for (var i = 0; i < runs.length; i++) {
-    if (runs[i].status === "SUCCESS" && forUpdates) {
-      var stages = runs[i].stages;
-      var id = '';
-      for (var j = 0; j < stages.length; j++) {
-        id = jobName + '-' + runs[i].id + '-' + runs[i].name + '-' + stages[j].id;
-      }
-    } else {
-      var stages = runs[i].stages;
-      for (var j = 0; j < stages.length; j++) {
+  for (i = 0; i < runs.length; i++) {
+    if (runs[i].status !== "SUCCESS") {
+      stages = runs[i].stages;
+      for (j = 0; j < stages.length; j++) {
         commits.push(createCommit(jobName, runs[i].id, runs[i].name, runs[i].status, stages[j].id, stages[j].name, stages[j].status, stages[j].durationMillis));
       }
-
     }
   }
 
