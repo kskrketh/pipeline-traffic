@@ -7,9 +7,9 @@ var transform = ["transform", "msTransform", "webkitTransform", "mozTransform", 
 var transformProperty = getSupportedPropertyName(transform);
 
 var jenkinsJobs = [
-  'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example/',
-  'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy1/',
-  'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy2/',
+  //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example/',
+  //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy1/',
+  //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy2/',
   'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pending-input/',
   'http://jenkins-demo.apps.demo.aws.paas.ninja/job/complicated-steps/',
   'http://jenkins-demo.apps.demo.aws.paas.ninja/job/fail-step/'
@@ -117,12 +117,12 @@ function stageStepGen(microServiceID) {
   processCounter++;
 }
 
-function moveBall(stageId, current, total) {
+function moveBall(commitId, current, total) {
   var location = (current / total) * 100;
 
-    stageId.classList.remove('hidden');
+    //stageId.classList.remove('hidden');
   if (transformProperty) {
-    stageId.style[transformProperty] = 'translate3d(' + location + '% ,0,0)';
+    commitId.style[transformProperty] = 'translate3d(' + location + '% ,0,0)';
   }
 }
 
@@ -140,17 +140,35 @@ function moveToNextStage(currentStageID, nextStageID) {
   nextStageID.style[transformProperty] = 'translate3d(0,0,0)';
 }
 
-//var timer1 = setInterval(stageStepGen, 500, 'ms-' + microserviceID);
+//var timer1 = setInterval(moveCommits, 500, 'ms-' + microserviceID);
+var timer1 = setInterval(moveCommits, 300);
 
 //setTimeout(function() {clearInterval(timer1)}, 8000);
 
-
+function moveCommits() {
+  for (var i = 0; i < microServiceRegistry.length; i++) {
+    for (var j = 0; j < microServiceRegistry[i].commits.length; j++) {
+      var commit = microServiceRegistry[i].commits[j];
+      if (commit.status === 'in_progress') {
+        if (commit.amountOfStageComplete > 99) {
+          continue;
+        }
+        console.log('commit.id = ' + commit.id + ' | commit.amountOfStageComplete = ' + commit.amountOfStageComplete);
+        commit.amountOfStageComplete = commit.amountOfStageComplete + commit.stageMovementInterval;
+        var commitDiv = document.getElementById(commit.id);
+        if (transformProperty) {
+          commitDiv.style[transformProperty] = 'translate3d(' + commit.amountOfStageComplete + '% ,0,0)';
+        }
+      }
+    }
+  }
+}
 
 
 
 
 var microServiceRegistry = [];
-
+var stageMovementFactor = 300;
 function createCommit(jobName, runId, runName, runStatus, stageId, stageName, stageStatus, duration) {
   return {
     id: jobName + '-' + runId + '-' + runName + '-' + stageId,
@@ -160,7 +178,9 @@ function createCommit(jobName, runId, runName, runStatus, stageId, stageName, st
     currentStageID: stageId,
     currentStage: stageName,
     status: stageStatus.toLowerCase(),
-    runTime: duration
+    runTime: duration,
+    stageMovementInterval: (stageMovementFactor/duration)*100,
+    amountOfStageComplete: 0
   };
 }
 function getAllCommits(jobName, runs) {
@@ -172,6 +192,9 @@ function getAllCommits(jobName, runs) {
       for (j = 0; j < stages.length; j++) {
         commits.push(createCommit(jobName, runs[i].id, runs[i].name, runs[i].status, stages[j].id, stages[j].name, stages[j].status, stages[j].durationMillis));
       }
+    }
+    if (runs[i].status === "FAILED" || runs[i].status === "ABORTED") {
+      break;
     }
   }
 
@@ -222,7 +245,7 @@ function updateCommitStatus(ms, prevMs) {
 function removeOldCommits(prevMs, runs) {
   for (var i = 0; i < runs.length; i++) {
     // TODO: figure out what to do with duplicates for Pending and Fail
-    if (runs[i].status === "SUCCESS") {
+    if (runs[i].status === "SUCCESS" || (i > 0 && (runs[i].status === "FAILED" || runs[i].status === "ABORTED"))) {
       var stages = runs[i].stages;
       var id = '';
       for (var j = 0; j < stages.length; j++) {
@@ -346,7 +369,10 @@ function updateMicroService(ms, jobRuns) {
     }
   }
 
+  ms.commits = getAllCommits(ms.name, jobRuns);
+
   // Get a list of the commits that have just been added
+/*
   for (i = 0; i < ms.commits.length; i++) {
     for (j = 0; j < prevMs.commits.length; j++) {
       if (ms.commits[i].id !== prevMs.commits[j].id) {
@@ -354,8 +380,7 @@ function updateMicroService(ms, jobRuns) {
       }
     }
   }
-
-  ms.commits = getAllCommits(ms.name, jobRuns);
+*/
 
   
   // Compare old stages to new to see if they changed. If they changed then update the html.
@@ -365,7 +390,7 @@ function updateMicroService(ms, jobRuns) {
     // TODO: need to reset position of commits if they are moving/transitioning in the pipeline
   } else {
     updateCommitStatus(ms, prevMs);
-    removeOldCommits(ms, prevMs, jobRuns);
+    removeOldCommits(prevMs, jobRuns);
     addAllCommitElements(commitsToAdd, ms.stages);
   }
   
