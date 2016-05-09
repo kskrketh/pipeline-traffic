@@ -250,7 +250,7 @@ body{
 
 .commit-container{
 // background: red;
-  animation: commit-move 3s linear infinite;
+  animation: commit-move 3s linear forwards;
   position: absolute;
   width: calc(100% - 50px);
   height: 100%;
