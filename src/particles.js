@@ -156,6 +156,11 @@ function findAvailableParticle() {
 
 function sendParticle(data) {
 
+    var both_exist = data.to && data.from;
+    if (!both_exist) {
+        return;
+    }
+
     var start_pos   = toWorldCoords(data.from);
     var end_pos     = toWorldCoords(data.to);
     var start_color = data.fromColor;
@@ -222,7 +227,7 @@ function eventPoint(evt) {
 function centerPoint(el) {
     var coords = el.getBoundingClientRect();
     return {
-        x: coords.left + 22, // 22 is half the ball width plus border
+        x: ( coords.left + coords.right ) / 2,
         y: ( coords.top + coords.bottom ) / 2,
     };
 }
@@ -241,7 +246,7 @@ function getColor(element) {
     var el_bg_color;
     var color = default_color;
     if (element instanceof Element) {
-        el_bg_color = window.getComputedStyle( element, ':after' ).backgroundColor;
+        el_bg_color = window.getComputedStyle( element ).backgroundColor;
         if (el_bg_color !== 'rgba(0, 0, 0, 0)') {
             color = el_bg_color;
         }
@@ -337,18 +342,18 @@ function animate() {
 // take a {from:0, to:1} JSON object from the remote server and map it to
 // {from:Element,to:Element,fromColor:white,toColor:black}
 function dataMap(data) {
-    var from = document.querySelector('[id="ms-prod-' + data.from + '-1"]');
-    var to   = document.querySelector('[id="ms-prod-' + data.to + '-1"]');
+    var from = document.querySelector('[id="ms-prod-' + data.from + '"] .commit');
+    var to   = document.querySelector('[id="ms-prod-' + data.to + '"] .commit');
     return {
-        from      : centerPoint(from),
-        to        : centerPoint(to),
-        fromColor : getColor(from),
-        toColor   : getColor(to),
+        from      : from && centerPoint(from),
+        to        : to   && centerPoint(to),
+        fromColor : from && getColor(from),
+        toColor   : to   && getColor(to),
     };
 }
 
 // set up websocket
-var socket = new ReconnectingWebSocket("ws://localhost:3004");
+var socket = new ReconnectingWebSocket("ws://localhost:3003/stream");
 socket.onmessage = function onMessage(event) {
     var data = JSON.parse(event.data);
     data.map(dataMap).forEach(sendParticle);
