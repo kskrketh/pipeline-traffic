@@ -249,8 +249,10 @@ body{
 // Commit (AKA ball) ==============
 
 .commit-container{
-// background: red;
-  animation: commit-move 3s linear forwards;
+  animation-name: commit-move;
+  animation-timing-function:linear;
+  animation-direction: forwards;
+  animation-iteration-count: 1;
   position: absolute;
   width: calc(100% - 50px);
   height: 100%;
