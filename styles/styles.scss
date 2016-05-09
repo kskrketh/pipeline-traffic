@@ -265,7 +265,7 @@ body{
   &.hidden, &.not_executed, &.success{
     filter: opacity(0);
   }
-   &.paused_pending_input{
+   &.paused_pending_input, &.commit-red, &.aborted,  &.failed{
      animation-play-state: paused;
   }
    &.in_progress{
