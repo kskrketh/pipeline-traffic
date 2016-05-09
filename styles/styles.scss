@@ -144,22 +144,68 @@ body{
 
 // Microservice ==============
 
-// @keyframes move{
-//  90%{
-//    filter: opacity(1);
-//  }
-//  100%{
-//    filter: opacity(0);
-//    transform: translateX(-750px);
-//  }
-// }
+@keyframes loading {
+  0% {
+    transform: scale(0);
+  } 100% {
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes pending{
+  1%{
+    transform:translate3d(0,-2px,0);
+  }
+  5%{
+    transform:translate3d(0,3px,0);
+  }
+  7%{
+    transform:translate3d(0,-1px,0);
+    box-shadow: 0 0 10px $color-blue;
+  }
+  10%{
+    transform:translate3d(0,2px,0);
+  }
+  14%{
+    transform:translate3d(0,-1px,0);
+  }
+  15%{
+    transform:translate3d(0,0px,0);
+  }
+
+  23%{
+    transform:translate3d(0,0px,0);
+  }
+  24%{
+    transform:translate3d(2px,0,0);
+  }
+  26%{
+    transform:translate3d(5px,0,0);
+  }
+  28%{
+    transform:translate3d(1px,0,0);
+    box-shadow: 0 0 10px $color-blue;
+  }
+  31%{
+    transform:translate3d(4px,0,0);
+  }
+  35%{
+    transform:translate3d(0px,0,0);
+  }
+
+  100%{
+  }
+}
+
+
 @keyframes pulse-red{
   to{
     box-shadow: 0 0 10px $color-blue;
   }
 }
 
-.commit{
+.commit-container{
   position: absolute;
   width: calc(100% - 50px);
   height: 100%;
@@ -168,54 +214,62 @@ body{
   bottom: 0px;
   left: 3px;
   transition: .3s all linear;
-  &:after{
-    content:"";
-    background-color: $color-violet;
-    border: 3px solid $color-violet-dark;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    display: block;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   &.hidden, &.not_executed, &.success{
     filter: opacity(0);
-  }
-  &.commit-blue:after{
-    background-color: $color-blue;
-    border-color: $color-blue-dark;
-  }
-  &.commit-green:after{
-    background-color: $color-green;
-    border-color: $color-green-dark;
-  }
-  &.commit-yellow:after{
-    background-color: $color-yellow;
-    border-color: $color-yellow-dark;
-  }
-  &.commit-red:after{
-    background-color: $color-red;
-    border-color: $color-red-dark;
-    animation: pulse-red 1s $easeInOutBack alternate infinite;
   }
 
 // different states
   &.not_executed:after, &.success:after{
     background: tan;
   }
-  &.aborted:after, &.failed:after{
-    background: yellow;
-  }
-  &.in_progress:after{
-    background: hotpink;
-  }
-  &.paused_pending_input:after{
-      background: orange;
-  }
-
 }
+
+.commit{
+  background-color: $color-violet;
+  border: 3px solid $color-violet-dark;
+  width: 40%;
+  padding-top: 40%;
+  border-radius: 50%;
+  display: block;
+
+  .commit-blue &{
+    background-color: $color-blue;
+    border-color: $color-blue-dark;
+  }
+  .commit-green &{
+    background-color: $color-green;
+    border-color: $color-green-dark;
+  }
+  .commit-yellow &{
+    background-color: $color-yellow;
+    border-color: $color-yellow-dark;
+  }
+  .commit-red &, .aborted &, .failed &{
+    background-color: $color-red;
+    border-color: $color-red-dark;
+    animation: pulse-red 1s $easeInOutBack alternate infinite;
+  }
+  .paused_pending_input &{
+    background-color: $color-teal;
+    border-color: $color-teal-dark;
+    animation: pending 3s ease-in-out infinite;
+  }
+  .in_progress &{
+    animation: loading 1.0s infinite ease-in-out;
+  }
+}
+
+
+
+
+
+
+
+
 
 // WebGL Canvas ==============
 

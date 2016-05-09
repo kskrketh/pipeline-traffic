@@ -10,7 +10,7 @@
 
   <div id="pipeline-container" class="container">
 
-<!--
+
     <div class="microservice">
       <h1>
         Microservice Three:
@@ -19,28 +19,38 @@
       <div class="stages">
         <div class="stage">
           <h2>Development</h2>
-          <div id="ms-3-1" class="commit hidden" style="transform: translate3d(0%, 0, 0);"></div>
-        </div>&lt;!&ndash; /stage &ndash;&gt;
+          <div id="ms-3-1" class="commit-container paused_pending_input" style="transform: translate3d(50%, 0, 0);">
+            <div class="commit"></div>
+          </div>
+        </div>
         <div class="stage">
           <h2>QE</h2>
-          <div id="ms-3-2" class="commit hidden" style="transform: translate3d(0%, 0, 0);"></div>
-        </div>&lt;!&ndash; /stage &ndash;&gt;
+          <div id="ms-3-2" class="commit-container commit-red" style="transform: translate3d(50%, 0, 0);">
+            <div class="commit"></div>
+          </div>
+        </div>
         <div class="stage">
           <h2>Security</h2>
-          <div id="ms-3-3" class="commit hidden" style="transform: translate3d(0%, 0, 0);"></div>
-        </div>&lt;!&ndash; /stage &ndash;&gt;
+          <div id="ms-3-3" class="commit-container in_progress" style="transform: translate3d(50%, 0, 0);">
+            <div class="commit"></div>
+          </div>
+        </div>
         <div class="stage">
           <h2>Staging</h2>
-          <div id="ms-3-4" class="commit hidden" style="transform: translate3d(0%, 0, 0);"></div>
-        </div>&lt;!&ndash;/stage &ndash;&gt;
-      </div>&lt;!&ndash; /stages &ndash;&gt;
+          <div id="ms-3-4" class="commit-container hidden" style="transform: translate3d(0%, 0, 0);"></div>
+        </div>
+      </div>
       <div class="stage stage-lg">
         <h2>Production</h2>
-        <div id="ms-prod-3-1" class="commit commit-blue" style="transform: translate3d(50%, -22%, 0);"></div>
-        <div id="ms-prod-3-2" class="commit commit-green" style="transform: translate3d(50%, 22%, 0);"></div>
-      </div>&lt;!&ndash; /stage-lg &ndash;&gt;
-    </div>&lt;!&ndash; /microservice &ndash;&gt;
-
+        <div id="ms-prod-3-1" class="commit-container commit-blue" style="transform: translate3d(50%, -22%, 0);">
+          <div class="commit"></div>
+        </div>
+        <div id="ms-prod-3-2" class="commit-container commit-green" style="transform: translate3d(50%, 22%, 0);">
+          <div class="commit"></div>
+        </div>
+      </div>
+    </div>
+<!--
     <div class="microservice">
       <h1>
         Microservice Four:
