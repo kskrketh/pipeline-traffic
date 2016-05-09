@@ -201,12 +201,20 @@ function getAllCommits(jobName, runs) {
   return commits;
 }
 
-// Build the HTML for the commit / ball
-function addCommitElement(commit) {
+// Build the HTML for the commit / ball container
+function addCommitContainerElement(commit) {
   var div = document.createElement('div');
   div.id = commit.id;
-  div.classList.add('commit', commit.status);
+  div.classList.add('commit-container', commit.status);
   div.style = 'transform: translate3d(0%, 0, 0);';
+
+  return div;
+}
+
+// Build the HTML for the commit / ball
+function addCommitElement() {
+  var div = document.createElement('div');
+  div.classList.add('commit');
 
   return div;
 }
@@ -219,7 +227,8 @@ function addAllCommitElements(commits, stages) {
     for (var k = 0; k < stages.length; k++) {
       if (stages[k].stageID === commits[j].currentStageID) {
         var stageDiv = document.getElementById(stages[k].id);
-        stageDiv.appendChild(addCommitElement(commits[j]));
+        var commitContainer = stageDiv.appendChild(addCommitContainerElement(commits[j]));
+        commitContainer.appendChild(addCommitElement());
       }
     }
   }
