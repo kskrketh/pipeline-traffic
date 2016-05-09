@@ -38,6 +38,39 @@ $easeInOutBack: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 }
 
+@keyframes commit-move {
+  0% {
+    transform: translate3d(0, 0, 0);
+  } 100% {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+@keyframes commit-move-prod {
+  0% {
+    transform: translate3d(0, 0, 0);
+  } 100% {
+    transform: translate3d(50%, 0, 0);
+  }
+}
+
+@keyframes commit-move-prod-top {
+  0% {
+    transform: translate3d(0, 0, 0);
+  } 100% {
+    transform: translate3d(50%, -22%, 0);
+  }
+}
+
+@keyframes commit-move-prod-bottom {
+  0% {
+    transform: translate3d(0, 0, 0);
+  } 100% {
+    transform: translate3d(50%, 22%, 0);
+  }
+}
+
+
 @keyframes pending{
   1%{
     transform:translate3d(0,-2px,0);
@@ -196,6 +229,11 @@ body{
     &:after{
       display: none;
     }
+    .commit-container{
+      animation-name: commit-move-prod;
+      &.commit-blue{animation-name: commit-move-prod-top;}
+      &.commit-green{animation-name: commit-move-prod-bottom;}
+    }
   }
   h2{
     margin: 0;
@@ -212,6 +250,7 @@ body{
 
 .commit-container{
 // background: red;
+  animation: commit-move 3s linear infinite;
   position: absolute;
   width: calc(100% - 50px);
   height: 100%;
@@ -226,6 +265,13 @@ body{
   &.hidden, &.not_executed, &.success{
     filter: opacity(0);
   }
+   &.paused_pending_input{
+     animation-play-state: paused;
+  }
+   &.in_progress{
+    animation-play-state: running;
+  }
+
 }
 
 .commit{
@@ -260,6 +306,7 @@ body{
     animation: pending 3s ease-in-out infinite;
   }
   .in_progress &{
+//    animation-play-state: running;
 //    animation: loading 1.0s infinite ease-in-out;
   }
 }
