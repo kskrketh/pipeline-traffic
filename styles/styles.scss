@@ -25,6 +25,72 @@ $font-weight-bold:          600;
 $font-size-base:            12px;
 $easeInOutBack: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
+
+// Animations =======================
+
+
+@keyframes loading {
+  0% {
+    transform: scale3d(0,0,0);
+  } 100% {
+    transform: scale3d(1, 1, 1);
+    filter: opacity(0);
+  }
+}
+
+@keyframes pending{
+  1%{
+    transform:translate3d(0,-2px,0);
+  }
+  5%{
+    transform:translate3d(0,3px,0);
+  }
+  7%{
+    transform:translate3d(0,-1px,0);
+    box-shadow: 0 0 10px $color-blue;
+  }
+  10%{
+    transform:translate3d(0,2px,0);
+  }
+  14%{
+    transform:translate3d(0,-1px,0);
+  }
+  15%{
+    transform:translate3d(0,0px,0);
+  }
+
+  23%{
+    transform:translate3d(0,0px,0);
+  }
+  24%{
+    transform:translate3d(2px,0,0);
+  }
+  26%{
+    transform:translate3d(5px,0,0);
+  }
+  28%{
+    transform:translate3d(1px,0,0);
+    box-shadow: 0 0 10px $color-blue;
+  }
+  31%{
+    transform:translate3d(4px,0,0);
+  }
+  35%{
+    transform:translate3d(0px,0,0);
+  }
+
+  100%{
+  }
+}
+
+
+@keyframes pulse-red{
+  to{
+    box-shadow: 0 0 10px $color-blue;
+  }
+}
+
+
 html{
   height: 100%;
 }
@@ -142,70 +208,10 @@ body{
   }
 }
 
-// Microservice ==============
-
-@keyframes loading {
-  0% {
-    transform: scale(0);
-  } 100% {
-    transform: scale(1.0);
-    opacity: 0;
-  }
-}
-
-@keyframes pending{
-  1%{
-    transform:translate3d(0,-2px,0);
-  }
-  5%{
-    transform:translate3d(0,3px,0);
-  }
-  7%{
-    transform:translate3d(0,-1px,0);
-    box-shadow: 0 0 10px $color-blue;
-  }
-  10%{
-    transform:translate3d(0,2px,0);
-  }
-  14%{
-    transform:translate3d(0,-1px,0);
-  }
-  15%{
-    transform:translate3d(0,0px,0);
-  }
-
-  23%{
-    transform:translate3d(0,0px,0);
-  }
-  24%{
-    transform:translate3d(2px,0,0);
-  }
-  26%{
-    transform:translate3d(5px,0,0);
-  }
-  28%{
-    transform:translate3d(1px,0,0);
-    box-shadow: 0 0 10px $color-blue;
-  }
-  31%{
-    transform:translate3d(4px,0,0);
-  }
-  35%{
-    transform:translate3d(0px,0,0);
-  }
-
-  100%{
-  }
-}
-
-
-@keyframes pulse-red{
-  to{
-    box-shadow: 0 0 10px $color-blue;
-  }
-}
+// Commit (AKA ball) ==============
 
 .commit-container{
+// background: red;
   position: absolute;
   width: calc(100% - 50px);
   height: 100%;
@@ -217,22 +223,17 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   &.hidden, &.not_executed, &.success{
     filter: opacity(0);
-  }
-
-// different states
-  &.not_executed:after, &.success:after{
-    background: tan;
   }
 }
 
 .commit{
   background-color: $color-violet;
   border: 3px solid $color-violet-dark;
-  width: 40%;
-  padding-top: 40%;
+  height: 34px;
+  width: 34px;
+//  padding-left: 100%;
   border-radius: 50%;
   display: block;
 
@@ -259,12 +260,9 @@ body{
     animation: pending 3s ease-in-out infinite;
   }
   .in_progress &{
-    animation: loading 1.0s infinite ease-in-out;
+//    animation: loading 1.0s infinite ease-in-out;
   }
 }
-
-
-
 
 
 
