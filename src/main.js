@@ -372,15 +372,17 @@ function updateMicroService(ms, jobRuns) {
   ms.commits = getAllCommits(ms.name, jobRuns);
 
   // Get a list of the commits that have just been added
-/*
   for (i = 0; i < ms.commits.length; i++) {
+    var foundMatchingCommit = false;
     for (j = 0; j < prevMs.commits.length; j++) {
-      if (ms.commits[i].id !== prevMs.commits[j].id) {
-        commitsToAdd.push(ms.commits[i])
+      if (ms.commits[i].id == prevMs.commits[j].id) {
+        foundMatchingCommit = true;
       }
     }
+    if (!foundMatchingCommit) {
+      commitsToAdd.push(ms.commits[i])
+    }
   }
-*/
 
   
   // Compare old stages to new to see if they changed. If they changed then update the html.
