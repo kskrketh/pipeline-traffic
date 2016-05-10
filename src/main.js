@@ -190,8 +190,9 @@ function getAllCommits(jobName, runs) {
   var commits = [], stages, i, j;
 
   for (i = 0; i < runs.length; i++) {
+    console.log('getAllCommits - status = ' + runs[i].status);
     if (runs[i].status !== "SUCCESS") {
-      console.log('getAllCommits - run SUCCESS');
+      console.log('getAllCommits - run status SUCCESS');
       stages = runs[i].stages;
       for (j = 0; j < stages.length; j++) {
         commits.push(createCommit(jobName, runs[i].id, runs[i].name, runs[i].status, stages[j].id, stages[j].name, stages[j].status, stages[j].durationMillis));
@@ -199,7 +200,7 @@ function getAllCommits(jobName, runs) {
     }
     if (runs[i].status === "FAILED" || runs[i].status === "ABORTED") {
       // If there are multiple failures we only need to display the latest. 
-      console.log('getAllCommits - run FAILED or ABORTED');
+      console.log('getAllCommits - run status FAILED or ABORTED');
       break;
     }
   }
@@ -291,12 +292,12 @@ function updateCommitStatus(ms, prevMs) {
     }
   }
   console.log('updateCommitStatus - end');
-
 }
 
 // Create a model of a stage
 function createStage(jobName, stageId, stageName, duration) {
   console.log('createStage - start');
+  console.log('createStage - jobName=' + jobName + ', stageId=' + stageId + ', stageName=' + stageName);
   return {
     id: jobName + '-' + 'stage' + '-' + stageId,
     stageID: stageId,
@@ -369,18 +370,32 @@ function addPipelineElement(ms) {
 function addMicroServiceToRegistry(runJSON, restURL, msName) {
   console.log('addMicroServiceToRegistry - start');
   var i, stages, commits;
+  var latestRuns = [];
+  var statusIsSuccess = false;
 
+  // Build a smaller list of Job Runs so we don't have deal with the whole thing.
   for (i = 0; i < runJSON.length; i++) {
+    latestRuns.push(runJSON[i]);
+    // Look for a Successful Run if it can be found. 
+    if (runJSON[i].status === "SUCCESS") {
+      statusIsSuccess = true;
+    }
+    if (statusIsSuccess && i > 2) {
+      break;
+    }
+  }
+
+  for (i = 0; i < latestRuns.length; i++) {
     // Find the fist completed run and build a list of the stages in it for reference.
     // However if none of the runs are successful then take the last run
-    if (runJSON[i].status === "SUCCESS" || i === runJSON.length - 1) {
-      stages = createListOfStages(msName, runJSON[i].stages);
+    if (latestRuns[i].status === "SUCCESS" || i === latestRuns.length - 1) {
+      stages = createListOfStages(msName, latestRuns[i].stages);
       break;
     }
   }
 
   // returns undefined if all stages are successful
-  commits = getAllCommits(msName, runJSON);
+  commits = getAllCommits(msName, latestRuns);
 
   var ms = {
     name: msName,
@@ -403,23 +418,37 @@ function addMicroServiceToRegistry(runJSON, restURL, msName) {
 // Called by pollJenkins
 // This is how we know when a new Run happens and update the UI with it.
 function updateMicroService(ms, jobRuns) {
-  console.log('updateMicroService - start');
+  console.log('updateMicroService - start <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
   var i,j;
   var oldNumberOfStages = ms.stages.length;
   var newNumberOfStages = jobRuns[0].stages.length;
   var prevMs = JSON.parse(JSON.stringify(ms)); // deep-copy commits
   var commitsToAdd = [];
+  var latestRuns = [];
+  var statusIsSuccess = false;
 
+  // Build a smaller list of Job Runs so we don't have deal with the whole thing.
   for (i = 0; i < jobRuns.length; i++) {
-    // Get the latest complete list of stages, we need updated times.
+    latestRuns.push(jobRuns[i]);
+    // Look for a Successful Run if it can be found. 
     if (jobRuns[i].status === "SUCCESS") {
-      ms.stages = createListOfStages(ms.name, jobRuns[i].stages);
+      statusIsSuccess = true;
+    }
+    if (statusIsSuccess && i > 2) {
+      break;
+    }
+  }
+  
+  for (i = 0; i < latestRuns.length; i++) {
+    // Get the latest complete list of stages, we need updated times.
+    if (latestRuns[i].status === "SUCCESS") {
+      ms.stages = createListOfStages(ms.name, latestRuns[i].stages);
       break;
     }
   }
 
   // Get all the currently active Job Runs, not just the latest
-  ms.commits = getAllCommits(ms.name, jobRuns);
+  ms.commits = getAllCommits(ms.name, latestRuns);
 
   // Get a list of the commits that have just been added
   for (i = 0; i < ms.commits.length; i++) {
@@ -442,10 +471,10 @@ function updateMicroService(ms, jobRuns) {
     // TODO: need to reset position of commits if they are moving/transitioning in the pipeline
   } else {
     updateCommitStatus(ms, prevMs);
-    removeOldCommits(prevMs, jobRuns);
+    removeOldCommits(prevMs, latestRuns);
     addAllCommitElements(commitsToAdd, ms.stages);
   }
-  console.log('updateMicroService - end');
+  console.log('updateMicroService - end>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
 
   return ms;
 }
@@ -470,7 +499,7 @@ function getRunsJSONUpdates(microServiceToBeUpdated){
 }
 
 function pollJenkins() {
-  //console.log('pollJenkins - start');
+  console.log('pollJenkins - start =====================================================================================');
   for (var i = 0; i < microServiceRegistry.length; i++) {
     getRunsJSONUpdates(microServiceRegistry[i]);
   }
