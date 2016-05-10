@@ -198,12 +198,37 @@ function getAllCommits(jobName, runs) {
       }
     }
     if (runs[i].status === "FAILED" || runs[i].status === "ABORTED") {
+      // If there are multiple failures we only need to display the latest. 
       console.log('getAllCommits - run FAILED or ABORTED');
       break;
     }
   }
   console.log('getAllCommits - end');
   return commits;
+}
+
+// If you can find any completed stages, in a completed run, in the UI then remove them. They should already be hidden.
+function removeOldCommits(prevMs, runs) {
+  console.log('removeOldCommits - start');
+  for (var i = 0; i < runs.length; i++) {
+    // TODO: figure out what to do with duplicates for Pending and Fail
+    console.log('removeOldCommits - status: ' + runs[i].status);
+    if (runs[i].status === "SUCCESS" || (i > 0 && (runs[i].status === "FAILED" || runs[i].status === "ABORTED"))) {
+      var stages = runs[i].stages;
+      var id = '';
+      for (var j = 0; j < stages.length; j++) {
+        for (var k = 0; k < prevMs.commits.length; k++) {
+          id = prevMs.name + '-' + runs[i].id + '-' + runs[i].name + '-' + stages[j].id;
+          if (prevMs.commits[k].id === id) {
+            console.log('removeOldCommits - id: ' + id);
+            var commitDiv = document.getElementById(id);
+            commitDiv.remove();
+          }
+        }
+      }
+    }
+  }
+  console.log('removeOldCommits - end');
 }
 
 // Build the HTML for the commit / ball container
@@ -266,31 +291,6 @@ function updateCommitStatus(ms, prevMs) {
     }
   }
   console.log('updateCommitStatus - end');
-
-}
-
-// if you can find any completed stages, in a completed run, in the UI then remove them. They should already be hidden.
-function removeOldCommits(prevMs, runs) {
-  console.log('removeOldCommits - start');
-  for (var i = 0; i < runs.length; i++) {
-    // TODO: figure out what to do with duplicates for Pending and Fail
-    console.log('removeOldCommits - status: ' + runs[i].status);
-    if (runs[i].status === "SUCCESS" || (i > 0 && (runs[i].status === "FAILED" || runs[i].status === "ABORTED"))) {
-      var stages = runs[i].stages;
-      var id = '';
-      for (var j = 0; j < stages.length; j++) {
-        for (var k = 0; k < prevMs.commits.length; k++) {
-          id = prevMs.name + '-' + runs[i].id + '-' + runs[i].name + '-' + stages[j].id;
-          if (prevMs.commits[k].id === id) {
-            console.log('removeOldCommits - id: ' + id);
-            var commitDiv = document.getElementById(id);
-            commitDiv.remove();
-          }
-        }
-      }
-    }
-  }
-  console.log('removeOldCommits - end');
 
 }
 
@@ -418,6 +418,7 @@ function updateMicroService(ms, jobRuns) {
     }
   }
 
+  // Get all the currently active Job Runs, not just the latest
   ms.commits = getAllCommits(ms.name, jobRuns);
 
   // Get a list of the commits that have just been added
