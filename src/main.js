@@ -172,6 +172,7 @@ var microServiceRegistry = [];
 var stageMovementFactor = 300;
 function createCommit(jobName, runId, runName, runStatus, stageId, stageName, stageStatus, duration) {
   console.log('createCommit - id: ' + jobName + '-' + runId + '-' + runName + '-' + stageId);
+  console.log('createCommit - duration: ' + duration);
   return {
     id: jobName + '-' + runId + '-' + runName + '-' + stageId,
     runId: runId,
@@ -180,12 +181,12 @@ function createCommit(jobName, runId, runName, runStatus, stageId, stageName, st
     currentStageID: stageId,
     currentStage: stageName,
     status: stageStatus.toLowerCase(),
-    runTime: duration,
+    duration: duration,
     stageMovementInterval: (stageMovementFactor/duration)*100,
     amountOfStageComplete: 0
   };
 }
-function getAllCommits(jobName, runs) {
+function getAllCommits(jobName, runs, msStages) {
   console.log('getAllCommits - start');
   var commits = [], stages, i, j;
 
@@ -195,7 +196,7 @@ function getAllCommits(jobName, runs) {
       console.log('getAllCommits - run status SUCCESS');
       stages = runs[i].stages;
       for (j = 0; j < stages.length; j++) {
-        commits.push(createCommit(jobName, runs[i].id, runs[i].name, runs[i].status, stages[j].id, stages[j].name, stages[j].status, stages[j].durationMillis));
+        commits.push(createCommit(jobName, runs[i].id, runs[i].name, runs[i].status, stages[j].id, stages[j].name, stages[j].status, msStages[j].duration));
       }
     }
     if (runs[i].status === "FAILED" || runs[i].status === "ABORTED") {
@@ -239,8 +240,9 @@ function addCommitContainerElement(commit) {
   div.id = commit.id;
   div.classList.add('commit-container', commit.status);
   //div.style = 'transform: translate3d(0%, 0, 0);';
+  //if (!commit.duration) {commit.duration === 5000};
   div.style = 'animation-duration: ' + commit.duration + 'ms;';
-  console.log('addCommitContainerElement - div: ' + div);
+  console.log('addCommitContainerElement - div style string: ' + 'animation-duration: ' + commit.duration + 'ms;');
   console.log('addCommitContainerElement - end');
 
   return div;
@@ -283,7 +285,8 @@ function updateCommitStatus(ms, prevMs) {
     for (var j = 0; j < prevMs.commits.length; j++) {
       if (ms.commits[i].id === prevMs.commits[j].id) {
         if (ms.commits[i].status !== prevMs.commits[j].status) {
-          console.log('updateCommitStatus - id: ' + id);
+          console.log('updateCommitStatus - id: ' + ms.commits[i].id);
+          console.log('updateCommitStatus - ms.commits['+ i +'].status = '+ ms.commits[i].status + ' --- prevMs.commits['+ j +'].status = '+ prevMs.commits[j].status);
           var commitDiv = document.getElementById(ms.commits[i].id);
           commitDiv.classList.add(ms.commits[i].status);
           commitDiv.classList.remove(prevMs.commits[j].status);
@@ -303,7 +306,7 @@ function createStage(jobName, stageId, stageName, duration) {
     stageID: stageId,
     name: stageName,
     msName: jobName,
-    runTime: duration
+    duration: duration
   };
 }
 
@@ -395,7 +398,7 @@ function addMicroServiceToRegistry(runJSON, restURL, msName) {
   }
 
   // returns undefined if all stages are successful
-  commits = getAllCommits(msName, latestRuns);
+  commits = getAllCommits(msName, latestRuns, stages);
 
   var ms = {
     name: msName,
@@ -418,10 +421,10 @@ function addMicroServiceToRegistry(runJSON, restURL, msName) {
 // Called by pollJenkins
 // This is how we know when a new Run happens and update the UI with it.
 function updateMicroService(ms, jobRuns) {
-  console.log('updateMicroService - start <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+  console.log('updateMicroService - start ' + ms.name + ' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
   var i,j;
   var oldNumberOfStages = ms.stages.length;
-  var newNumberOfStages = jobRuns[0].stages.length;
+  var newNumberOfStages;
   var prevMs = JSON.parse(JSON.stringify(ms)); // deep-copy commits
   var commitsToAdd = [];
   var latestRuns = [];
@@ -441,24 +444,27 @@ function updateMicroService(ms, jobRuns) {
   
   for (i = 0; i < latestRuns.length; i++) {
     // Get the latest complete list of stages, we need updated times.
-    if (latestRuns[i].status === "SUCCESS") {
+    if (latestRuns[i].status === "SUCCESS"  || (i > 0 && (latestRuns[i].status === "FAILED" || latestRuns[i].status === "ABORTED"))) {
+      newNumberOfStages = latestRuns[i].stages.length;
       ms.stages = createListOfStages(ms.name, latestRuns[i].stages);
       break;
     }
   }
 
   // Get all the currently active Job Runs, not just the latest
-  ms.commits = getAllCommits(ms.name, latestRuns);
+  ms.commits = getAllCommits(ms.name, latestRuns, ms.stages);
 
   // Get a list of the commits that have just been added
   for (i = 0; i < ms.commits.length; i++) {
     var foundMatchingCommit = false;
     for (j = 0; j < prevMs.commits.length; j++) {
+      console.log('updateMicroService - Comparing ms.commits['+ i +'].id = '+ ms.commits[i].id + ' to prevMs.commits['+ j +'].id = '+ prevMs.commits[j].id);
       if (ms.commits[i].id == prevMs.commits[j].id) {
         foundMatchingCommit = true;
       }
     }
     if (!foundMatchingCommit) {
+      console.log('updateMicroService - Adding ms.commits['+ i +'].id = '+ ms.commits[i].id);
       commitsToAdd.push(ms.commits[i])
     }
   }
@@ -472,7 +478,9 @@ function updateMicroService(ms, jobRuns) {
   } else {
     updateCommitStatus(ms, prevMs);
     removeOldCommits(prevMs, latestRuns);
-    addAllCommitElements(commitsToAdd, ms.stages);
+    if (commitsToAdd.length > 0) {
+      addAllCommitElements(commitsToAdd, ms.stages);
+    }
   }
   console.log('updateMicroService - end>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
 
@@ -505,4 +513,4 @@ function pollJenkins() {
   }
 }
 
-var timer = setInterval(pollJenkins, 5000);
+var timer = setInterval(pollJenkins, 500);
