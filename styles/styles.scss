@@ -41,7 +41,8 @@ $easeInOutBack: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 @keyframes commit-move {
   0% {
     transform: translate3d(0, 0, 0);
-  } 100% {
+  }
+  100% {
     transform: translate3d(100%, 0, 0);
   }
 }
@@ -143,6 +144,7 @@ body{
   height: 100%;
   display: flex;
   align-items: center;
+  overflow-x: hidden;
 }
 
 .container{
@@ -255,7 +257,7 @@ body{
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
   position: absolute;
-  width: calc(100% - 50px);
+  width: calc(100% - 46px);
   height: 100%;
   z-index: 20;
   top: 0px;
@@ -274,7 +276,6 @@ body{
    &.in_progress{
     animation-play-state: running;
   }
-
 }
 
 .commit{
@@ -282,10 +283,8 @@ body{
   border: 3px solid $color-violet-dark;
   height: 34px;
   width: 34px;
-//  padding-left: 100%;
   border-radius: 50%;
   display: block;
-
   .commit-blue &{
     background-color: $color-blue;
     border-color: $color-blue-dark;
@@ -308,15 +307,11 @@ body{
     border-color: $color-teal-dark;
     animation: pending 3s ease-in-out infinite;
   }
-  .in_progress &{
+//  .in_progress &{
 //    animation-play-state: running;
 //    animation: loading 1.0s infinite ease-in-out;
-  }
+//  }
 }
-
-
-
-
 
 
 // WebGL Canvas ==============
@@ -328,6 +323,7 @@ body{
     pointer-events: none;
 }
 .coord-display {
+  background: red;
     position: absolute;
     bottom: 0;
     left: 48%;

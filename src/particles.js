@@ -242,7 +242,7 @@ function onClick(evt) {
 }
 
 function getColor(element) {
-    var default_color = 'rgba(124, 219, 243, 1)'; // default color, other option might be rgb(255, 255, 255)
+    var default_color = 'rgba(0, 42, 66, 1)';
     var el_bg_color;
     var color = default_color;
     if (element instanceof Element) {
