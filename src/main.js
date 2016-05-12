@@ -192,16 +192,20 @@ function getAllCommits(jobName, runs, msStages) {
 
   for (i = 0; i < runs.length; i++) {
     console.log('getAllCommits - status = ' + runs[i].status);
-    if (runs[i].status !== "SUCCESS") {
-      console.log('getAllCommits - run status SUCCESS');
+    if (runs[i].status === 'IN_PROGRESS' || runs[i].status === 'PAUSED_PENDING_INPUT' || runs[i].status === 'NOT_EXECUTED') {
+      console.log('getAllCommits - run status = not SUCCESS');
       stages = runs[i].stages;
       for (j = 0; j < stages.length; j++) {
         commits.push(createCommit(jobName, runs[i].id, runs[i].name, runs[i].status, stages[j].id, stages[j].name, stages[j].status, msStages[j].duration));
       }
     }
-    if (runs[i].status === "FAILED" || runs[i].status === "ABORTED") {
+    if (i===0 && (runs[i].status === 'FAILED' || runs[i].status === 'ABORTED')) {
       // If there are multiple failures we only need to display the latest. 
-      console.log('getAllCommits - run status FAILED or ABORTED');
+      console.log('getAllCommits - run status = FAILED or ABORTED');
+      stages = runs[i].stages;
+      for (j = 0; j < stages.length; j++) {
+        commits.push(createCommit(jobName, runs[i].id, runs[i].name, runs[i].status, stages[j].id, stages[j].name, stages[j].status, msStages[j].duration));
+      }
       break;
     }
   }
@@ -315,7 +319,8 @@ function createListOfStages(jobName, runStages) {
   console.log('createListOfStages - start');
   var stages = [];
   for (var i = 0; i < runStages.length; i++) {
-    stages.push(createStage(jobName, runStages[i].id, runStages[i].name, runStages[i].durationMillis));
+    var duration = runStages[i].durationMillis - runStages[i].pauseDurationMillis;
+    stages.push(createStage(jobName, runStages[i].id, runStages[i].name, duration));
   }
   console.log('createListOfStages - end');
 
@@ -375,6 +380,7 @@ function addMicroServiceToRegistry(runJSON, restURL, msName) {
   var i, stages, commits;
   var latestRuns = [];
   var statusIsSuccess = false;
+  var foundSuccessfulStage = false;
 
   // Build a smaller list of Job Runs so we don't have deal with the whole thing.
   for (i = 0; i < runJSON.length; i++) {
@@ -388,12 +394,23 @@ function addMicroServiceToRegistry(runJSON, restURL, msName) {
     }
   }
 
-  for (i = 0; i < latestRuns.length; i++) {
-    // Find the fist completed run and build a list of the stages in it for reference.
-    // However if none of the runs are successful then take the last run
-    if (latestRuns[i].status === "SUCCESS" || i === latestRuns.length - 1) {
-      stages = createListOfStages(msName, latestRuns[i].stages);
+  // Get the latest complete list of stages, we need updated times. Search all the Runs we have looking for last Successful one.
+  for (i = 0; i < runJSON.length; i++) {
+    if (runJSON[i].status === "SUCCESS" ) {
+      stages = createListOfStages(msName, runJSON[i].stages);
+      foundSuccessfulStage = true;
       break;
+    }
+  }
+
+  // If no successful runs were found then use the 2nd failed or aborted one.
+  if (!foundSuccessfulStage) {
+    for (i = 0; i < runJSON.length; i++) {
+      if (i > 0 && (runJSON[i].status === "FAILED" || runJSON[i].status === "ABORTED")) {
+        stages = createListOfStages(msName, runJSON[i].stages);
+        foundSuccessfulStage = false;
+        break;
+      }
     }
   }
 
@@ -429,6 +446,7 @@ function updateMicroService(ms, jobRuns) {
   var commitsToAdd = [];
   var latestRuns = [];
   var statusIsSuccess = false;
+  var foundSuccessfulStage = false;
 
   // Build a smaller list of Job Runs so we don't have deal with the whole thing.
   for (i = 0; i < jobRuns.length; i++) {
@@ -441,13 +459,26 @@ function updateMicroService(ms, jobRuns) {
       break;
     }
   }
-  
-  for (i = 0; i < latestRuns.length; i++) {
-    // Get the latest complete list of stages, we need updated times.
-    if (latestRuns[i].status === "SUCCESS"  || (i > 0 && (latestRuns[i].status === "FAILED" || latestRuns[i].status === "ABORTED"))) {
-      newNumberOfStages = latestRuns[i].stages.length;
-      ms.stages = createListOfStages(ms.name, latestRuns[i].stages);
+
+  // Get the latest complete list of stages, we need updated times. Search all the Runs we have looking for last Successful one.
+  for (i = 0; i < jobRuns.length; i++) {
+    if (jobRuns[i].status === "SUCCESS" ) {
+      newNumberOfStages = jobRuns[i].stages.length;
+      ms.stages = createListOfStages(ms.name, jobRuns[i].stages);
+      foundSuccessfulStage = true;
       break;
+    }
+  }
+
+  // If no successful runs were found then use the 2nd failed or aborted one.
+  if (!foundSuccessfulStage) {
+    for (i = 0; i < jobRuns.length; i++) {
+      if (i > 0 && (jobRuns[i].status === "FAILED" || jobRuns[i].status === "ABORTED")) {
+        newNumberOfStages = jobRuns[i].stages.length;
+        ms.stages = createListOfStages(ms.name, jobRuns[i].stages);
+        foundSuccessfulStage = false;
+        break;
+      }
     }
   }
 
@@ -493,7 +524,7 @@ function getRunsJSONUpdates(microServiceToBeUpdated){
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {
       if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
-        //console.log("xhr succeeded: " + xhr.status + ' results: ' + xhr.responseText);
+        console.log("xhr succeeded: " + xhr.status + ' results: ' + xhr.responseText);
         return microServiceToBeUpdated = updateMicroService(microServiceToBeUpdated, JSON.parse(xhr.responseText));
       } else {
         console.log("xhr failed: " + xhr.status);
@@ -513,4 +544,4 @@ function pollJenkins() {
   }
 }
 
-var timer = setInterval(pollJenkins, 500);
+var timer = setInterval(pollJenkins, 1000);
