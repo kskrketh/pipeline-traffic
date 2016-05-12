@@ -29,6 +29,7 @@
     "browser-sync": "latest",
     "browserify": "13.x",
     "clean-css": "latest",
+    "font-awesome": "^4.6.1",
     "node-sass": "latest",
     "nodemon": "latest",
     "normalize.css": "^3.0.3",

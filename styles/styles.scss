@@ -26,6 +26,7 @@ $font-size-base:            12px;
 $easeInOutBack: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
 
+
 // Animations =======================
 
 
@@ -117,13 +118,11 @@ $easeInOutBack: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 }
 
-
 @keyframes pulse-red{
   to{
     box-shadow: 0 0 10px $color-blue;
   }
 }
-
 
 html{
   height: 100%;
@@ -147,6 +146,74 @@ body{
   overflow-x: hidden;
 }
 
+#__bs_notify__{
+  display: none!important;
+}
+
+
+// Add Microservice ==============
+
+.add-microservice{
+  display: flex;
+//  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  i{
+    filter: opacity(.6);
+    padding: 0;
+    font-size: $font-size-base * 2.4;
+    margin-left: 10px;
+    line-height: 36px;
+    transition: .2s all ease-in-out;
+  }
+  form{
+    filter: opacity(0);
+    transition: .4s all ease-in-out;
+    overflow: auto;
+    zoom: 1;
+  }
+  input{
+    border: 1px solid $color-text;
+    background: rgba(255,255,255,.05);
+    font-size: $font-size-base * 1.2;
+    line-height: 34px;
+    float: left;
+    transition: .2s all ease-in-out;
+    &[type="text"]{
+      width: 300px;
+      border-radius: 3px 0 0 3px;
+      padding: 0 5px;
+      font-weight: $font-weight-light;
+      &::placeholder{
+        color: darken($color-text, 40%);
+      }
+    }
+    &[type="submit"]{
+      background: $color-text;
+      color: $color-background;
+      border-radius: 0 3px 3px 0;
+      padding: 0 10px;
+      font-weight: $font-weight-bold;
+      &:hover{
+        background: lighten($color-text, 20%);
+        box-shadow: 0 0 10px $color-blue;
+      }
+    }
+  }
+  &:hover{
+    i{
+      filter: opacity(1);
+    }
+    form{
+      filter: opacity(1);
+    }
+  }
+}
+
+// Container ==============
+
 .container{
   width: 60%;
 //  &:hover .microservice{
@@ -159,6 +226,8 @@ body{
 //    }
 //  }
 }
+
+
 
 // Microservice ==============
 

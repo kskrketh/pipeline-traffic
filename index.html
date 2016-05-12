@@ -3,10 +3,18 @@
   <head>
     <meta charset="utf-8">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css"><!-- node_modules/normalize.css/normalize.css -->
     <link rel="stylesheet" href="build/styles.css">
   </head>
   <body>
+
+<div class="add-microservice">
+<form action="#">
+  <input type="text" placeholder="Micrservice URL" />
+  <input type="submit" value="Add" />
+</form>
+  <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+</div>
 
   <div id="pipeline-container" class="container">
 
@@ -56,6 +64,10 @@
         </div>
       </div>
     </div>
+
+
+
+
 <!--
     <div class="microservice">
       <h1>
@@ -167,6 +179,6 @@
   </script>
 
   <script src="build/bundle.js"></script>
-
+  <script src="https://use.fontawesome.com/c52497d1ee.js"></script>
   </body>
 </html>
