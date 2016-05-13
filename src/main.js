@@ -12,8 +12,13 @@ var jenkinsJobs = [
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy2/',
   'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pending-input/',
   'http://jenkins-demo.apps.demo.aws.paas.ninja/job/complicated-steps/',
-  'http://jenkins-demo.apps.demo.aws.paas.ninja/job/fail-step/'
+  //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/fail-step/'
 ];
+
+function addNewJenkinsJob() {
+  var jobURL = document.getElementById('JenkinsJobURL');
+  jenkinsJobs.push(jobURL);
+}
 
 function getJobJSON(restURL){
   var xhr = new XMLHttpRequest();
@@ -320,6 +325,8 @@ function createListOfStages(jobName, runStages) {
   var stages = [];
   for (var i = 0; i < runStages.length; i++) {
     var duration = runStages[i].durationMillis - runStages[i].pauseDurationMillis;
+    if (duration < 200) {duration=5000;}
+    console.log('createListOfStages - ' + jobName + ' ' + runStages[i].name + ' ' + duration);
     stages.push(createStage(jobName, runStages[i].id, runStages[i].name, duration));
   }
   console.log('createListOfStages - end');
@@ -363,7 +370,7 @@ function addPipelineElement(ms) {
     '<div class="stage stage-lg">' +
       '<h2>Production</h2>' +
       '<div id="' + ms.name + '-prod-1" class="commit-container" style="animation-duration: 2s;">' +
-      '<div class="commit"></div>' +
+        '<div class="commit"></div>' +
       '</div>' +
     '</div><!-- /stage-lg -->';
 
@@ -524,7 +531,7 @@ function getRunsJSONUpdates(microServiceToBeUpdated){
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {
       if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
-        console.log("xhr succeeded: " + xhr.status + ' results: ' + xhr.responseText);
+        //console.log("xhr succeeded: " + xhr.status + ' results: ' + xhr.responseText);
         return microServiceToBeUpdated = updateMicroService(microServiceToBeUpdated, JSON.parse(xhr.responseText));
       } else {
         console.log("xhr failed: " + xhr.status);
@@ -544,4 +551,4 @@ function pollJenkins() {
   }
 }
 
-var timer = setInterval(pollJenkins, 1000);
+var timer = setInterval(pollJenkins, 2000);
