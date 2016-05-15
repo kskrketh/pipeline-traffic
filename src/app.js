@@ -19,11 +19,8 @@ var addNewJenkinsJob = function() {
   var inputValue = document.getElementById('JenkinsJobURL');
   var jobURL = inputValue.value;
   jenkinsJobs.push(jobURL);
+  toggleInterval(false);
   loadJenkinsJob(jobURL);
-};
-
-module.exports = {
-  addNewJenkinsJob: addNewJenkinsJob
 };
 
 function getJobJSON(restURL){
@@ -255,25 +252,23 @@ function removeOldCommits(prevMs, runs) {
 
 // Build the HTML for the commit / ball container
 function addCommitContainerElement(commit) {
-  console.log('addCommitContainerElement - start');
+  //console.log('addCommitContainerElement - start');
   var div = document.createElement('div');
   div.id = commit.id;
   div.classList.add('commit-container', commit.status);
   //div.style = 'transform: translate3d(0%, 0, 0);';
   //if (!commit.duration) {commit.duration === 5000};
   div.style = 'animation-duration: ' + commit.duration + 'ms;';
-  console.log('addCommitContainerElement - div style string: ' + 'animation-duration: ' + commit.duration + 'ms;');
-  console.log('addCommitContainerElement - end');
+  //console.log('addCommitContainerElement - div style string: ' + 'animation-duration: ' + commit.duration + 'ms;');
+  //console.log('addCommitContainerElement - end');
 
   return div;
 }
 
 // Build the HTML for the commit / ball
 function addCommitElement() {
-  console.log('addCommitElement - start');
   var div = document.createElement('div');
   div.classList.add('commit');
-  console.log('addCommitElement - end');
 
   return div;
 }
@@ -282,18 +277,18 @@ function addCommitElement() {
 // This should support multiple commits in one stage.
 // This should also support a limited range of stages. (i.e. just new stages)
 function addAllCommitElements(commits, stages) {
-  console.log('addAllCommitElements - start');
+  //console.log('addAllCommitElements - start');
   for (var j = 0; j < commits.length; j++) {
     for (var k = 0; k < stages.length; k++) {
       if (stages[k].stageID === commits[j].currentStageID) {
         var stageDiv = document.getElementById(stages[k].id);
-        console.log('addAllCommitElements - id: ' + stages[k].id);
+        //console.log('addAllCommitElements - id: ' + stages[k].id);
         var commitContainer = stageDiv.appendChild(addCommitContainerElement(commits[j]));
         commitContainer.appendChild(addCommitElement());
       }
     }
   }
-  console.log('addAllCommitElements - end');
+  //console.log('addAllCommitElements - end');
 
 }
 
@@ -310,6 +305,9 @@ function updateCommitStatus(ms, prevMs) {
           var commitDiv = document.getElementById(ms.commits[i].id);
           commitDiv.classList.add(ms.commits[i].status);
           commitDiv.classList.remove(prevMs.commits[j].status);
+          if (ms.commits[i].status === 'success' && (ms.stages.slice(-1)[0].stageID === ms.commits[i].stageID)) {
+            // Either add a new commit div to the prod stage here OR go add a Prod stage to Stages and Commits
+          }
         }
       }
     }
@@ -449,8 +447,10 @@ function addMicroServiceToRegistry(runJSON, restURL, msName) {
     microServiceRegistry.push(ms);
     addPipelineElement(ms);
   }
-  console.log('addMicroServiceToRegistry - end');
 
+  // In case we turn off the Interval, this will turn it back on.
+  toggleInterval(true);
+  console.log('addMicroServiceToRegistry - end');
 }
 
 // Called by pollJenkins
@@ -562,4 +562,19 @@ function pollJenkins() {
   }
 }
 
-var timer = setInterval(pollJenkins, 2000);
+var timer;
+
+function toggleInterval(intervalIsOn) {
+  if (intervalIsOn) {
+    timer = setInterval(pollJenkins, 2000);
+  } else {
+    clearInterval(timer);
+  }
+}
+
+toggleInterval(true);
+
+module.exports = {
+  addNewJenkinsJob: addNewJenkinsJob
+};
+
