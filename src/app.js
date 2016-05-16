@@ -15,11 +15,11 @@ var jenkinsJobs = [
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/fail-step/'
 ];
 
-var addNewJenkinsJob = function() {
+var addNewJenkinsJob = function(e) {
   var inputValue = document.getElementById('JenkinsJobURL');
   var jobURL = inputValue.value;
   jenkinsJobs.push(jobURL);
-  toggleInterval(false);
+  toggleIntervalOn(false);
   loadJenkinsJob(jobURL);
 };
 
@@ -449,7 +449,7 @@ function addMicroServiceToRegistry(runJSON, restURL, msName) {
   }
 
   // In case we turn off the Interval, this will turn it back on.
-  toggleInterval(true);
+  toggleIntervalOn(true);
   console.log('addMicroServiceToRegistry - end');
 }
 
@@ -564,7 +564,7 @@ function pollJenkins() {
 
 var timer;
 
-function toggleInterval(intervalIsOn) {
+function toggleIntervalOn(intervalIsOn) {
   if (intervalIsOn) {
     timer = setInterval(pollJenkins, 2000);
   } else {
@@ -572,7 +572,7 @@ function toggleInterval(intervalIsOn) {
   }
 }
 
-toggleInterval(true);
+toggleIntervalOn(true);
 
 module.exports = {
   addNewJenkinsJob: addNewJenkinsJob
