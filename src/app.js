@@ -10,12 +10,12 @@ var jenkinsJobs = [
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example/',
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy1/',
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy2/',
-  'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pending-input/',
-  'http://jenkins-demo.apps.demo.aws.paas.ninja/job/complicated-steps/',
+  //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pending-input/',
+  //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/complicated-steps/',
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/fail-step/'
 ];
 
-var addNewJenkinsJob = function(e) {
+var addNewJenkinsJob = function() {
   var inputValue = document.getElementById('JenkinsJobURL');
   var jobURL = inputValue.value;
   jenkinsJobs.push(jobURL);
@@ -84,80 +84,8 @@ function getSupportedPropertyName(properties) {
   return null;
 }
 
-var processCounter = 0;
-var microserviceID = 1;
-var currentStageID = 1;
-function stageStepGen(microServiceID) {
-  var msID = microServiceID;
-
-  var stageSize = 10;
-  var stageID = msID + '-' + currentStageID;
-
-  var currentStage = document.getElementById(stageID);
-  /*
-   if (processCounter === 0) {
-   currentStage.classList.remove('hidden');
-   }
-   */
-
-  if (msID.startsWith('ms-prod')) {
-    moveBallInProd(currentStage, 0);
-    microserviceID = 1;
-    currentStageID = 1;
-    processCounter = 0;
-    return;
-
-  } else {
-    moveBall(currentStage, processCounter, stageSize);
-  }
-
-  if((stageSize) === processCounter) {
-    // reset counters and move on
-    currentStageID++;
-    stageID = msID + '-' + currentStageID;
-    var nextStage = document.getElementById(stageID);
-    processCounter = 0;
-    if (nextStage !== null) {
-      moveToNextStage(currentStage, nextStage);
-    } else {
-      // Go to Prod
-      currentStageID = 1;
-      nextStage = document.getElementById("ms-prod-1-1");
-      moveToNextStage(currentStage, nextStage);
-      stageStepGen('ms-prod-1');
-    }
-  }
-  processCounter++;
-}
-
-function moveBall(commitId, current, total) {
-  var location = (current / total) * 100;
-
-  //stageId.classList.remove('hidden');
-  if (transformProperty) {
-    commitId.style[transformProperty] = 'translate3d(' + location + '% ,0,0)';
-  }
-}
-
-function moveBallInProd(stageId, prodHeight) {
-  var y = prodHeight || 0;
-  if (transformProperty) {
-    //stageId.style[transformProperty] = 'translate3d(0,0,0)';
-    stageId.style[transformProperty] = 'translate3d(50%, ' + y + '% ,0)';
-  }
-}
-
-function moveToNextStage(currentStageID, nextStageID) {
-  currentStageID.classList.add('hidden');
-  nextStageID.classList.remove('hidden');
-  nextStageID.style[transformProperty] = 'translate3d(0,0,0)';
-}
-
-//var timer1 = setInterval(moveCommits, 500, 'ms-' + microserviceID);
-//var timer1 = setInterval(moveCommits, 300);
-
-//setTimeout(function() {clearInterval(timer1)}, 8000);
-
+// This was the original way to move the commit within a stage, now it is down via CSS duration feature.
+// It is kept here in case we need more control over the movement.
 function moveCommits() {
   console.log('moveCommits - start');
   for (var i = 0; i < microServiceRegistry.length; i++) {
@@ -177,6 +105,10 @@ function moveCommits() {
     }
   }
 }
+//var timer1 = setInterval(moveCommits, 300);
+
+//setTimeout(function() {clearInterval(timer1)}, 8000);
+
 
 
 
@@ -259,8 +191,8 @@ function addCommitContainerElement(commit) {
   //div.style = 'transform: translate3d(0%, 0, 0);';
   //if (!commit.duration) {commit.duration === 5000};
   div.style = 'animation-duration: ' + commit.duration + 'ms;';
-  //console.log('addCommitContainerElement - div style string: ' + 'animation-duration: ' + commit.duration + 'ms;');
-  //console.log('addCommitContainerElement - end');
+  console.log('addCommitContainerElement - div style string: ' + 'animation-duration: ' + commit.duration + 'ms;');
+  console.log('addCommitContainerElement - end');
 
   return div;
 }
@@ -335,7 +267,7 @@ function createListOfStages(jobName, runStages) {
   for (var i = 0; i < runStages.length; i++) {
     var duration = runStages[i].durationMillis - runStages[i].pauseDurationMillis;
     if (duration < 200) {duration=5000;}
-    console.log('createListOfStages - ' + jobName + ' ' + runStages[i].name + ' ' + duration);
+    console.log('createListOfStages - ' + jobName + ' ' + runStages[i].name + ' duration = ' + duration);
     stages.push(createStage(jobName, runStages[i].id, runStages[i].name, duration));
   }
   console.log('createListOfStages - end');
@@ -542,7 +474,7 @@ function getRunsJSONUpdates(microServiceToBeUpdated){
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {
       if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
-        //console.log("xhr succeeded: " + xhr.status + ' results: ' + xhr.responseText);
+        console.log("xhr succeeded: " + xhr.status + ' results: ' + xhr.responseText);
         return microServiceToBeUpdated = updateMicroService(microServiceToBeUpdated, JSON.parse(xhr.responseText));
       } else {
         console.log("xhr failed: " + xhr.status);
