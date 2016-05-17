@@ -10,8 +10,9 @@ var jenkinsJobs = [
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example/',
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy1/',
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy2/',
-  //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pending-input/',
-  //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/complicated-steps/',
+  'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pending-input/',
+  'http://jenkins-demo.apps.demo.aws.paas.ninja/job/complicated-steps/',
+  'http://jenkins-demo.apps.demo.aws.paas.ninja/job/test-api/',
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/fail-step/'
 ];
 
@@ -431,6 +432,8 @@ function updateMicroService(ms, jobRuns) {
       }
     }
   }
+
+  //TODO: what if first run and no stages exist?
 
   // Get all the currently active Job Runs, not just the latest
   ms.commits = getAllCommits(ms.name, latestRuns, ms.stages);
