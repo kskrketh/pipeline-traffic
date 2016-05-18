@@ -155,7 +155,6 @@ body{
 
 .add-microservice{
   display: flex;
-//  flex-direction: column;
   align-items: center;
   position: absolute;
   right: 20px;
@@ -216,33 +215,38 @@ body{
 
 .container{
   width: 60%;
-//  &:hover .microservice{
-//    filter: blur(5px) opacity(.6);
-//    &:hover{
-//      filter: blur(0px);
-//      .stage-lg h2{
-//        display: block;
-//      }
-//    }
-//  }
+  &:hover .microservice{
+    filter: blur(5px) opacity(.5);
+    &:hover{
+      filter: blur(0px);
+    }
+  }
 }
-
-
 
 // Microservice ==============
 
 .microservice{
-//  cursor: pointer;
-//  transition: all .3s ease;
-//  transform: scale3d(1 , 1 , 1);
-//  transform-origin: left 50%;
+  cursor: pointer;
+  transition: all .3s ease;
   position: relative;
   display: flex;
   align-items: center;
-//  &:hover{
-//    transform: scale3d(1.15 , 1.15 , 1.15);
-//    z-index: 10;
-//  }
+  &:hover, &.stages-expand {
+    z-index: 30;
+    .stage-lg h2{
+      display: block;
+    }
+    .stage{
+      height: 115px;
+      z-index: 1;
+      .commit-container{
+        position: static;
+      }
+    }
+    h1{
+      top: -30px;
+    }
+  }
   &:last-of-type .stage-lg h2{
     display: block;
   }
@@ -272,11 +276,18 @@ body{
 
 .stage{
   flex: 1 0 10%;
+
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+
   background-color: $color-background-env;
   border-radius: 2px;
   margin: 0px 10px 10px 10px;
   height: 50px;
   position: relative;
+  transition: all .3s ease;
+  padding-left: 3px;
   &:after{
     content: "";
     background-color: $color-background-env;
@@ -301,9 +312,10 @@ body{
       display: none;
     }
     .commit-container{
+      position: static;
       animation-name: commit-move-prod;
-      &.commit-blue{animation-name: commit-move-prod-top;}
-      &.commit-green{animation-name: commit-move-prod-bottom;}
+//      &.commit-blue{animation-name: commit-move-prod-top;}
+//      &.commit-green{animation-name: commit-move-prod-bottom;}
     }
   }
   h2{
@@ -327,12 +339,12 @@ body{
   animation-iteration-count: 1;
   position: absolute;
   width: calc(100% - 46px);
-  height: 100%;
   z-index: 20;
   top: 0px;
   bottom: 0px;
-  left: 3px;
+//  left: 3px;
   transition: .3s all linear;
+//  background: red;
   display: flex;
   flex-direction: column;
   justify-content: center;
