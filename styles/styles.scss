@@ -56,23 +56,6 @@ $easeInOutBack: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 }
 
-@keyframes commit-move-prod-top {
-  0% {
-    transform: translate3d(0, 0, 0);
-  } 100% {
-    transform: translate3d(50%, -22%, 0);
-  }
-}
-
-@keyframes commit-move-prod-bottom {
-  0% {
-    transform: translate3d(0, 0, 0);
-  } 100% {
-    transform: translate3d(50%, 22%, 0);
-  }
-}
-
-
 @keyframes pending{
   1%{
     transform:translate3d(0,-2px,0);
@@ -238,9 +221,16 @@ body{
     }
     .stage{
       height: 115px;
-      z-index: 1;
       .commit-container{
-        position: static;
+        height: 50%;
+        top: 0;
+        &:nth-child(odd){
+          top: auto;
+          bottom: 0;
+        }
+        &:only-of-type{
+          height: 100%;
+        }
       }
     }
     h1{
@@ -277,10 +267,6 @@ body{
 .stage{
   flex: 1 0 10%;
 
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-
   background-color: $color-background-env;
   border-radius: 2px;
   margin: 0px 10px 10px 10px;
@@ -312,10 +298,15 @@ body{
       display: none;
     }
     .commit-container{
-      position: static;
       animation-name: commit-move-prod;
-//      &.commit-blue{animation-name: commit-move-prod-top;}
-//      &.commit-green{animation-name: commit-move-prod-bottom;}
+      &.commit-blue, &.commit-green{
+        height: 50%;
+        top: 0;
+      }
+      &.commit-green{
+        top: auto;
+        bottom: 0;
+      }
     }
   }
   h2{
@@ -327,9 +318,12 @@ body{
     position: absolute;
     bottom: -25px;
   }
+
 }
 
 // Commit (AKA ball) ==============
+
+
 
 .commit-container{
   animation-name: commit-move;
@@ -340,14 +334,12 @@ body{
   position: absolute;
   width: calc(100% - 46px);
   z-index: 20;
-  top: 0px;
-  bottom: 0px;
-//  left: 3px;
+  height: 100%;
   transition: .3s all linear;
-//  background: red;
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   &.hidden, &.not_executed, &.success{
     filter: opacity(0);
   }

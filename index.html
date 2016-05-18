@@ -18,6 +18,77 @@
 
   <div id="pipeline-container" class="container">
 
+    <div class="microservice "><!--stages-expand-->
+      <h1>
+        Microservice Three:
+        <span>Blue/Green</span>
+      </h1>
+      <div class="stages">
+        <div class="stage">
+          <h2>Development</h2>
+          <div id="ms-3-1" class="commit-container paused_pending_input"
+          style="animation-duration: 5s;">
+            <div class="commit"></div>
+          </div>
+        </div>
+        <div class="stage">
+          <h2>QE</h2>
+          <div id="ms-3-2" class="commit-container commit-red"
+          style="animation-duration: 5s;">
+            <div class="commit"></div>
+          </div>
+        </div>
+        <div class="stage">
+          <h2>Security</h2>
+          <div id="ms-32-3" class="commit-container in_progress"
+          style="animation-duration: 15s;">
+            <div class="commit"></div>
+          </div>
+
+
+          <div id="ms-322-3" class="commit-container in_progress"
+          style="animation-duration: 28s;">
+            <div class="commit"></div>
+          </div>
+
+          <div id="ms-22223-3" class="commit-container in_progress"
+          style="animation-duration: 38s;">
+            <div class="commit"></div>
+          </div>
+
+          <div id="ms-22223-3" class="commit-container in_progress"
+          style="animation-duration: 58s;">
+            <div class="commit"></div>
+          </div>
+
+        </div>
+        <div class="stage">
+          <h2>Staging</h2>
+          <div id="ms-3-4" class="commit-container" style="animation-duration: 550ms;">
+            <div class="commit"></div>
+          </div>
+        </div>
+      </div>
+      <div class="stage stage-lg">
+        <h2>Production</h2>
+        <div id="ms-prod-3-1" class="commit-container commit-blue"
+          style="animation-duration: 2s;">
+          <div class="commit"></div>
+        </div>
+        <div id="ms-prod-3-2" class="commit-container commit-green"
+          style="animation-duration: 2s;">
+          <div class="commit"></div>
+        </div>
+        <div id="ms-prod-3-2" class="commit-container commit-green"
+          style="animation-duration: 10s;">
+          <div class="commit"></div>
+        </div>
+
+      </div>
+    </div>
+
+
+
     <div class="microservice">
       <h1>
         Microservice Three:
@@ -45,16 +116,28 @@
             <div class="commit"></div>
           </div>
 
-          <div id="ms-3-3" class="commit-container in_progress"
+          <div id="ms-322-3" class="commit-container in_progress"
           style="animation-duration: 28s;">
             <div class="commit"></div>
           </div>
+
+          <div id="ms-22223-3" class="commit-container in_progress"
+          style="animation-duration: 38s;">
+            <div class="commit"></div>
+          </div>
+
         </div>
         <div class="stage">
           <h2>Staging</h2>
           <div id="ms-3-4" class="commit-container" style="animation-duration: 550ms;">
             <div class="commit"></div>
           </div>
+          <div id="ms-322-3" class="commit-container in_progress"
+          style="animation-duration: 28s;">
+            <div class="commit"></div>
+          </div>
+
+
         </div>
       </div>
       <div class="stage stage-lg">
