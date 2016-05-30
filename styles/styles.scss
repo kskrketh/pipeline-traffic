@@ -390,6 +390,35 @@ body{
       }
     }
 
+    &.microservice-large-19{
+      .commit-container{
+        @for $i from 1 through 18 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+    &.microservice-large-18{
+      .commit-container{
+        @for $i from 1 through 17 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+    &.microservice-large-17{
+      .commit-container{
+        @for $i from 1 through 16 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
 
     h1{
       left: 50px;

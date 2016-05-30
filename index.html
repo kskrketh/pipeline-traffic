@@ -630,10 +630,23 @@
 
 
 <script>
+
+var microserviceLarge = document.getElementById("microserviceLarge");
+
+function setStageClass(){
   var stageHeight = document.getElementById('stage').offsetHeight;
-  var stageAmount = Math.round(stageHeight / 25);
+  var stageAmount = Math.floor(stageHeight / 25);
   var classToAdd = ' ' + 'microservice-large-' + stageAmount;
-  document.getElementById("microserviceLarge").className += classToAdd;
+  microserviceLarge.className += classToAdd;
+}
+
+window.onload = setStageClass();
+
+window.onresize = function() {
+  microserviceLarge.className = "microservice microservice-large";
+  setStageClass();
+}
+
 </script>
 
   <script src="build/bundle.js"></script>
