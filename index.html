@@ -90,7 +90,7 @@
 
 
 
-    <div class="microservice microservice-large"><!-- microservice-large -->
+    <div class="microservice microservice-large" id="microserviceLarge"><!-- microservice-large -->
       <h1>
         Microservice Large:
         <span>Blue/Green</span>
@@ -104,7 +104,7 @@
           </div>
         </div>
 
-        <div class="stage stage-29"> <!-- TODO: Meassure height of stage, divided by 25 and use that number on the stage- class -->
+        <div class="stage" id="stage"> <!-- TODO: Meassure height of stage, divided by 25 and use that number on the stage- class -->
           <h2>Security</h2>
           <div id="ms-32-3" class="commit-container in_progress"
           style="animation-duration: 15s;">
@@ -627,6 +627,14 @@
           gl_FragColor = vec4( vMixColor, 1.0 - vFlashPoint*vFlashPoint ) * texture2D( texture, gl_PointCoord );;
       }
   </script>
+
+
+<script>
+  var stageHeight = document.getElementById('stage').offsetHeight;
+  var stageAmount = Math.round(stageHeight / 25);
+  var classToAdd = ' ' + 'microservice-large-' + stageAmount;
+  document.getElementById("microserviceLarge").className += classToAdd;
+</script>
 
   <script src="build/bundle.js"></script>
   <script src="https://use.fontawesome.com/c52497d1ee.js"></script>

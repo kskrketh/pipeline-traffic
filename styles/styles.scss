@@ -229,6 +229,168 @@ body{
     left: 0;
     z-index: 90000;
     margin-bottom: 0px;
+
+    &.microservice-large-35{
+      .commit-container{
+        @for $i from 1 through 34 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+    &.microservice-large-34{
+      .commit-container{
+        @for $i from 1 through 33 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+    &.microservice-large-33{
+      .commit-container{
+        @for $i from 1 through 32 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+    &.microservice-large-32{
+      .commit-container{
+        @for $i from 1 through 31 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+    &.microservice-large-31{
+      .commit-container{
+        @for $i from 1 through 30 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+    &.microservice-large-30{
+      .commit-container{
+        @for $i from 1 through 29 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+    &.microservice-large-29{
+      .commit-container{
+        @for $i from 1 through 28 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+    &.microservice-large-28{
+      .commit-container{
+        @for $i from 1 through 27 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+    &.microservice-large-27{
+      .commit-container{
+        @for $i from 1 through 26 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+    &.microservice-large-26{
+      .commit-container{
+        @for $i from 1 through 25 { //length($position)
+          &:nth-of-type(27n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+    &.microservice-large-25{
+      .commit-container{
+        @for $i from 1 through 24 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+    &.microservice-large-24{
+      .commit-container{
+        @for $i from 1 through 23 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+    &.microservice-large-23{
+      .commit-container{
+        @for $i from 1 through 22 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+    &.microservice-large-22{
+      .commit-container{
+        @for $i from 1 through 21 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+    &.microservice-large-21{
+      .commit-container{
+        @for $i from 1 through 20 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+    &.microservice-large-20{
+      .commit-container{
+        @for $i from 1 through 19 { //length($position)
+          &:nth-of-type(30n+#{$i}) {
+            top: $i * 25px; //nth($position, $i)
+          }
+        }
+      }
+    }
+
+
     h1{
       left: 50px;
       top: 10px;
@@ -241,167 +403,6 @@ body{
       width: 70%;
     }
     .stage{
-
-      &.stage-35{
-        .commit-container{
-          @for $i from 1 through 34 { //length($position)
-            &:nth-of-type(30n+#{$i}) {
-              top: $i * 25px; //nth($position, $i)
-            }
-          }
-        }
-      }
-
-      &.stage-34{
-        .commit-container{
-          @for $i from 1 through 33 { //length($position)
-            &:nth-of-type(30n+#{$i}) {
-              top: $i * 25px; //nth($position, $i)
-            }
-          }
-        }
-      }
-
-      &.stage-33{
-        .commit-container{
-          @for $i from 1 through 32 { //length($position)
-            &:nth-of-type(30n+#{$i}) {
-              top: $i * 25px; //nth($position, $i)
-            }
-          }
-        }
-      }
-
-      &.stage-32{
-        .commit-container{
-          @for $i from 1 through 31 { //length($position)
-            &:nth-of-type(30n+#{$i}) {
-              top: $i * 25px; //nth($position, $i)
-            }
-          }
-        }
-      }
-
-      &.stage-31{
-        .commit-container{
-          @for $i from 1 through 30 { //length($position)
-            &:nth-of-type(30n+#{$i}) {
-              top: $i * 25px; //nth($position, $i)
-            }
-          }
-        }
-      }
-
-      &.stage-30{
-        .commit-container{
-          @for $i from 1 through 29 { //length($position)
-            &:nth-of-type(30n+#{$i}) {
-              top: $i * 25px; //nth($position, $i)
-            }
-          }
-        }
-      }
-
-      &.stage-29{
-        .commit-container{
-          @for $i from 1 through 28 { //length($position)
-            &:nth-of-type(30n+#{$i}) {
-              top: $i * 25px; //nth($position, $i)
-            }
-          }
-        }
-      }
-
-      &.stage-28{
-        .commit-container{
-          @for $i from 1 through 27 { //length($position)
-            &:nth-of-type(30n+#{$i}) {
-              top: $i * 25px; //nth($position, $i)
-            }
-          }
-        }
-      }
-
-      &.stage-27{
-        .commit-container{
-          @for $i from 1 through 26 { //length($position)
-            &:nth-of-type(30n+#{$i}) {
-              top: $i * 25px; //nth($position, $i)
-            }
-          }
-        }
-      }
-
-      &.stage-26{
-        .commit-container{
-          @for $i from 1 through 25 { //length($position)
-            &:nth-of-type(30n+#{$i}) {
-              top: $i * 25px; //nth($position, $i)
-            }
-          }
-        }
-      }
-
-      &.stage-25{
-        .commit-container{
-          @for $i from 1 through 24 { //length($position)
-            &:nth-of-type(30n+#{$i}) {
-              top: $i * 25px; //nth($position, $i)
-            }
-          }
-        }
-      }
-
-      &.stage-24{
-        .commit-container{
-          @for $i from 1 through 23 { //length($position)
-            &:nth-of-type(30n+#{$i}) {
-              top: $i * 25px; //nth($position, $i)
-            }
-          }
-        }
-      }
-
-      &.stage-23{
-        .commit-container{
-          @for $i from 1 through 22 { //length($position)
-            &:nth-of-type(30n+#{$i}) {
-              top: $i * 25px; //nth($position, $i)
-            }
-          }
-        }
-      }
-
-      &.stage-22{
-        .commit-container{
-          @for $i from 1 through 21 { //length($position)
-            &:nth-of-type(30n+#{$i}) {
-              top: $i * 25px; //nth($position, $i)
-            }
-          }
-        }
-      }
-
-      &.stage-21{
-        .commit-container{
-          @for $i from 1 through 20 { //length($position)
-            &:nth-of-type(30n+#{$i}) {
-              top: $i * 25px; //nth($position, $i)
-            }
-          }
-        }
-      }
-
-      &.stage-20{
-        .commit-container{
-          @for $i from 1 through 19 { //length($position)
-            &:nth-of-type(30n+#{$i}) {
-              top: $i * 25px; //nth($position, $i)
-            }
-          }
-        }
-      }
-
       .commit-container{
         width: calc(100% - 26px);
         height: 20px!important;
