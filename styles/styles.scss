@@ -27,6 +27,8 @@ $easeInOutBack: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
 
 
+// $position: 375px, 400px, 200px, 225px, 425px, 0,  525px, 25px, 450px,275px, 300px, 100px,   550px,  475px, 500px, 175px, 250px, 325px,  575px, 600px,350px, 125px, 150px,50px, 75px, 625px, 650px, 675px;
+
 // Animations =======================
 
 
@@ -168,7 +170,7 @@ body{
       border-radius: 3px 0 0 3px;
       padding: 0 5px;
       font-weight: $font-weight-light;
-      &::placeholder{
+      &:placeholder{
         color: darken($color-text, 40%);
       }
     }
@@ -214,8 +216,233 @@ body{
   position: relative;
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
+
+  &.microservice-large, &.microservice-large:hover{
+//    display: none;
+    background: $color-background;
+    position: absolute;
+    width: calc(100vw - 80px);
+    height: calc(100vh - 80px);
+    padding: 40px;
+    top: 0;
+    left: 0;
+    z-index: 90000;
+    margin-bottom: 0px;
+    h1{
+      left: 50px;
+      top: 10px;
+    }
+    .stage, .stages{
+      height: 100%!important;
+      margin-bottom: 0;
+    }
+    .stages{
+      width: 70%;
+    }
+    .stage{
+
+      &.stage-35{
+        .commit-container{
+          @for $i from 1 through 34 { //length($position)
+            &:nth-of-type(30n+#{$i}) {
+              top: $i * 25px; //nth($position, $i)
+            }
+          }
+        }
+      }
+
+      &.stage-34{
+        .commit-container{
+          @for $i from 1 through 33 { //length($position)
+            &:nth-of-type(30n+#{$i}) {
+              top: $i * 25px; //nth($position, $i)
+            }
+          }
+        }
+      }
+
+      &.stage-33{
+        .commit-container{
+          @for $i from 1 through 32 { //length($position)
+            &:nth-of-type(30n+#{$i}) {
+              top: $i * 25px; //nth($position, $i)
+            }
+          }
+        }
+      }
+
+      &.stage-32{
+        .commit-container{
+          @for $i from 1 through 31 { //length($position)
+            &:nth-of-type(30n+#{$i}) {
+              top: $i * 25px; //nth($position, $i)
+            }
+          }
+        }
+      }
+
+      &.stage-31{
+        .commit-container{
+          @for $i from 1 through 30 { //length($position)
+            &:nth-of-type(30n+#{$i}) {
+              top: $i * 25px; //nth($position, $i)
+            }
+          }
+        }
+      }
+
+      &.stage-30{
+        .commit-container{
+          @for $i from 1 through 29 { //length($position)
+            &:nth-of-type(30n+#{$i}) {
+              top: $i * 25px; //nth($position, $i)
+            }
+          }
+        }
+      }
+
+      &.stage-29{
+        .commit-container{
+          @for $i from 1 through 28 { //length($position)
+            &:nth-of-type(30n+#{$i}) {
+              top: $i * 25px; //nth($position, $i)
+            }
+          }
+        }
+      }
+
+      &.stage-28{
+        .commit-container{
+          @for $i from 1 through 27 { //length($position)
+            &:nth-of-type(30n+#{$i}) {
+              top: $i * 25px; //nth($position, $i)
+            }
+          }
+        }
+      }
+
+      &.stage-27{
+        .commit-container{
+          @for $i from 1 through 26 { //length($position)
+            &:nth-of-type(30n+#{$i}) {
+              top: $i * 25px; //nth($position, $i)
+            }
+          }
+        }
+      }
+
+      &.stage-26{
+        .commit-container{
+          @for $i from 1 through 25 { //length($position)
+            &:nth-of-type(30n+#{$i}) {
+              top: $i * 25px; //nth($position, $i)
+            }
+          }
+        }
+      }
+
+      &.stage-25{
+        .commit-container{
+          @for $i from 1 through 24 { //length($position)
+            &:nth-of-type(30n+#{$i}) {
+              top: $i * 25px; //nth($position, $i)
+            }
+          }
+        }
+      }
+
+      &.stage-24{
+        .commit-container{
+          @for $i from 1 through 23 { //length($position)
+            &:nth-of-type(30n+#{$i}) {
+              top: $i * 25px; //nth($position, $i)
+            }
+          }
+        }
+      }
+
+      &.stage-23{
+        .commit-container{
+          @for $i from 1 through 22 { //length($position)
+            &:nth-of-type(30n+#{$i}) {
+              top: $i * 25px; //nth($position, $i)
+            }
+          }
+        }
+      }
+
+      &.stage-22{
+        .commit-container{
+          @for $i from 1 through 21 { //length($position)
+            &:nth-of-type(30n+#{$i}) {
+              top: $i * 25px; //nth($position, $i)
+            }
+          }
+        }
+      }
+
+      &.stage-21{
+        .commit-container{
+          @for $i from 1 through 20 { //length($position)
+            &:nth-of-type(30n+#{$i}) {
+              top: $i * 25px; //nth($position, $i)
+            }
+          }
+        }
+      }
+
+      &.stage-20{
+        .commit-container{
+          @for $i from 1 through 19 { //length($position)
+            &:nth-of-type(30n+#{$i}) {
+              top: $i * 25px; //nth($position, $i)
+            }
+          }
+        }
+      }
+
+      .commit-container{
+        width: calc(100% - 26px);
+        height: 20px!important;
+        bottom: auto!important;
+      }
+
+    }
+    .stage-lg{
+      h2{display: block;}
+      p{
+        text-align: center;
+        font-size: $font-size-base * 2;
+        font-weight: $font-weight-light;
+        strong{
+          font-weight: $font-weight-bold;
+        }
+      }
+      .commit-container{
+        animation-direction: reverse;
+        animation-play-state: paused;
+        width: 100%;
+        height: 100%!important;
+        top: 0!important;
+        .commit{
+          transition: .2s linear;
+          width: 240px;
+          height: 240px;
+          position: relative;
+          left: -120px;
+        }
+      }
+    }
+    .commit{
+      border-width:2px;
+      height: 16px;
+      width: 16px;
+    }
+  }
+
   &:hover, &.stages-expand {
-    z-index: 30;
+    z-index: 1;
     .stage-lg h2{
       display: block;
     }
@@ -266,10 +493,9 @@ body{
 
 .stage{
   flex: 1 0 10%;
-
   background-color: $color-background-env;
   border-radius: 2px;
-  margin: 0px 10px 10px 10px;
+  margin: 0px 10px 0px 10px;
   height: 50px;
   position: relative;
   transition: all .3s ease;
@@ -294,13 +520,16 @@ body{
     h2{
       display: none;
     }
+    p{
+      display: none;
+    }
     &:after{
       display: none;
     }
     .commit-container{
       animation-name: commit-move-prod;
       &.commit-blue, &.commit-green{
-        height: 50%;
+        height: 50%!important;
         top: 0;
       }
       &.commit-green{
@@ -318,11 +547,9 @@ body{
     position: absolute;
     bottom: -25px;
   }
-
 }
 
 // Commit (AKA ball) ==============
-
 
 
 .commit-container{
@@ -394,9 +621,9 @@ body{
     top: 0;
     left: 0;
     pointer-events: none;
+    z-index: 1000
 }
 .coord-display {
-  background: red;
     position: absolute;
     bottom: 0;
     left: 48%;
