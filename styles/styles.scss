@@ -135,6 +135,9 @@ body{
   display: none!important;
 }
 
+a{
+  color: $color-text;
+}
 
 // Add Microservice ==============
 
@@ -442,6 +445,7 @@ body{
     .stage-lg{
       h2{display: block;}
       p{
+        display: block;
         text-align: center;
         font-size: $font-size-base * 2;
         font-weight: $font-weight-light;
@@ -493,6 +497,9 @@ body{
     h1{
       top: -30px;
     }
+    .microservice-actions{
+      display: block;
+    }
   }
   &:last-of-type .stage-lg h2{
     display: block;
@@ -509,6 +516,24 @@ body{
     span{
       font-weight: $font-weight-light;
       color: rgba(255,255,255,0.7);
+    }
+  }
+}
+
+.microservice-actions{
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 99;
+  font-size: 14px;
+  a{
+    transition: .2s all ease-in-out;
+    filter: opacity(.3);
+    display: inline-block;
+    padding: 3px;
+    &:hover{
+      filter: opacity(1);
     }
   }
 }
