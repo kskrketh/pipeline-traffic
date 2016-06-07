@@ -10,9 +10,10 @@ var jenkinsJobs = [
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example/',
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy1/',
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy2/',
-  'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pending-input/',
-  'http://jenkins-demo.apps.demo.aws.paas.ninja/job/complicated-steps/',
-  'http://jenkins-demo.apps.demo.aws.paas.ninja/job/test-api/',
+  'http://jenkins-jenkins.apps.demo.aws.paas.ninja/job/ci-pipeline/',
+  // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pending-input/',
+  // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/complicated-steps/',
+  // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/test-api/',
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/fail-step/'
 ];
 
