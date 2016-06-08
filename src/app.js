@@ -10,11 +10,11 @@ var jenkinsJobs = [
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example/',
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy1/',
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy2/',
-  'http://jenkins-jenkins.apps.demo.aws.paas.ninja/job/ci-pipeline/',
+  // 'http://jenkins-jenkins.apps.demo.aws.paas.ninja/job/ci-pipeline/',
   // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pending-input/',
   // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/complicated-steps/',
   // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/test-api/',
-  //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/fail-step/'
+  // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/fail-step/'
 ];
 
 var addNewJenkinsJob = function() {
@@ -303,25 +303,48 @@ function addPipelineElement(ms) {
   div.id = ms.name;
   div.classList.add('microservice');
 
-  div.innerHTML =
-    '<h1>' +
-    ms.name + //':' +
-    //'<span>build: ' + ms. + '</span>' +
-    '</h1>' +
-    '<div id="' + ms.name + '-stages" class="stages">' +
-    '</div><!-- /stages -->' +
-    '<div class="stage stage-lg">' +
-    '<h2>Production</h2>' +
-    '<div id="' + ms.name + '-prod-1" class="commit-container" style="animation-duration: 2s;">' +
-    '<div class="commit"></div>' +
-    '</div>' +
-    '</div><!-- /stage-lg -->';
+  div.innerHTML =`
+      <h1>
+        ${ms.name} 
+        <!-- <span>build: ms. </span> -->
+      </h1>
+      <div class="microservice-actions">
+        <a href="#" onclick="app.removePipeline('pipeline-container',${ms.name});return false;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+        <a href="#" onclick="app.expandPipeline( ${ms.name} ) ;return false;"><i class="fa fa-expand" aria-hidden="true"></i></a>
+        <a href="#" onclick="app.compressPipeline( ${ms.name} ) ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
+      </div>
+      <div id="' + ms.name + '-stages" class="stages">
+    </div><!-- /stages -->
+    <div class="stage stage-lg">
+      <h2>Production</h2>
+      <div id="' + ms.name + '-prod-1" class="commit-container" style="animation-duration: 2s;">
+        <div class="commit"></div>
+      </div>
+    </div><!-- /stage-lg -->
+    `;
 
   pipeline.appendChild(div);
   addStagesElement(ms);
   addAllCommitElements(ms.commits, ms.stages);
   console.log('addPipelineElement - end');
 
+}
+
+var removePipeline = function(parentElementID, childElementID) {
+  var parent = document.getElementById(parentElementID);
+  var child = document.getElementById(childElementID);
+  parent.removeChild(child);
+}
+
+var expandPipeline = function(parentElementID) {
+  var parent = document.getElementById(parentElementID);
+  // TODO: remove the large class from all nodes.
+  parent.classList.add('microservice-large');
+}
+
+var compressPipeline = function(parentElementID) {
+  var parent = document.getElementById(parentElementID);
+  parent.classList.remove('microservice-large');
 }
 
 // This is the initial creation of the pipelines and should only be called on page load.
@@ -511,6 +534,9 @@ function toggleIntervalOn(intervalIsOn) {
 toggleIntervalOn(true);
 
 module.exports = {
-  addNewJenkinsJob: addNewJenkinsJob
+  addNewJenkinsJob: addNewJenkinsJob,
+  removePipeline: removePipeline,
+  expandPipeline: expandPipeline,
+  compressPipeline: compressPipeline
 };
 

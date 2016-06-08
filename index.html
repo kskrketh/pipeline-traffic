@@ -18,15 +18,15 @@
 
   <div id="pipeline-container" class="container">
 
-    <div class="microservice "><!--stages-expand-->
+    <div id="ms-1" class="microservice "><!--stages-expand-->
       <h1>
         Microservice Three:
         <span>Blue/Green</span>
       </h1>
       <div class="microservice-actions">
-        <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
-        <a href="#"><i class="fa fa-expand" aria-hidden="true"></i></a>
-        <!-- <a href="#"><i class="fa fa-compress" aria-hidden="true"></i></a> -->
+        <a href="#" onclick="app.removePipeline('pipeline-container','ms-1');return false;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+        <a href="#" onclick="app.expandPipeline('ms-1') ;return false;"><i class="fa fa-expand" aria-hidden="true"></i></a>
+        <a href="#" onclick="app.compressPipeline( 'ms-1') ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
       </div>
       <div class="stages">
         <div class="stage">
@@ -99,9 +99,9 @@
         <span>Blue/Green</span>
       </h1>
       <div class="microservice-actions">
-        <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
-        <a href="#"><i class="fa fa-expand" aria-hidden="true"></i></a>
-        <!-- <a href="#"><i class="fa fa-compress" aria-hidden="true"></i></a> -->
+        <a href="#" onclick="app.removePipeline('pipeline-container','microserviceLarge');return false;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+        <a href="#" onclick="app.expandPipeline('microserviceLarge') ;return false;"><i class="fa fa-expand" aria-hidden="true"></i></a>
+        <a href="#" onclick="app.compressPipeline( 'microserviceLarge') ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
       </div>
       <div class="stages">
         <div class="stage">
@@ -459,15 +459,15 @@
 
 
 
-    <div class="microservice">
+    <div id="ms-2" class="microservice">
       <h1>
         Microservice Three:
         <span>Blue/Green</span>
       </h1>
       <div class="microservice-actions">
-        <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
-        <a href="#"><i class="fa fa-expand" aria-hidden="true"></i></a>
-        <!-- <a href="#"><i class="fa fa-compress" aria-hidden="true"></i></a> -->
+        <a href="#" onclick="app.removePipeline('pipeline-container','ms-2');return false;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+        <a href="#" onclick="app.expandPipeline('ms-2') ;return false;"><i class="fa fa-expand" aria-hidden="true"></i></a>
+        <a href="#" onclick="app.compressPipeline( 'ms-2') ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
       </div>
       <div class="stages">
         <div class="stage">
