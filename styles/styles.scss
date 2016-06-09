@@ -25,8 +25,6 @@ $font-weight-bold:          600;
 $font-size-base:            12px;
 $easeInOutBack: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-
-
 // $position: 375px, 400px, 200px, 225px, 425px, 0,  525px, 25px, 450px,275px, 300px, 100px,   550px,  475px, 500px, 175px, 250px, 325px,  575px, 600px,350px, 125px, 150px,50px, 75px, 625px, 650px, 675px;
 
 // Animations =======================
@@ -583,11 +581,11 @@ a{
     }
     .commit-container{
       animation-name: commit-move-prod;
-      &.commit-blue, &.commit-green{
+      &.commit-top, &.commit-bottom{
         height: 50%!important;
         top: 0;
       }
-      &.commit-green{
+      &.commit-bottom{
         top: auto;
         bottom: 0;
       }

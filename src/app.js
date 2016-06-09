@@ -148,7 +148,7 @@ function getAllCommits(jobName, runs, msStages) {
       }
     }
     if (i===0 && (runs[i].status === 'FAILED' || runs[i].status === 'ABORTED')) {
-      // If there are multiple failures we only need to display the latest. 
+      // If there are multiple failures we only need to display the latest.
       console.log('getAllCommits - run status = FAILED or ABORTED');
       stages = runs[i].stages;
       for (j = 0; j < stages.length; j++) {
@@ -227,7 +227,7 @@ function addAllCommitElements(commits, stages) {
 
 }
 
-// Compare each commit to the last list of commits. Once you find a match check if the status is different. 
+// Compare each commit to the last list of commits. Once you find a match check if the status is different.
 // If the status has changed then change it in the UI.
 function updateCommitStatus(ms, prevMs) {
   console.log('updateCommitStatus - start');
@@ -306,7 +306,7 @@ function addPipelineElement(ms) {
 
   div.innerHTML =`
       <h1>
-        ${ms.name} 
+        ${ms.name}
         <!-- <span>build: ms. </span> -->
       </h1>
       <div class="microservice-actions">
@@ -355,7 +355,7 @@ var expandPipeline = function(parentElementID) {
   // TODO: remove the large class from all nodes.
   parent.classList.add('microservice-large');
   // removeLargeStageRowClass(parentElementID);
-  setTimeout(function(){setStageClass(parent)}, 200);
+  setTimeout(function(){setStageClass(parent)}, 220);
 };
 
 var removeLargeStageRowClass = function(elementID) {
@@ -386,7 +386,7 @@ function addMicroServiceToRegistry(runJSON, restURL, msName) {
   // Build a smaller list of Job Runs so we don't have deal with the whole thing.
   for (i = 0; i < runJSON.length; i++) {
     latestRuns.push(runJSON[i]);
-    // Look for a Successful Run if it can be found. 
+    // Look for a Successful Run if it can be found.
     if (runJSON[i].status === "SUCCESS") {
       statusIsSuccess = true;
     }
@@ -454,7 +454,7 @@ function updateMicroService(ms, jobRuns) {
   // Build a smaller list of Job Runs so we don't have deal with the whole thing.
   for (i = 0; i < jobRuns.length; i++) {
     latestRuns.push(jobRuns[i]);
-    // Look for a Successful Run if it can be found. 
+    // Look for a Successful Run if it can be found.
     if (jobRuns[i].status === "SUCCESS") {
       statusIsSuccess = true;
     }
@@ -567,4 +567,3 @@ module.exports = {
   expandPipeline: expandPipeline,
   compressPipeline: compressPipeline
 };
-
