@@ -11,6 +11,7 @@ var jenkinsJobs = [
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy1/',
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy2/',
   // 'http://jenkins-jenkins.apps.demo.aws.paas.ninja/job/ci-pipeline/',
+  // 'http://jenkins-jenkins.apps.demo.aws.paas.ninja/job/test-pipeline/',
   // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pending-input/',
   // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/complicated-steps/',
   // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/test-api/',
@@ -140,7 +141,7 @@ function getAllCommits(jobName, runs, msStages) {
   for (i = 0; i < runs.length; i++) {
     console.log('getAllCommits - status = ' + runs[i].status);
     if (runs[i].status === 'IN_PROGRESS' || runs[i].status === 'PAUSED_PENDING_INPUT' || runs[i].status === 'NOT_EXECUTED') {
-      console.log('getAllCommits - run status = not SUCCESS');
+      console.log('getAllCommits - run status = IN_PROGRESS, PAUSED_PENDING_INPUT, or NOT_EXECUTED');
       stages = runs[i].stages;
       for (j = 0; j < stages.length; j++) {
         commits.push(createCommit(jobName, runs[i].id, runs[i].name, runs[i].status, stages[j].id, stages[j].name, stages[j].status, msStages[j].duration));
@@ -311,7 +312,7 @@ function addPipelineElement(ms) {
       <div class="microservice-actions">
         <a href="#" onclick="app.removePipeline('pipeline-container',${ms.name});return false;"><i class="fa fa-trash" aria-hidden="true"></i></a>
         <a href="#" onclick="app.expandPipeline( ${ms.name} ) ;return false;"><i class="fa fa-expand" aria-hidden="true"></i></a>
-        <a href="#" onclick="app.compressPipeline( ${ms.name} ) ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
+        <a href="#" class="hidden" onclick="app.compressPipeline( ${ms.name} ) ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
       </div>
       <div id="' + ms.name + '-stages" class="stages">
     </div><!-- /stages -->
@@ -326,26 +327,53 @@ function addPipelineElement(ms) {
   pipeline.appendChild(div);
   addStagesElement(ms);
   addAllCommitElements(ms.commits, ms.stages);
+  // setStageClass(ms.name);
   console.log('addPipelineElement - end');
 
 }
+
+var setStageClass = function(msLarge){
+  var stageHeight = document.getElementById('stage').offsetHeight;
+  var stageAmount = Math.floor(stageHeight / 25);
+  msLarge.classList.add('microservice-large-' + stageAmount);
+};
+// window.onresize = function() {
+//   microserviceLarge.className = "microservice microservice-large";
+//   setStageClass();
+// }
 
 var removePipeline = function(parentElementID, childElementID) {
   var parent = document.getElementById(parentElementID);
   var child = document.getElementById(childElementID);
   parent.removeChild(child);
-}
+
+  // TODO: remove the URL from jenkinsJobs[]
+};
 
 var expandPipeline = function(parentElementID) {
   var parent = document.getElementById(parentElementID);
   // TODO: remove the large class from all nodes.
   parent.classList.add('microservice-large');
-}
+  // removeLargeStageRowClass(parentElementID);
+  setTimeout(function(){setStageClass(parent)}, 200);
+};
+
+var removeLargeStageRowClass = function(elementID) {
+  var msElement = document.getElementById(elementID);
+  var msClassList = msElement.classList;
+  for (var i = 0; i < msClassList.length; i++) {
+    var myRe = new RegExp("microservice-large-\\d+");
+    var myArray = myRe.exec(msClassList[i]);
+    if(myArray) {msElement.classList.remove(myArray[0]);}
+  }
+};
 
 var compressPipeline = function(parentElementID) {
   var parent = document.getElementById(parentElementID);
   parent.classList.remove('microservice-large');
-}
+  removeLargeStageRowClass(parentElementID);
+  // setStageClass(parent);
+};
 
 // This is the initial creation of the pipelines and should only be called on page load.
 function addMicroServiceToRegistry(runJSON, restURL, msName) {
