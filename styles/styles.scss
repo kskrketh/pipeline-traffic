@@ -580,6 +580,9 @@ a{
     }
     .commit-container{
       animation-name: commit-move-prod;
+      &.success{
+        filter: opacity(1);
+      }
       &.commit-top, &.commit-bottom{
         height: 50%!important;
         top: 0;
