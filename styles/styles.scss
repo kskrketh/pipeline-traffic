@@ -223,9 +223,9 @@ a{
 //    display: none;
     background: $color-background;
     position: absolute;
-    width: calc(100vw - 80px);
+    width: calc(100vw - 40px);
     height: calc(100vh - 80px);
-    padding: 40px;
+    padding: 40px 20px;
     top: 0;
     left: 0;
     z-index: 90000;
@@ -422,7 +422,7 @@ a{
     }
 
     h1{
-      left: 50px;
+      left: 30px;
       top: 10px;
     }
     .stage, .stages{
@@ -443,7 +443,6 @@ a{
     .stage-lg{
       h2{display: block;}
       p{
-        display: block;
         text-align: center;
         font-size: $font-size-base * 2;
         font-weight: $font-weight-light;
