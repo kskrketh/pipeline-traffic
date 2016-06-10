@@ -10,7 +10,7 @@ var jenkinsJobs = [
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example/',
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy1/',
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy2/',
-  // 'http://http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/ci-pipeline/',
+  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/ci-pipeline/',
   // 'http://jenkins-jenkins.apps.demo.aws.paas.ninja/job/ci-pipeline/',
   'http://jenkins-jenkins.apps.demo.aws.paas.ninja/job/test-pipeline/',
   // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pending-input/',
@@ -400,8 +400,10 @@ var removePipeline = function(parentElementID, childElementID) {
 };
 
 var expandedView = false;
+var enlargedMS;
 var expandPipeline = function(parentElementID, prodElementID) {
   var parent = document.getElementById(parentElementID);
+  enlargedMS = parentElementID;
   // TODO: remove the large class from all nodes.
   expandedView = true;
   parent.classList.add('microservice-large');
@@ -438,6 +440,7 @@ var removeLargeStageRowClass = function(elementID) {
 
 var compressPipeline = function(parentElementID,prodElementID) {
   var parent = document.getElementById(parentElementID);
+  parentElementID = false;
   parent.classList.remove('microservice-large');
   expandedView = false;
   removeLargeStageRowClass(parentElementID);
