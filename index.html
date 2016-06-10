@@ -28,7 +28,7 @@
         <a href="#" onclick="app.expandPipeline('ms-1') ;return false;"><i class="fa fa-expand" aria-hidden="true"></i></a>
         <a href="#" onclick="app.compressPipeline( 'ms-1') ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
       </div>
-      <div class="stages">
+      <div id="ms-1-stages" class="stages">
         <div class="stage">
           <h2>Development</h2>
           <div id="ms-1-1" class="commit-container paused_pending_input"
@@ -76,17 +76,14 @@
       </div>
       <div class="stage stage-lg">
         <h2>Production</h2>
-        <div id="ms-prod-1-1" class="commit-container commit-blue commit-top"
-          style="animation-duration: 2s;">
-          <div class="commit"></div>
+        <div id="ms-1-prod-1" class="commit-container commit-blue commit-top" style="animation-duration: 2s;">
+          <div id="ms-1-prod-1-commit" class="commit"></div>
         </div>
-        <div id="ms-prod-1-2" class="commit-container commit-green commit-bottom"
-          style="animation-duration: 2s;">
-          <div class="commit"></div>
+        <div id="ms-1-prod-2" class="commit-container commit-green commit-bottom" style="animation-duration: 2s;">
+          <div id="ms-1-prod-2-commit" class="commit"></div>
         </div>
-        <div id="ms-prod-1-3" class="commit-container commit-green commit-bottom"
-          style="animation-duration: 10s;">
-          <div class="commit"></div>
+        <div id="ms-1-prod-3" class="commit-container commit-green commit-bottom" style="animation-duration: 10s;">
+          <div id="ms-1-prod-3-commit" class="commit"></div>
         </div>
 
       </div>
@@ -95,15 +92,15 @@
 
     <div class="microservice" id="microserviceLarge"><!-- microservice-large -->
       <h1>
-        Microservice Large:
+        Selfie:
         <span>Blue/Green</span>
       </h1>
       <div class="microservice-actions">
         <a href="#" onclick="app.removePipeline('pipeline-container','microserviceLarge');return false;"><i class="fa fa-trash" aria-hidden="true"></i></a>
-        <a href="#" onclick="app.expandPipeline('microserviceLarge') ;return false;"><i class="fa fa-expand" aria-hidden="true"></i></a>
-        <a href="#" onclick="app.compressPipeline( 'microserviceLarge') ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
+        <a href="#" onclick="app.expandPipeline('microserviceLarge', 'ms-3-3-commit') ;return false;"><i class="fa fa-expand" aria-hidden="true"></i></a>
+        <a href="#" onclick="app.compressPipeline( 'microserviceLarge', 'ms-3-3-commit') ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
       </div>
-      <div class="stages">
+      <div id="microserviceLarge-stages" class="stages">
         <div class="stage">
           <h2>Development</h2>
           <div id="ms-3-1" class="commit-container paused_pending_input"
@@ -450,8 +447,8 @@
       <div class="stage stage-lg">
         <h2>Production</h2>
         <p><strong>2386</strong> commits</p>
-        <div id="ms-3-3" class="commit-container">
-          <div class="commit" style="transform: scale3d(.075, .075, .075)"></div>
+        <div id="microserviceLarge-prod-1" class="commit-container">
+          <div id="microserviceLarge-prod-1-commit" class="commit" style="transform: scale3d(1, 1, 1)"></div>
         </div>
       </div>
     </div>
@@ -466,10 +463,10 @@
       </h1>
       <div class="microservice-actions">
         <a href="#" onclick="app.removePipeline('pipeline-container','ms-2');return false;"><i class="fa fa-trash" aria-hidden="true"></i></a>
-        <a href="#" onclick="app.expandPipeline('ms-2') ;return false;"><i class="fa fa-expand" aria-hidden="true"></i></a>
-        <a href="#" onclick="app.compressPipeline( 'ms-2') ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
+        <a href="#" onclick="app.expandPipeline('ms-2', 'ms-prod-4-1-b') ;return false;"><i class="fa fa-expand" aria-hidden="true"></i></a>
+        <a href="#" onclick="app.compressPipeline('ms-2', 'ms-prod-4-1-b') ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
       </div>
-      <div class="stages">
+      <div id="ms-2-stages" class="stages">
         <div class="stage">
           <h2>Development</h2>
           <div id="ms-4-1" class="commit-container paused_pending_input"
@@ -517,9 +514,8 @@
       </div>
       <div class="stage stage-lg">
         <h2>Production</h2>
-        <div id="ms-prod-4-1" class="commit-container"
-          style="animation-duration: 2s;">
-          <div class="commit"></div>
+        <div id="ms-prod-4-1" class="commit-container" style="animation-duration: 2s;">
+          <div id="ms-prod-4-1-b" class="commit"></div>
         </div>
       </div>
     </div>

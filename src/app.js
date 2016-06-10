@@ -10,14 +10,16 @@ var jenkinsJobs = [
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example/',
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy1/',
   //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy2/',
+  // 'http://http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/ci-pipeline/',
   // 'http://jenkins-jenkins.apps.demo.aws.paas.ninja/job/ci-pipeline/',
-  // 'http://jenkins-jenkins.apps.demo.aws.paas.ninja/job/test-pipeline/',
+  'http://jenkins-jenkins.apps.demo.aws.paas.ninja/job/test-pipeline/',
   // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pending-input/',
   // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/complicated-steps/',
   // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/test-api/',
   // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/fail-step/'
 ];
 
+// This is called from a form in the UI that takes Jenkins URL.
 var addNewJenkinsJob = function() {
   var inputValue = document.getElementById('JenkinsJobURL');
   var jobURL = inputValue.value;
@@ -26,22 +28,8 @@ var addNewJenkinsJob = function() {
   loadJenkinsJob(jobURL);
 };
 
-function getJobJSON(restURL){
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4) {
-      if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
-        console.log("xhr succeeded: " + xhr.status + ' results: ' + xhr.responseText);
-        return getRunsJSON(restURL + '/runs', JSON.parse(xhr.responseText).name);
-      } else {
-        console.log("xhr failed: " + xhr.status);
-      }
-    }
-  };
-  xhr.open('get', restURL, true);
-  xhr.send(null);
-}
-
+// This uses the REST API at https://github.com/jenkinsci/pipeline-stage-view-plugin/tree/master/rest-api#get-jobjob-namewfapiruns
+// It returns the Run History of the Jenkins Job.
 function getRunsJSON(restURL, msName){
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
@@ -58,15 +46,33 @@ function getRunsJSON(restURL, msName){
   xhr.send(null);
 }
 
-function loadPredefinedJenkinsJobs(jenkinsJobs) {
-  for (var i = 0; i < jenkinsJobs.length; i++) {
-    loadJenkinsJob(jenkinsJobs[i]);
-  }
+// This uses the REST API at https://github.com/jenkinsci/pipeline-stage-view-plugin/tree/master/rest-api#get-jobjob-namewfapi
+// It returns the Name and description of the Jenkins Job.
+function getJobJSON(restURL){
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+      if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+        console.log("xhr succeeded: " + xhr.status + ' results: ' + xhr.responseText);
+        return getRunsJSON(restURL + '/runs', JSON.parse(xhr.responseText).name);
+      } else {
+        console.log("xhr failed: " + xhr.status);
+      }
+    }
+  };
+  xhr.open('get', restURL, true);
+  xhr.send(null);
 }
 
 function loadJenkinsJob(jenkinsJob) {
   // TODO: Add a check to make sure it is a URL, Make sure it is not a duplicate of what we already have.
   getJobJSON(jenkinsJob + 'wfapi');
+}
+
+function loadPredefinedJenkinsJobs(jenkinsJobs) {
+  for (var i = 0; i < jenkinsJobs.length; i++) {
+    loadJenkinsJob(jenkinsJobs[i]);
+  }
 }
 
 loadPredefinedJenkinsJobs(jenkinsJobs);
@@ -87,27 +93,27 @@ function getSupportedPropertyName(properties) {
   return null;
 }
 
-// This was the original way to move the commit within a stage, now it is down via CSS duration feature.
+// This was the original way to move the commit within a stage, now it is done via CSS duration feature.
 // It is kept here in case we need more control over the movement.
-function moveCommits() {
-  console.log('moveCommits - start');
-  for (var i = 0; i < microServiceRegistry.length; i++) {
-    for (var j = 0; j < microServiceRegistry[i].commits.length; j++) {
-      var commit = microServiceRegistry[i].commits[j];
-      if (commit.status === 'in_progress') {
-        if (commit.amountOfStageComplete > 99) {
-          continue;
-        }
-        console.log('commit.id = ' + commit.id + ' | commit.amountOfStageComplete = ' + commit.amountOfStageComplete);
-        commit.amountOfStageComplete = commit.amountOfStageComplete + commit.stageMovementInterval;
-        var commitDiv = document.getElementById(commit.id);
-        if (transformProperty) {
-          commitDiv.style[transformProperty] = 'translate3d(' + commit.amountOfStageComplete + '% ,0,0)';
-        }
-      }
-    }
-  }
-}
+// function moveCommits() {
+//   console.log('moveCommits - start');
+//   for (var i = 0; i < microServiceRegistry.length; i++) {
+//     for (var j = 0; j < microServiceRegistry[i].commits.length; j++) {
+//       var commit = microServiceRegistry[i].commits[j];
+//       if (commit.status === 'in_progress') {
+//         if (commit.amountOfStageComplete > 99) {
+//           continue;
+//         }
+//         console.log('commit.id = ' + commit.id + ' | commit.amountOfStageComplete = ' + commit.amountOfStageComplete);
+//         commit.amountOfStageComplete = commit.amountOfStageComplete + commit.stageMovementInterval;
+//         var commitDiv = document.getElementById(commit.id);
+//         if (transformProperty) {
+//           commitDiv.style[transformProperty] = 'translate3d(' + commit.amountOfStageComplete + '% ,0,0)';
+//         }
+//       }
+//     }
+//   }
+// }
 //var timer1 = setInterval(moveCommits, 300);
 
 //setTimeout(function() {clearInterval(timer1)}, 8000);
@@ -165,24 +171,58 @@ function getAllCommits(jobName, runs, msStages) {
 function removeOldCommits(prevMs, runs) {
   console.log('removeOldCommits - start');
   for (var i = 0; i < runs.length; i++) {
+    var stages = runs[i].stages;
+    var id = '';
+    var j,k;
     // TODO: figure out what to do with duplicates for Pending and Fail
     console.log('removeOldCommits - status: ' + runs[i].status);
     if (runs[i].status === "SUCCESS" || (i > 0 && (runs[i].status === "FAILED" || runs[i].status === "ABORTED"))) {
-      var stages = runs[i].stages;
-      var id = '';
-      for (var j = 0; j < stages.length; j++) {
-        for (var k = 0; k < prevMs.commits.length; k++) {
+      stages = runs[i].stages;
+      id = '';
+      for (j = 0; j < stages.length; j++) {
+        for (k = 0; k < prevMs.commits.length; k++) {
           id = prevMs.name + '-' + runs[i].id + '-' + runs[i].name + '-' + stages[j].id;
           if (prevMs.commits[k].id === id) {
             console.log('removeOldCommits - id: ' + id);
-            var commitDiv = document.getElementById(id);
-            commitDiv.remove();
+            document.getElementById(id).remove();
           }
         }
       }
     }
   }
   console.log('removeOldCommits - end');
+}
+
+// Build the HTML for the commit / ball container
+function addCommitProdContainerElement(commit, name) {
+  //console.log('addCommitContainerElement - start');
+  var prodColor = commit.currentStage.slice(commit.currentStage.indexOf(':')+1);
+  var div = document.createElement('div');
+  div.id = commit.id;
+  div.classList.add('commit-container', commit.status, 'commit-' + prodColor);
+  //div.style = 'transform: translate3d(0%, 0, 0);';
+  //if (!commit.duration) {commit.duration === 5000};
+  div.style = 'animation-duration: ' + commit.duration + 'ms;';
+  console.log('addCommitContainerElement - div style string: ' + 'animation-duration: ' + commit.duration + 'ms;');
+  console.log('addCommitContainerElement - end');
+  // Once we have the production commit in the production stage, prep the static production 'ball' to change color to match.
+  // This way the commits can be removed from the DOM and the static production ball will still look the same
+  var prodDiv = document.getElementById(name + '-prod-1');
+  setTimeout(function(){
+    if (prodColor === 'green') {
+      prodDiv.classList.add('commit-' + prodColor);
+      prodDiv.classList.remove('commit-blue');
+    } else {
+      prodDiv.classList.add('commit-' + prodColor);
+      prodDiv.classList.remove('commit-green');
+    }
+  }, commit.duration);
+
+  // Check to see if we are in the expanded view and then start counting
+  if(expandedView) {
+    commitsCount++;
+  }
+  return div;
 }
 
 // Build the HTML for the commit / ball container
@@ -211,14 +251,19 @@ function addCommitElement() {
 // For each commit/ball look up the stage it goes in and then pull that div and add the commit to it.
 // This should support multiple commits in one stage.
 // This should also support a limited range of stages. (i.e. just new stages)
-function addAllCommitElements(commits, stages) {
+function addAllCommitElements(commits, stages, name) {
   //console.log('addAllCommitElements - start');
   for (var j = 0; j < commits.length; j++) {
     for (var k = 0; k < stages.length; k++) {
       if (stages[k].stageID === commits[j].currentStageID) {
         var stageDiv = document.getElementById(stages[k].id);
         //console.log('addAllCommitElements - id: ' + stages[k].id);
-        var commitContainer = stageDiv.appendChild(addCommitContainerElement(commits[j]));
+        var commitContainer;
+        if (commits[j].currentStage.startsWith('Prod')) {
+          commitContainer = stageDiv.appendChild(addCommitProdContainerElement(commits[j], name));
+        } else {
+          commitContainer = stageDiv.appendChild(addCommitContainerElement(commits[j]));
+        }
         commitContainer.appendChild(addCommitElement());
       }
     }
@@ -269,7 +314,7 @@ function createListOfStages(jobName, runStages) {
   var stages = [];
   for (var i = 0; i < runStages.length; i++) {
     var duration = runStages[i].durationMillis - runStages[i].pauseDurationMillis;
-    if (duration < 200) {duration=5000;}
+    if (duration < 200) {duration=200;}
     console.log('createListOfStages - ' + jobName + ' ' + runStages[i].name + ' duration = ' + duration);
     stages.push(createStage(jobName, runStages[i].id, runStages[i].name, duration));
   }
@@ -285,10 +330,13 @@ function addStagesElement(ms) {
   var html = '';
 
   for (var i = 0; i < ms.stages.length; i++) {
-    html +=
-      '<div id="' + ms.stages[i].id + '" class="stage">' +
-      '<h2>' + ms.stages[i].name + '</h2>' +
-      '</div><!-- /stage -->';
+    // We don't want to create a stage container for Production as it has different properties.
+    if (!ms.stages[i].name.startsWith('Prod')) {
+      html +=
+        '<div id="' + ms.stages[i].id + '" class="stage">' +
+        '<h2>' + ms.stages[i].name + '</h2>' +
+        '</div><!-- /stage -->'; 
+    }
   }
 
   stages.innerHTML = html;
@@ -305,41 +353,42 @@ function addPipelineElement(ms) {
   div.classList.add('microservice');
 
   div.innerHTML =`
-      <h1>
-        ${ms.name}
-        <!-- <span>build: ms. </span> -->
-      </h1>
-      <div class="microservice-actions">
-        <a href="#" onclick="app.removePipeline('pipeline-container',${ms.name});return false;"><i class="fa fa-trash" aria-hidden="true"></i></a>
-        <a href="#" onclick="app.expandPipeline( ${ms.name} ) ;return false;"><i class="fa fa-expand" aria-hidden="true"></i></a>
-        <a href="#" class="hidden" onclick="app.compressPipeline( ${ms.name} ) ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
-      </div>
-      <div id="' + ms.name + '-stages" class="stages">
+    <h1>
+      ${ms.name}
+      <!-- <span>build: ms. </span> -->
+    </h1>
+    <div class="microservice-actions">
+      <a href="#" onclick="app.removePipeline('pipeline-container', '${ms.name}');return false;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+      <a href="#" onclick="app.expandPipeline('${ms.name}', '${ms.name}-prod-1-commit') ;return false;"><i class="fa fa-expand" aria-hidden="true"></i></a>
+      <a href="#" class="hidden" onclick="app.compressPipeline('${ms.name}', '${ms.name}-prod-1-commit') ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
+    </div>
+    <div id="${ms.name}-stages" class="stages">
     </div><!-- /stages -->
-    <div class="stage stage-lg">
+    <div id="${ms.stages[ms.stages.length - 1].id}"  class="stage stage-lg">
       <h2>Production</h2>
-      <div id="' + ms.name + '-prod-1" class="commit-container" style="animation-duration: 2s;">
-        <div class="commit"></div>
+      <div id="${ms.name}-prod-1" class="commit-container" style="animation-duration: 1s;">
+        <div id="${ms.name}-prod-1-commit" class="commit" style="transform: scale3d(1, 1, 1)"></div>
       </div>
     </div><!-- /stage-lg -->
     `;
 
   pipeline.appendChild(div);
   addStagesElement(ms);
-  addAllCommitElements(ms.commits, ms.stages);
-  // setStageClass(ms.name);
+  addAllCommitElements(ms.commits, ms.stages, ms.name);
+  // addStageHeightRowNumberClass(ms.name);
   console.log('addPipelineElement - end');
 
 }
 
-var setStageClass = function(msLarge){
-  var stageHeight = document.getElementById('stage').offsetHeight;
+var addStageHeightRowNumberClass = function(msLarge){
+  var stagesID = msLarge + '-stages';
+  var stageHeight = document.getElementById(stagesID).firstElementChild.offsetHeight;
   var stageAmount = Math.floor(stageHeight / 25);
   msLarge.classList.add('microservice-large-' + stageAmount);
 };
 // window.onresize = function() {
 //   microserviceLarge.className = "microservice microservice-large";
-//   setStageClass();
+//   addStageHeightRowNumberClass();
 // }
 
 var removePipeline = function(parentElementID, childElementID) {
@@ -350,13 +399,32 @@ var removePipeline = function(parentElementID, childElementID) {
   // TODO: remove the URL from jenkinsJobs[]
 };
 
-var expandPipeline = function(parentElementID) {
+var expandedView = false;
+var expandPipeline = function(parentElementID, prodElementID) {
   var parent = document.getElementById(parentElementID);
   // TODO: remove the large class from all nodes.
+  expandedView = true;
   parent.classList.add('microservice-large');
+  var prodDiv = document.getElementById(prodElementID);
+  growProdBall(prodDiv);
   // removeLargeStageRowClass(parentElementID);
-  setTimeout(function(){setStageClass(parent)}, 220);
+  setTimeout(function(){addStageHeightRowNumberClass(parent)}, 250);
 };
+
+function resetProdBall(prodDiv) {
+  if (transformProperty) {
+    prodDiv.style[transformProperty] = 'scale3d(1, 1, 1)';
+  }
+}
+
+var commitsCount = 0;
+function growProdBall(prodDiv) {
+  var prodBallSize = (commitsCount / 100) + .075;
+  if (prodBallSize >= 1) {prodBallSize = 1}
+  if (transformProperty) {
+    prodDiv.style[transformProperty] = `scale3d(${prodBallSize}, ${prodBallSize}, ${prodBallSize})`;
+  }
+}
 
 var removeLargeStageRowClass = function(elementID) {
   var msElement = document.getElementById(elementID);
@@ -368,11 +436,15 @@ var removeLargeStageRowClass = function(elementID) {
   }
 };
 
-var compressPipeline = function(parentElementID) {
+var compressPipeline = function(parentElementID,prodElementID) {
   var parent = document.getElementById(parentElementID);
   parent.classList.remove('microservice-large');
+  expandedView = false;
   removeLargeStageRowClass(parentElementID);
-  // setStageClass(parent);
+  // addStageHeightRowNumberClass(parent);
+  var prodDiv = document.getElementById(prodElementID);
+  resetProdBall(prodDiv);
+  commitsCount = 0;
 };
 
 // This is the initial creation of the pipelines and should only be called on page load.
@@ -509,13 +581,13 @@ function updateMicroService(ms, jobRuns) {
   // Compare old stages to new to see if they changed. If they changed then update the html.
   if (oldNumberOfStages !== newNumberOfStages) {
     addStagesElement(ms);
-    addAllCommitElements(ms.commits, ms.stages);
+    addAllCommitElements(ms.commits, ms.stages, ms.name);
     // TODO: need to reset position of commits if they are moving/transitioning in the pipeline
   } else {
     updateCommitStatus(ms, prevMs);
     removeOldCommits(prevMs, latestRuns);
     if (commitsToAdd.length > 0) {
-      addAllCommitElements(commitsToAdd, ms.stages);
+      addAllCommitElements(commitsToAdd, ms.stages, ms.name);
     }
   }
   console.log('updateMicroService - end>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
@@ -529,7 +601,7 @@ function getRunsJSONUpdates(microServiceToBeUpdated){
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {
       if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
-        console.log("xhr succeeded: " + xhr.status + ' results: ' + xhr.responseText);
+        // console.log("xhr succeeded: " + xhr.status + ' results: ' + xhr.responseText);
         return microServiceToBeUpdated = updateMicroService(microServiceToBeUpdated, JSON.parse(xhr.responseText));
       } else {
         console.log("xhr failed: " + xhr.status);
