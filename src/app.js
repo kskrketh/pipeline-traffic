@@ -7,16 +7,20 @@ var transform = ["transform", "msTransform", "webkitTransform", "mozTransform", 
 var transformProperty = getSupportedPropertyName(transform);
 
 var jenkinsJobs = [
-  //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example/',
-  //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy1/',
-  //'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pipeline-example-copy2/',
-  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/ci-pipeline/',
-  // 'http://jenkins-jenkins.apps.demo.aws.paas.ninja/job/ci-pipeline/',
-  'http://jenkins-jenkins.apps.demo.aws.paas.ninja/job/test-pipeline/',
-  // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/pending-input/',
-  // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/complicated-steps/',
-  // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/test-api/',
-  // 'http://jenkins-demo.apps.demo.aws.paas.ninja/job/fail-step/'
+  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/achievement/',
+  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/gamebus/',
+  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/mechanics/',
+  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/playerid/',
+  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/score/',
+  
+  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/achievement-pipeline/',
+  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/gamebus-pipeline/',
+  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/mechanics-pipeline/',
+  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/playerid-pipeline/',
+  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/score-pipeline/',
+  
+  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/test-pipeline/',
+  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/canary-pipeline/',
 ];
 
 // This is called from a form in the UI that takes Jenkins URL.
@@ -125,8 +129,8 @@ function getSupportedPropertyName(properties) {
 var microServiceRegistry = [];
 var stageMovementFactor = 300;
 function createCommit(jobName, runId, runName, runStatus, stageId, stageName, stageStatus, duration) {
-  console.log('createCommit - id: ' + jobName + '-' + runId + '-' + runName + '-' + stageId);
-  console.log('createCommit - duration: ' + duration);
+  // console.log('createCommit - id: ' + jobName + '-' + runId + '-' + runName + '-' + stageId);
+  // console.log('createCommit - duration: ' + duration);
   return {
     id: jobName + '-' + runId + '-' + runName + '-' + stageId,
     runId: runId,
@@ -141,13 +145,13 @@ function createCommit(jobName, runId, runName, runStatus, stageId, stageName, st
   };
 }
 function getAllCommits(jobName, runs, msStages) {
-  console.log('getAllCommits - start');
+  // console.log('getAllCommits - start');
   var commits = [], stages, i, j;
 
   for (i = 0; i < runs.length; i++) {
-    console.log('getAllCommits - status = ' + runs[i].status);
+    // console.log('getAllCommits - status = ' + runs[i].status);
     if (runs[i].status === 'IN_PROGRESS' || runs[i].status === 'PAUSED_PENDING_INPUT' || runs[i].status === 'NOT_EXECUTED') {
-      console.log('getAllCommits - run status = IN_PROGRESS, PAUSED_PENDING_INPUT, or NOT_EXECUTED');
+      // console.log('getAllCommits - run status = IN_PROGRESS, PAUSED_PENDING_INPUT, or NOT_EXECUTED');
       stages = runs[i].stages;
       for (j = 0; j < stages.length; j++) {
         commits.push(createCommit(jobName, runs[i].id, runs[i].name, runs[i].status, stages[j].id, stages[j].name, stages[j].status, msStages[j].duration));
@@ -155,7 +159,7 @@ function getAllCommits(jobName, runs, msStages) {
     }
     if (i===0 && (runs[i].status === 'FAILED' || runs[i].status === 'ABORTED')) {
       // If there are multiple failures we only need to display the latest.
-      console.log('getAllCommits - run status = FAILED or ABORTED');
+      // console.log('getAllCommits - run status = FAILED or ABORTED');
       stages = runs[i].stages;
       for (j = 0; j < stages.length; j++) {
         commits.push(createCommit(jobName, runs[i].id, runs[i].name, runs[i].status, stages[j].id, stages[j].name, stages[j].status, msStages[j].duration));
@@ -163,19 +167,19 @@ function getAllCommits(jobName, runs, msStages) {
       break;
     }
   }
-  console.log('getAllCommits - end');
+  // console.log('getAllCommits - end');
   return commits;
 }
 
 // If you can find any completed stages, in a completed run, in the UI then remove them. They should already be hidden.
 function removeOldCommits(prevMs, runs) {
-  console.log('removeOldCommits - start');
+  // console.log('removeOldCommits - start');
   for (var i = 0; i < runs.length; i++) {
     var stages = runs[i].stages;
     var id = '';
     var j,k;
     // TODO: figure out what to do with duplicates for Pending and Fail
-    console.log('removeOldCommits - status: ' + runs[i].status);
+    // console.log('removeOldCommits - status: ' + runs[i].status);
     if (runs[i].status === "SUCCESS" || (i > 0 && (runs[i].status === "FAILED" || runs[i].status === "ABORTED"))) {
       stages = runs[i].stages;
       id = '';
@@ -183,38 +187,62 @@ function removeOldCommits(prevMs, runs) {
         for (k = 0; k < prevMs.commits.length; k++) {
           id = prevMs.name + '-' + runs[i].id + '-' + runs[i].name + '-' + stages[j].id;
           if (prevMs.commits[k].id === id) {
-            console.log('removeOldCommits - id: ' + id);
+            // console.log('removeOldCommits - id: ' + id);
             document.getElementById(id).remove();
           }
         }
       }
     }
   }
-  console.log('removeOldCommits - end');
+  // console.log('removeOldCommits - end');
 }
 
-// Build the HTML for the commit / ball container
+// Build the HTML for the commit / ball Production container
 function addCommitProdContainerElement(commit, name) {
-  //console.log('addCommitContainerElement - start');
-  var prodColor = commit.currentStage.slice(commit.currentStage.indexOf(':')+1);
+  var stageName = commit.currentStage.split(':');
+  var prodType = stageName[1];
   var div = document.createElement('div');
   div.id = commit.id;
-  div.classList.add('commit-container', commit.status, 'commit-' + prodColor);
+  if (prodType === 'canary') {
+    div.classList.add('commit-container', 'commit-' + prodType, 'commit-top');
+  } else if (prodType === 'blue') {
+    div.classList.add('commit-container', commit.status, 'commit-' + prodType, 'commit-top');
+  } else if (prodType === 'green') {
+    div.classList.add('commit-container', commit.status, 'commit-' + prodType, 'commit-bottom');
+  } else {
+    div.classList.add('commit-container', commit.status, 'commit-' + prodType);
+  }
   //div.style = 'transform: translate3d(0%, 0, 0);';
-  //if (!commit.duration) {commit.duration === 5000};
   div.style = 'animation-duration: ' + commit.duration + 'ms;';
-  console.log('addCommitContainerElement - div style string: ' + 'animation-duration: ' + commit.duration + 'ms;');
-  console.log('addCommitContainerElement - end');
+
   // Once we have the production commit in the production stage, prep the static production 'ball' to change color to match.
   // This way the commits can be removed from the DOM and the static production ball will still look the same
-  var prodDiv = document.getElementById(name + '-prod-1');
+  var prod1Div = document.getElementById(name + '-prod-1');
+  var prod2Div = document.getElementById(name + '-prod-2');
   setTimeout(function(){
-    if (prodColor === 'green') {
-      prodDiv.classList.add('commit-' + prodColor);
-      prodDiv.classList.remove('commit-blue');
+    if (prodType === 'blue') {
+      prod1Div.classList.add('commit-' + prodType, 'commit-top');
+      prod2Div.classList.add('commit-bottom');
+      prod1Div.classList.remove('hidden');
+      prod1Div.firstElementChild.id = name + '-' + prodType;
+    } else if (prodType === 'green') {
+      prod1Div.classList.add('commit-top');
+      prod2Div.classList.add('commit-' + prodType, 'commit-bottom');
+      prod2Div.classList.remove('hidden');
+      prod2Div.firstElementChild.id = name + '-' + prodType;
+    } else if (prodType === 'canary') {
+      prod1Div.classList.add('commit-' + prodType, 'commit-top');
+      prod2Div.classList.add('commit-bottom');
+      prod2Div.classList.remove('hidden');
+      prod1Div.firstElementChild.id = name + '-' + prodType;
+      prod2Div.firstElementChild.id = name + '-live';
     } else {
-      prodDiv.classList.add('commit-' + prodColor);
-      prodDiv.classList.remove('commit-green');
+      prod1Div.classList.remove('commit-top');
+      prod1Div.classList.remove('commit-' + prodType);
+      prod2Div.classList.remove('commit-' + prodType);
+      prod2Div.classList.add('commit-' + prodType, 'hidden');
+      prod1Div.firstElementChild.id = name + '-live';
+      prod2Div.firstElementChild.id = name + '-dead';
     }
   }, commit.duration);
 
@@ -222,6 +250,7 @@ function addCommitProdContainerElement(commit, name) {
   if(expandedView) {
     commitsCount++;
   }
+
   return div;
 }
 
@@ -234,8 +263,8 @@ function addCommitContainerElement(commit) {
   //div.style = 'transform: translate3d(0%, 0, 0);';
   //if (!commit.duration) {commit.duration === 5000};
   div.style = 'animation-duration: ' + commit.duration + 'ms;';
-  console.log('addCommitContainerElement - div style string: ' + 'animation-duration: ' + commit.duration + 'ms;');
-  console.log('addCommitContainerElement - end');
+  // console.log('addCommitContainerElement - div style string: ' + 'animation-duration: ' + commit.duration + 'ms;');
+  // console.log('addCommitContainerElement - end');
 
   return div;
 }
@@ -272,33 +301,43 @@ function addAllCommitElements(commits, stages, name) {
 
 }
 
-// Compare each commit to the last list of commits. Once you find a match check if the status is different.
+// Compare each commit to the last list of commits. Once you find a match, check if the status is different.
 // If the status has changed then change it in the UI.
 function updateCommitStatus(ms, prevMs) {
-  console.log('updateCommitStatus - start');
+  // console.log('updateCommitStatus - start');
   for (var i = 0; i < ms.commits.length; i++) {
     for (var j = 0; j < prevMs.commits.length; j++) {
       if (ms.commits[i].id === prevMs.commits[j].id) {
         if (ms.commits[i].status !== prevMs.commits[j].status) {
-          console.log('updateCommitStatus - id: ' + ms.commits[i].id);
-          console.log('updateCommitStatus - ms.commits['+ i +'].status = '+ ms.commits[i].status + ' --- prevMs.commits['+ j +'].status = '+ prevMs.commits[j].status);
+          // console.log('updateCommitStatus - id: ' + ms.commits[i].id);
+          // console.log('updateCommitStatus - ms.commits['+ i +'].status = '+ ms.commits[i].status + ' --- prevMs.commits['+ j +'].status = '+ prevMs.commits[j].status);
           var commitDiv = document.getElementById(ms.commits[i].id);
           commitDiv.classList.add(ms.commits[i].status);
           commitDiv.classList.remove(prevMs.commits[j].status);
           if (ms.commits[i].status === 'success' && (ms.stages.slice(-1)[0].stageID === ms.commits[i].stageID)) {
             // Either add a new commit div to the prod stage here OR go add a Prod stage to Stages and Commits
           }
+          if ((ms.commits[i].status === 'in_progress' && prevMs.commits[i].status === 'paused_pending_input') && (ms.commits[i].currentStage === 'Production:canary')) {
+            var prod1Div = document.getElementById(ms.name + '-prod-1');
+            var prod2Div = document.getElementById(ms.name + '-prod-2');
+            prod1Div.classList.remove('commit-top');
+            prod2Div.classList.remove('commit-bottom');
+            prod1Div.classList.remove('commit-canary');
+            prod2Div.classList.add('hidden');
+            prod1Div.firstElementChild.id = name + '-live';
+            prod2Div.firstElementChild.id = name + '-dead';
+          }
         }
       }
     }
   }
-  console.log('updateCommitStatus - end');
+  // console.log('updateCommitStatus - end');
 }
 
 // Create a model of a stage
 function createStage(jobName, stageId, stageName, duration) {
-  console.log('createStage - start');
-  console.log('createStage - jobName=' + jobName + ', stageId=' + stageId + ', stageName=' + stageName);
+  // console.log('createStage - start');
+  // console.log('createStage - jobName=' + jobName + ', stageId=' + stageId + ', stageName=' + stageName);
   return {
     id: jobName + '-' + 'stage' + '-' + stageId,
     stageID: stageId,
@@ -310,22 +349,22 @@ function createStage(jobName, stageId, stageName, duration) {
 
 // Build a model of all of the stages in a run
 function createListOfStages(jobName, runStages) {
-  console.log('createListOfStages - start');
+  // console.log('createListOfStages - start');
   var stages = [];
   for (var i = 0; i < runStages.length; i++) {
     var duration = runStages[i].durationMillis - runStages[i].pauseDurationMillis;
     if (duration < 200) {duration=200;}
-    console.log('createListOfStages - ' + jobName + ' ' + runStages[i].name + ' duration = ' + duration);
+    // console.log('createListOfStages - ' + jobName + ' ' + runStages[i].name + ' duration = ' + duration);
     stages.push(createStage(jobName, runStages[i].id, runStages[i].name, duration));
   }
-  console.log('createListOfStages - end');
+  // console.log('createListOfStages - end');
 
   return stages;
 }
 
 // For a given pipeline, add all the stages to the UI.
 function addStagesElement(ms) {
-  console.log('addStagesElement - start');
+  // console.log('addStagesElement - start');
   var stages = document.getElementById(ms.name + '-stages');
   var html = '';
 
@@ -340,13 +379,13 @@ function addStagesElement(ms) {
   }
 
   stages.innerHTML = html;
-  console.log('addStagesElement - end');
+  // console.log('addStagesElement - end');
 
 }
 
 // For a given Job / MicroService add it to the UI.
 function addPipelineElement(ms) {
-  console.log('addPipelineElement - start');
+  // console.log('addPipelineElement - start');
   var pipeline = document.getElementById("pipeline-container");
   var div = document.createElement('div');
   div.id = ms.name;
@@ -359,15 +398,18 @@ function addPipelineElement(ms) {
     </h1>
     <div class="microservice-actions">
       <a href="#" onclick="app.removePipeline('pipeline-container', '${ms.name}');return false;"><i class="fa fa-trash" aria-hidden="true"></i></a>
-      <a href="#" onclick="app.expandPipeline('${ms.name}', '${ms.name}-prod-1-commit') ;return false;"><i class="fa fa-expand" aria-hidden="true"></i></a>
-      <a href="#" class="hidden" onclick="app.compressPipeline('${ms.name}', '${ms.name}-prod-1-commit') ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
+      <a href="#" onclick="app.expandPipeline('${ms.name}') ;return false;"><i class="fa fa-expand" aria-hidden="true"></i></a>
+      <a href="#" class="hidden" onclick="app.compressPipeline('${ms.name}') ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
     </div>
     <div id="${ms.name}-stages" class="stages">
     </div><!-- /stages -->
     <div id="${ms.stages[ms.stages.length - 1].id}"  class="stage stage-lg">
       <h2>Production</h2>
-      <div id="${ms.name}-prod-1" class="commit-container" style="animation-duration: 1s;">
-        <div id="${ms.name}-prod-1-commit" class="commit" style="transform: scale3d(1, 1, 1)"></div>
+      <div id="${ms.name}-prod-1" class="commit-container">
+        <div id="${ms.name}-live" class="commit" style="transform: scale3d(1, 1, 1)"></div>
+      </div>
+      <div id="${ms.name}-prod-2" class="commit-container hidden">
+        <div id="${ms.name}-dead" class="commit" style="transform: scale3d(1, 1, 1)"></div>
       </div>
     </div><!-- /stage-lg -->
     `;
@@ -376,7 +418,7 @@ function addPipelineElement(ms) {
   addStagesElement(ms);
   addAllCommitElements(ms.commits, ms.stages, ms.name);
   // addStageHeightRowNumberClass(ms.name);
-  console.log('addPipelineElement - end');
+  // console.log('addPipelineElement - end');
 
 }
 
@@ -401,13 +443,13 @@ var removePipeline = function(parentElementID, childElementID) {
 
 var expandedView = false;
 var enlargedMS;
-var expandPipeline = function(parentElementID, prodElementID) {
+var expandPipeline = function(parentElementID) {
   var parent = document.getElementById(parentElementID);
   enlargedMS = parentElementID;
   // TODO: remove the large class from all nodes.
   expandedView = true;
   parent.classList.add('microservice-large');
-  var prodDiv = document.getElementById(prodElementID);
+  var prodDiv = parent.firstElementChild;
   growProdBall(prodDiv);
   // removeLargeStageRowClass(parentElementID);
   setTimeout(function(){addStageHeightRowNumberClass(parent)}, 250);
@@ -438,21 +480,21 @@ var removeLargeStageRowClass = function(elementID) {
   }
 };
 
-var compressPipeline = function(parentElementID,prodElementID) {
+var compressPipeline = function(parentElementID) {
   var parent = document.getElementById(parentElementID);
   parentElementID = false;
   parent.classList.remove('microservice-large');
   expandedView = false;
   removeLargeStageRowClass(parentElementID);
   // addStageHeightRowNumberClass(parent);
-  var prodDiv = document.getElementById(prodElementID);
+  var prodDiv = parent.firstElementChild;
   resetProdBall(prodDiv);
   commitsCount = 0;
 };
 
 // This is the initial creation of the pipelines and should only be called on page load.
 function addMicroServiceToRegistry(runJSON, restURL, msName) {
-  console.log('addMicroServiceToRegistry - start');
+  // console.log('addMicroServiceToRegistry - start');
   var i, stages, commits;
   var latestRuns = [];
   var statusIsSuccess = false;
@@ -510,13 +552,13 @@ function addMicroServiceToRegistry(runJSON, restURL, msName) {
 
   // In case we turn off the Interval, this will turn it back on.
   toggleIntervalOn(true);
-  console.log('addMicroServiceToRegistry - end');
+  // console.log('addMicroServiceToRegistry - end');
 }
 
 // Called by pollJenkins
 // This is how we know when a new Run happens and update the UI with it.
 function updateMicroService(ms, jobRuns) {
-  console.log('updateMicroService - start ' + ms.name + ' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+  // console.log('updateMicroService - start ' + ms.name + ' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
   var i,j;
   var oldNumberOfStages = ms.stages.length;
   var newNumberOfStages;
@@ -569,13 +611,13 @@ function updateMicroService(ms, jobRuns) {
   for (i = 0; i < ms.commits.length; i++) {
     var foundMatchingCommit = false;
     for (j = 0; j < prevMs.commits.length; j++) {
-      console.log('updateMicroService - Comparing ms.commits['+ i +'].id = '+ ms.commits[i].id + ' to prevMs.commits['+ j +'].id = '+ prevMs.commits[j].id);
+      // console.log('updateMicroService - Comparing ms.commits['+ i +'].id = '+ ms.commits[i].id + ' to prevMs.commits['+ j +'].id = '+ prevMs.commits[j].id);
       if (ms.commits[i].id == prevMs.commits[j].id) {
         foundMatchingCommit = true;
       }
     }
     if (!foundMatchingCommit) {
-      console.log('updateMicroService - Adding ms.commits['+ i +'].id = '+ ms.commits[i].id);
+      // console.log('updateMicroService - Adding ms.commits['+ i +'].id = '+ ms.commits[i].id);
       commitsToAdd.push(ms.commits[i])
     }
   }
@@ -593,7 +635,7 @@ function updateMicroService(ms, jobRuns) {
       addAllCommitElements(commitsToAdd, ms.stages, ms.name);
     }
   }
-  console.log('updateMicroService - end>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+  // console.log('updateMicroService - end>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
 
   return ms;
 }
@@ -618,7 +660,7 @@ function getRunsJSONUpdates(microServiceToBeUpdated){
 }
 
 function pollJenkins() {
-  console.log('pollJenkins - start =====================================================================================');
+  // console.log('pollJenkins - start =====================================================================================');
   for (var i = 0; i < microServiceRegistry.length; i++) {
     getRunsJSONUpdates(microServiceRegistry[i]);
   }
@@ -628,7 +670,7 @@ var timer;
 
 function toggleIntervalOn(intervalIsOn) {
   if (intervalIsOn) {
-    timer = setInterval(pollJenkins, 2000);
+    timer = setInterval(pollJenkins, 500);
   } else {
     clearInterval(timer);
   }
