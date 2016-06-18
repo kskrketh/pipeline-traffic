@@ -7,7 +7,8 @@
   "scripts": {
     "build-sass": "node-sass styles/styles.scss build/styles.css",
     "build-css": "npm run build-sass && postcss --config options.json",
-    "build-js": "browserify src/main.js -o build/bundle.js -dv",
+    "build-js": "browserify src/main.js -o build/bundle.js -dv && browserify src/lies.js -o build/lies.bundle.js -dv",
+    "build-lies": "browserify src/lies.js -o build/lies.bundle.js -dv",
     "build-min-js": "browserify src/main.js | uglifyjs -o build/main.min.js",
     "build-min-css": "cleancss styles/styles.css | gzip -9 -c > build/styles.css.gz",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -20,6 +21,8 @@
     "start": "npm run watch-ify & npm run watch-css & npm run bs-sync"
   },
   "dependencies": {
+    "muicss": "^0.6.0",
+    "ractive": "^0.7.3",
     "reconnectingwebsocket": "^1.0.0",
     "shader-particle-engine": "^1.0.5",
     "three": "^0.75.0"

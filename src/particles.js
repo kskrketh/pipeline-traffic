@@ -20,7 +20,7 @@ var firehoseId;
 var hoverElement;
 
 var particleGeometry;
-var internet_traffic_source = document.querySelector('.internet-traffic-source');
+var internet_traffic_source = document.querySelector('#public-pipeline-live');
 
 var width = window.innerWidth;
 var height = window.innerHeight;
@@ -342,8 +342,11 @@ function animate() {
 // take a {from:0, to:1} JSON object from the remote server and map it to
 // {from:Element,to:Element,fromColor:white,toColor:black}
 function dataMap(data) {
-    var from = document.querySelector('[id="ms-prod-' + data.from + '"] .commit');
-    var to   = document.querySelector('[id="ms-prod-' + data.to + '"] .commit');
+    var from_sel = '[id="' + data.from + '-pipeline-live"]';
+    var to_sel   = '[id="' + data.to   + '-pipeline-live"]';
+    var from = document.querySelector(from_sel);
+    var to   = document.querySelector(to_sel);
+    console.log(from, to_sel);
     return {
         from      : from && centerPoint(from),
         to        : to   && centerPoint(to),

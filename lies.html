@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Traffic Server Dashboard</title>
+        <link rel="stylesheet" href="node_modules/muicss/lib/css/mui.min.css" type="text/css" media="screen" charset="utf-8">
+        <style type="text/css" media="screen">
+            .mui-btn--primary.green, .mui-btn--primary.green:active, .mui-btn--primary.green:focus, .mui-btn--primary.green:hover {
+                background-color: #34B131 !important;
+            }
+            #container {
+                font-family: monospace;
+                font-size: 2rem;
+                font-weight: bold;
+                text-transform: uppercase;
+                margin: 60px;
+            }
+            fieldset { margin: 50px; }
+            label { clear: both; display: block; }
+            label.topspace { margin-top: 40px; }
+            input[type=range] {
+                width: 100%;
+            }
+            .faded {
+                opacity: 0.3;
+            }
+        </style>
+    </head>
+    <body>
+
+        <script id="template" type="text/ractive">
+            <fieldset>
+                <legend>Phase</legend>
+
+                <button
+                    on-click="set-phase-game"
+                    id="game-phase"
+                    class="{{ state.phase === 'game' ? '' : 'faded' }} mui-btn mui-btn--primary">Game</button>
+
+                <button
+                    on-click="set-phase-player-id"
+                    id="player-id-phase"
+                    class="{{ state.phase === 'player-id' ? '' : 'faded' }} mui-btn mui-btn--danger">Player ID</button>
+
+            </fieldset>
+
+            <fieldset>
+                <legend>Traffic Volume: {{ state.volume }}</legend>
+                <input on-change="set-volume"  on-mousemove="set-volume" type="range" from="0" to="100" step="0.01" value="0" id="traffic-volume" />
+            </fieldset>
+
+            <fieldset>
+
+                <legend>Blue/Green</legend>
+
+                {{#each bluegreen_services:i}}
+                <div class="mui-radio">
+                    <button
+                        on-click="set-bluegreen"
+                        id="{{ bluegreen_services[i] }}-blue"
+                        class="{{ state.bluegreen[bluegreen_services[i]] === 'blue' ? '' : 'faded' }} mui-btn mui-btn--primary">Blue</button>
+                    <button
+                        on-click="set-bluegreen"
+                        id="{{ bluegreen_services[i] }}-green"
+                        class="{{ state.bluegreen[bluegreen_services[i]] === 'green' ? '' : 'faded' }} mui-btn mui-btn--primary green">Green</button>
+                    {{ bluegreen_services[i] }}
+                <div>
+                {{/each}}
+
+            </fieldset>
+        </script>
+
+        <div id="container"></div>
+
+        <script src="build/lies.bundle.js" type="text/javascript" charset="utf-8"></script>
+
+    </body>
+</html>
