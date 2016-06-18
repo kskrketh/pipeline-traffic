@@ -53,7 +53,6 @@ function traffic(from, to) {
 
 function tickGamePhase() {
     if (Math.random()*100 < data.state.volume) {
-        tickGamePhase.count = 0;
         traffic('public'      , 'gamebus');
         traffic('gamebus'     , 'score');
         traffic('gamebus'     , 'achievement');

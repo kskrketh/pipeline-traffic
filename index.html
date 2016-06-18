@@ -601,6 +601,7 @@
       attribute vec3  startColor;
       attribute vec3  endColor;
       attribute float timer;
+      attribute float offsetX;
 
       varying float vAlive;
       varying float vProgress;
@@ -609,16 +610,18 @@
 
       varying float vBurst;
 
+
       void main() {
           vAlive      = alive;
           vProgress   = 1.0 - timer / TIMER_MAX;
           vMixColor   = mix( startColor, endColor, vProgress );
-          vFlashPoint = max( 0.0, (1.0 + FLASHPOINT) * vProgress - FLASHPOINT ); // https://www.desmos.com/calculator/nymymapyel
+          vFlashPoint = min(1.0, max( 0.0, (1.0 + FLASHPOINT) * vProgress - FLASHPOINT )); // https://www.desmos.com/calculator/nymymapyel
           vec3 newPosition = mix( position, endPosition, vProgress );
           float yDist = abs(endPosition.y - position.y);
-          newPosition.x += yDist / 2.0 * sin( PI * vProgress );
+          newPosition.x += offsetX + yDist / 2.0 * sin( PI * vProgress ) * offsetX;
           vec4 mvPosition = modelViewMatrix * vec4( newPosition, 1.0 );
-          gl_PointSize = size * (1.0 + vFlashPoint * FLASHPOINT_STRENGTH);
+          float pSize = size * (1.0 + vFlashPoint * FLASHPOINT_STRENGTH);
+          gl_PointSize = pSize;
           gl_Position = projectionMatrix * mvPosition;
       }
   </script>
