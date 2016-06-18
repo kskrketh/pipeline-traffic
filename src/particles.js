@@ -97,11 +97,11 @@ function init() {
     initParticles(particles);
 
     window.addEventListener( 'resize', onWindowResize, false );
-    window.addEventListener( 'click', onClick, false );
+    // window.addEventListener( 'click', onClick, false );
 
-    window.addEventListener( 'mouseup', onMouseUp, false );
-    window.addEventListener( 'mousedown', onMouseDown, false );
-    window.addEventListener( 'mousemove', onMouseMove, false );
+    // window.addEventListener( 'mouseup', onMouseUp, false );
+    // window.addEventListener( 'mousedown', onMouseDown, false );
+    // window.addEventListener( 'mousemove', onMouseMove, false );
 
     animate();
 
