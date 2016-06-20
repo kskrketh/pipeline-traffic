@@ -28,7 +28,7 @@ module.exports = function (ms) {
     </div><!-- /stages -->
     <div id="${ms.stages[ms.stages.length - 1].id}"  class="stage stage-lg">
       <h2>Production</h2>
-      <div id="${ms.name}-prod-1" class="commit-container">
+      <div id="${ms.name}-prod-1" class="commit-container active">
         <div id="${ms.name}-live" class="commit" style="transform: scale3d(1, 1, 1)"></div>
       </div>
       <div id="${ms.name}-prod-2" class="commit-container hidden">
