@@ -2,8 +2,15 @@
 
 // imports
 var particles = require('./particles');
+var toggleIntervalOn = require('./toggleIntervalOn');
+var loadPredefinedJenkinsJobs = require('./loadPredefinedJenkinsJobs');
+var addNewJenkinsJob = require('./addNewJenkinsJob');
+var removePipeline = require('./removePipeline');
+var expandPipeline = require('./expandPipeline');
+var compressPipeline = require('./compressPipeline');
+var getSupportedPropertyName = require('./getSupportedPropertyName');
 
-var transform = ["transform", "msTransform", "webkitTransform", "mozTransform", "oTransform"];
+// var transform = ["transform", "msTransform", "webkitTransform", "mozTransform", "oTransform"];
 var transformProperty = getSupportedPropertyName(transform);
 
 var jenkinsJobs = [
@@ -13,17 +20,18 @@ var jenkinsJobs = [
   // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/playerid/',
   // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/score/',
   
-  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/achievement-pipeline/',
-  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/gamebus-pipeline/',
-  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/mechanics-pipeline/',
-  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/playerid-pipeline/',
-  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/score-pipeline/',
+  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/achievement-pipeline/',
+  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/gamebus-pipeline/',
+  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/mechanics-pipeline/',
+  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/playerid-pipeline/',
+  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/score-pipeline/',
   
   // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/test-pipeline/',
-  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/canary-pipeline/',
+  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/canary-pipeline/',
 ];
 
 // This is called from a form in the UI that takes Jenkins URL.
+/*
 var addNewJenkinsJob = function() {
   var inputValue = document.getElementById('JenkinsJobURL');
   var jobURL = inputValue.value;
@@ -31,9 +39,11 @@ var addNewJenkinsJob = function() {
   toggleIntervalOn(false);
   loadJenkinsJob(jobURL);
 };
+*/
 
 // This uses the REST API at https://github.com/jenkinsci/pipeline-stage-view-plugin/tree/master/rest-api#get-jobjob-namewfapiruns
 // It returns the Run History of the Jenkins Job.
+/*
 function getRunsJSON(restURL, msName){
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
@@ -49,9 +59,11 @@ function getRunsJSON(restURL, msName){
   xhr.open('get', restURL, true);
   xhr.send(null);
 }
+*/
 
 // This uses the REST API at https://github.com/jenkinsci/pipeline-stage-view-plugin/tree/master/rest-api#get-jobjob-namewfapi
 // It returns the Name and description of the Jenkins Job.
+/*
 function getJobJSON(restURL){
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
@@ -67,17 +79,22 @@ function getJobJSON(restURL){
   xhr.open('get', restURL, true);
   xhr.send(null);
 }
+*/
 
+/*
 function loadJenkinsJob(jenkinsJob) {
   // TODO: Add a check to make sure it is a URL, Make sure it is not a duplicate of what we already have.
   getJobJSON(jenkinsJob + 'wfapi');
 }
+*/
 
+/*
 function loadPredefinedJenkinsJobs(jenkinsJobs) {
   for (var i = 0; i < jenkinsJobs.length; i++) {
     loadJenkinsJob(jenkinsJobs[i]);
   }
 }
+*/
 
 loadPredefinedJenkinsJobs(jenkinsJobs);
 
@@ -88,6 +105,7 @@ particles.init();
 
 
 
+/*
 function getSupportedPropertyName(properties) {
   for (var i = 0; i < properties.length; i++) {
     if (typeof document.body.style[properties[i]] != "undefined") {
@@ -96,39 +114,13 @@ function getSupportedPropertyName(properties) {
   }
   return null;
 }
-
-// This was the original way to move the commit within a stage, now it is done via CSS duration feature.
-// It is kept here in case we need more control over the movement.
-// function moveCommits() {
-//   console.log('moveCommits - start');
-//   for (var i = 0; i < microServiceRegistry.length; i++) {
-//     for (var j = 0; j < microServiceRegistry[i].commits.length; j++) {
-//       var commit = microServiceRegistry[i].commits[j];
-//       if (commit.status === 'in_progress') {
-//         if (commit.amountOfStageComplete > 99) {
-//           continue;
-//         }
-//         console.log('commit.id = ' + commit.id + ' | commit.amountOfStageComplete = ' + commit.amountOfStageComplete);
-//         commit.amountOfStageComplete = commit.amountOfStageComplete + commit.stageMovementInterval;
-//         var commitDiv = document.getElementById(commit.id);
-//         if (transformProperty) {
-//           commitDiv.style[transformProperty] = 'translate3d(' + commit.amountOfStageComplete + '% ,0,0)';
-//         }
-//       }
-//     }
-//   }
-// }
-//var timer1 = setInterval(moveCommits, 300);
-
-//setTimeout(function() {clearInterval(timer1)}, 8000);
-
-
-
+*/
 
 
 var microServiceRegistry = [];
-var stageMovementFactor = 300;
+/*
 function createCommit(jobName, runId, runName, runStatus, stageId, stageName, stageStatus, duration) {
+ var stageMovementFactor = 300;
   // console.log('createCommit - id: ' + jobName + '-' + runId + '-' + runName + '-' + stageId);
   // console.log('createCommit - duration: ' + duration);
   return {
@@ -144,6 +136,9 @@ function createCommit(jobName, runId, runName, runStatus, stageId, stageName, st
     amountOfStageComplete: 0
   };
 }
+*/
+
+/*
 function getAllCommits(jobName, runs, msStages) {
   // console.log('getAllCommits - start');
   var commits = [], stages, i, j;
@@ -170,8 +165,10 @@ function getAllCommits(jobName, runs, msStages) {
   // console.log('getAllCommits - end');
   return commits;
 }
+*/
 
 // If you can find any completed stages, in a completed run, in the UI then remove them. They should already be hidden.
+/*
 function removeOldCommits(prevMs, runs) {
   // console.log('removeOldCommits - start');
   for (var i = 0; i < runs.length; i++) {
@@ -196,8 +193,10 @@ function removeOldCommits(prevMs, runs) {
   }
   // console.log('removeOldCommits - end');
 }
+*/
 
 // Build the HTML for the commit / ball Production container
+/*
 function addCommitProdContainerElement(commit, name) {
   var stageName = commit.currentStage.split(':');
   var prodType = stageName[1];
@@ -253,8 +252,10 @@ function addCommitProdContainerElement(commit, name) {
 
   return div;
 }
+*/
 
 // Build the HTML for the commit / ball container
+/*
 function addCommitContainerElement(commit) {
   //console.log('addCommitContainerElement - start');
   var div = document.createElement('div');
@@ -268,18 +269,22 @@ function addCommitContainerElement(commit) {
 
   return div;
 }
+*/
 
 // Build the HTML for the commit / ball
+/*
 function addCommitElement() {
   var div = document.createElement('div');
   div.classList.add('commit');
 
   return div;
 }
+*/
 
 // For each commit/ball look up the stage it goes in and then pull that div and add the commit to it.
 // This should support multiple commits in one stage.
 // This should also support a limited range of stages. (i.e. just new stages)
+/*
 function addAllCommitElements(commits, stages, name) {
   //console.log('addAllCommitElements - start');
   for (var j = 0; j < commits.length; j++) {
@@ -300,9 +305,11 @@ function addAllCommitElements(commits, stages, name) {
   //console.log('addAllCommitElements - end');
 
 }
+*/
 
 // Compare each commit to the last list of commits. Once you find a match, check if the status is different.
 // If the status has changed then change it in the UI.
+/*
 function updateCommitStatus(ms, prevMs) {
   // console.log('updateCommitStatus - start');
   for (var i = 0; i < ms.commits.length; i++) {
@@ -333,8 +340,10 @@ function updateCommitStatus(ms, prevMs) {
   }
   // console.log('updateCommitStatus - end');
 }
+*/
 
 // Create a model of a stage
+/*
 function createStage(jobName, stageId, stageName, duration) {
   // console.log('createStage - start');
   // console.log('createStage - jobName=' + jobName + ', stageId=' + stageId + ', stageName=' + stageName);
@@ -346,8 +355,10 @@ function createStage(jobName, stageId, stageName, duration) {
     duration: duration
   };
 }
+*/
 
 // Build a model of all of the stages in a run
+/*
 function createListOfStages(jobName, runStages) {
   // console.log('createListOfStages - start');
   var stages = [];
@@ -361,8 +372,10 @@ function createListOfStages(jobName, runStages) {
 
   return stages;
 }
+*/
 
 // For a given pipeline, add all the stages to the UI.
+/*
 function addStagesElement(ms) {
   // console.log('addStagesElement - start');
   var stages = document.getElementById(ms.name + '-stages');
@@ -382,8 +395,10 @@ function addStagesElement(ms) {
   // console.log('addStagesElement - end');
 
 }
+*/
 
 // For a given Job / MicroService add it to the UI.
+/*
 function addPipelineElement(ms) {
   // console.log('addPipelineElement - start');
   var pipeline = document.getElementById("pipeline-container");
@@ -421,18 +436,22 @@ function addPipelineElement(ms) {
   // console.log('addPipelineElement - end');
 
 }
+*/
 
+/*
 var addStageHeightRowNumberClass = function(msLarge){
   var stagesID = msLarge + '-stages';
   var stageHeight = document.getElementById(stagesID).firstElementChild.offsetHeight;
   var stageAmount = Math.floor(stageHeight / 25);
   msLarge.classList.add('microservice-large-' + stageAmount);
 };
+*/
 // window.onresize = function() {
 //   microserviceLarge.className = "microservice microservice-large";
 //   addStageHeightRowNumberClass();
 // }
 
+/*
 var removePipeline = function(parentElementID, childElementID) {
   var parent = document.getElementById(parentElementID);
   var child = document.getElementById(childElementID);
@@ -440,9 +459,11 @@ var removePipeline = function(parentElementID, childElementID) {
 
   // TODO: remove the URL from jenkinsJobs[]
 };
+*/
 
 var expandedView = false;
-var enlargedMS;
+var enlargedMS = '';
+/*
 var expandPipeline = function(parentElementID) {
   var parent = document.getElementById(parentElementID);
   enlargedMS = parentElementID;
@@ -454,14 +475,18 @@ var expandPipeline = function(parentElementID) {
   // removeLargeStageRowClass(parentElementID);
   setTimeout(function(){addStageHeightRowNumberClass(parent)}, 250);
 };
+*/
 
+/*
 function resetProdBall(prodDiv) {
   if (transformProperty) {
     prodDiv.style[transformProperty] = 'scale3d(1, 1, 1)';
   }
 }
+*/
 
 var commitsCount = 0;
+/*
 function growProdBall(prodDiv) {
   var prodBallSize = (commitsCount / 100) + .075;
   if (prodBallSize >= 1) {prodBallSize = 1}
@@ -469,7 +494,9 @@ function growProdBall(prodDiv) {
     prodDiv.style[transformProperty] = `scale3d(${prodBallSize}, ${prodBallSize}, ${prodBallSize})`;
   }
 }
+*/
 
+/*
 var removeLargeStageRowClass = function(elementID) {
   var msElement = document.getElementById(elementID);
   var msClassList = msElement.classList;
@@ -479,10 +506,11 @@ var removeLargeStageRowClass = function(elementID) {
     if(myArray) {msElement.classList.remove(myArray[0]);}
   }
 };
+*/
 
+/*
 var compressPipeline = function(parentElementID) {
   var parent = document.getElementById(parentElementID);
-  parentElementID = false;
   parent.classList.remove('microservice-large');
   expandedView = false;
   removeLargeStageRowClass(parentElementID);
@@ -491,8 +519,10 @@ var compressPipeline = function(parentElementID) {
   resetProdBall(prodDiv);
   commitsCount = 0;
 };
+*/
 
 // This is the initial creation of the pipelines and should only be called on page load.
+/*
 function addMicroServiceToRegistry(runJSON, restURL, msName) {
   // console.log('addMicroServiceToRegistry - start');
   var i, stages, commits;
@@ -554,9 +584,11 @@ function addMicroServiceToRegistry(runJSON, restURL, msName) {
   toggleIntervalOn(true);
   // console.log('addMicroServiceToRegistry - end');
 }
+*/
 
 // Called by pollJenkins
 // This is how we know when a new Run happens and update the UI with it.
+/*
 function updateMicroService(ms, jobRuns) {
   // console.log('updateMicroService - start ' + ms.name + ' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
   var i,j;
@@ -639,7 +671,9 @@ function updateMicroService(ms, jobRuns) {
 
   return ms;
 }
+*/
 
+/*
 function getRunsJSONUpdates(microServiceToBeUpdated){
   //console.log('getRunsJSONUpdates - start');
   var xhr = new XMLHttpRequest();
@@ -658,23 +692,28 @@ function getRunsJSONUpdates(microServiceToBeUpdated){
   //console.log('getRunsJSONUpdates - end');
 
 }
+*/
 
+/*
 function pollJenkins() {
   // console.log('pollJenkins - start =====================================================================================');
   for (var i = 0; i < microServiceRegistry.length; i++) {
     getRunsJSONUpdates(microServiceRegistry[i]);
   }
 }
+*/
 
-var timer;
 
+/*
 function toggleIntervalOn(intervalIsOn) {
+  var timer;
   if (intervalIsOn) {
     timer = setInterval(pollJenkins, 500);
   } else {
     clearInterval(timer);
   }
 }
+*/
 
 toggleIntervalOn(true);
 
@@ -682,5 +721,13 @@ module.exports = {
   addNewJenkinsJob: addNewJenkinsJob,
   removePipeline: removePipeline,
   expandPipeline: expandPipeline,
-  compressPipeline: compressPipeline
+  compressPipeline: compressPipeline,
+  microServiceRegistry: microServiceRegistry,
+  commitsCount: commitsCount,
+  expandedView: expandedView,
+  enlargedMS: enlargedMS,
+  jenkinsJobs: jenkinsJobs,
+  transformProperty: transformProperty
 };
+
+
