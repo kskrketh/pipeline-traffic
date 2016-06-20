@@ -11,7 +11,7 @@ var compressPipeline = require('./compressPipeline');
 var getSupportedPropertyName = require('./getSupportedPropertyName');
 
 // var transform = ["transform", "msTransform", "webkitTransform", "mozTransform", "oTransform"];
-var transformProperty = getSupportedPropertyName(transform);
+var transformProperty = getSupportedPropertyName();
 
 var jenkinsJobs = [
   // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/achievement/',
@@ -20,14 +20,14 @@ var jenkinsJobs = [
   // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/playerid/',
   // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/score/',
   
-  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/achievement-pipeline/',
-  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/gamebus-pipeline/',
-  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/mechanics-pipeline/',
-  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/playerid-pipeline/',
-  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/score-pipeline/',
+  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/achievement-pipeline/',
+  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/gamebus-pipeline/',
+  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/mechanics-pipeline/',
+  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/playerid-pipeline/',
+  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/score-pipeline/',
   
   // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/test-pipeline/',
-  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/canary-pipeline/',
+  // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/canary-pipeline/',
 ];
 
 // This is called from a form in the UI that takes Jenkins URL.
