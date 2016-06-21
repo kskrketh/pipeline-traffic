@@ -657,6 +657,9 @@ a{
     border-color: $color-red-dark;
     animation: pulse-red 1s $easeInOutBack alternate infinite;
   }
+  .active &{
+    animation: pulse-red 1.5s ease-in-out alternate infinite;
+  }
   .paused_pending_input &{
     background-color: $color-teal;
     border-color: $color-teal-dark;
