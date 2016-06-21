@@ -14,6 +14,7 @@ module.exports = function (runJSON, restURL, msName) {
   var updateCommitStatus = require('./updateCommitStatus');
   var addPipelineElement = require('./addPipelineElement');
   var toggleIntervalOn = require('./toggleIntervalOn');
+  var updateMicroService = require('./updateMicroService');
 
   // console.log('addMicroServiceToRegistry - start');
   var i, stages, commits;

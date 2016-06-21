@@ -5,7 +5,7 @@
  *
  * Called by transformProperty
  */
-module.exports = function (properties) {
+module.exports = function () {
   var properties = ["transform", "msTransform", "webkitTransform", "mozTransform", "oTransform"];
 
   for (var i = 0; i < properties.length; i++) {

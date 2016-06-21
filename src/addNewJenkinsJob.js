@@ -5,7 +5,7 @@
  *
  * Called by app.js
  */
-module.exports = function (intervalIsOn) {
+module.exports = function () {
   var app = require('./app');
   var toggleIntervalOn = require('./toggleIntervalOn');
   var loadJenkinsJob = require('./loadJenkinsJob');
