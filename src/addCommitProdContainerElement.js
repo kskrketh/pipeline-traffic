@@ -29,6 +29,14 @@ module.exports = function (commit, name) {
   // This way the commits can be removed from the DOM and the static production ball will still look the same
   var prod1Div = document.getElementById(name + '-prod-1');
   var prod2Div = document.getElementById(name + '-prod-2');
+
+  if (prodType === 'canary') {
+    prod1Div.classList.add('hidden');
+    prod2Div.classList.add('commit-bottom');
+    prod2Div.classList.remove('active');
+    prod2Div.classList.remove('hidden');
+    prod2Div.firstElementChild.id = name + '-live';
+  }
   setTimeout(function(){
     if (prodType === 'blue') {
       prod1Div.classList.add('commit-' + prodType, 'commit-top', 'active');
@@ -44,11 +52,8 @@ module.exports = function (commit, name) {
       prod2Div.firstElementChild.id = name + '-' + prodType;
     } else if (prodType === 'canary') {
       prod1Div.classList.add('commit-' + prodType, 'commit-top', 'active');
-      prod2Div.classList.add('commit-bottom');
-      prod2Div.classList.remove('active');
-      prod2Div.classList.remove('hidden');
+      prod1Div.classList.remove('hidden');
       prod1Div.firstElementChild.id = name + '-' + prodType;
-      prod2Div.firstElementChild.id = name + '-live';
     } else {
       prod1Div.classList.add('active');
       prod1Div.classList.remove('commit-top');
