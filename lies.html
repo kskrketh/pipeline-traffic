@@ -9,6 +9,13 @@
             .mui-btn--primary.green, .mui-btn--primary.green:active, .mui-btn--primary.green:focus, .mui-btn--primary.green:hover {
                 background-color: #34B131 !important;
             }
+            .mui-btn--primary.purple, .mui-btn--primary.purple:active, .mui-btn--primary.purple:focus, .mui-btn--primary.purple:hover {
+                background-color: #a221f3 !important;
+            }
+            .mui-btn--primary.yellow, .mui-btn--primary.yellow:active, .mui-btn--primary.yellow:focus, .mui-btn--primary.yellow:hover {
+                background-color: #fbe46c !important;
+                text-shadow: 0px 1px 2px #9e9048;
+            }
             #container {
                 font-family: monospace;
                 font-size: 2rem;
@@ -23,7 +30,7 @@
                 width: 100%;
             }
             .faded {
-                opacity: 0.3;
+                opacity: 0.1;
             }
         </style>
     </head>
@@ -47,27 +54,42 @@
 
             <fieldset>
                 <legend>Traffic Volume: {{ state.volume }}</legend>
-                <input on-change="set-volume"  on-mousemove="set-volume" type="range" from="0" to="100" step="0.01" value="0" id="traffic-volume" />
+                <input on-change="set-volume"  on-mousemove="set-volume" type="range" from="0" to="100" step="1" value="0" id="traffic-volume" />
             </fieldset>
 
             <fieldset>
 
                 <legend>Blue/Green</legend>
 
-                {{#each bluegreen_services:i}}
+                {{#each services:i}}
                 <div class="mui-radio">
+                {{#if services[i] == 'mechanics'}}
                     <button
-                        on-click="set-bluegreen"
-                        id="{{ bluegreen_services[i] }}-blue"
-                        class="{{ state.bluegreen[bluegreen_services[i]] === 'blue' ? '' : 'faded' }} mui-btn mui-btn--primary">Blue</button>
+                        on-click="set-active"
+                        id="{{ services[i] }}-live"
+                        class="{{ state.active[services[i]] === 'live' ? '' : 'faded' }} mui-btn mui-btn--primary purple">Live</button>
                     <button
-                        on-click="set-bluegreen"
-                        id="{{ bluegreen_services[i] }}-green"
-                        class="{{ state.bluegreen[bluegreen_services[i]] === 'green' ? '' : 'faded' }} mui-btn mui-btn--primary green">Green</button>
-                    {{ bluegreen_services[i] }}
+                        on-click="set-active"
+                        id="{{ services[i] }}-canary"
+                        class="{{ state.active[services[i]] === 'canary' ? '' : 'faded' }} mui-btn mui-btn--primary yellow">Canary</button>
+                    {{ services[i] }}
+                {{else}}
+                    <button
+                        on-click="set-active"
+                        id="{{ services[i] }}-live"
+                        class="{{ state.active[services[i]] === 'live' ? '' : 'faded' }} mui-btn mui-btn--primary purple">Live</button>
+                    <button
+                        on-click="set-active"
+                        id="{{ services[i] }}-blue"
+                        class="{{ state.active[services[i]] === 'blue' ? '' : 'faded' }} mui-btn mui-btn--primary">Blue</button>
+                    <button
+                        on-click="set-active"
+                        id="{{ services[i] }}-green"
+                        class="{{ state.active[services[i]] === 'green' ? '' : 'faded' }} mui-btn mui-btn--primary green">Green</button>
+                    {{ services[i] }}
+                {{/if}}
                 <div>
                 {{/each}}
-
             </fieldset>
         </script>
 

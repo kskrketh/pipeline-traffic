@@ -13,16 +13,18 @@ window.socket = socket;
 // Data and UI init
 
 var data = {
-    bluegreen_services: [
+    services: [
         'gamebus',
         'score',
-        'achievements',
+        'achievement',
+        'mechanics',
     ],
     state: {
-        bluegreen: {
-            gamebus      : 'blue',
-            score        : 'green',
-            achievements : 'blue',
+        active: {
+            gamebus     : 'blue',
+            score       : 'green',
+            achievement : 'blue',
+            mechanics   : 'live',
         },
         volume: 0,
         phase: 'game',
@@ -35,9 +37,9 @@ var ractive = new Ractive({
     data     : data,
 });
 
-ractive.on( 'set-bluegreen', function ( event ) {
+ractive.on( 'set-active', function ( event ) {
     var btn_info = event.node.id.split('-');
-    var key = 'state.bluegreen.' + btn_info[0];
+    var key = 'state.active.' + btn_info[0];
     ractive.set(key, btn_info[1]);
 });
 
@@ -51,27 +53,42 @@ function traffic(from, to) {
     socket.send(JSON.stringify({from: from, to: to}));
 }
 
+function id(name) {
+    return `${name}-pipeline-${data.state.active[name] || 'live'}`;
+}
+
 function tickGamePhase() {
     if (Math.random()*100 < data.state.volume) {
-        traffic('public'      , 'gamebus');
-        traffic('gamebus'     , 'score');
-        traffic('gamebus'     , 'achievement');
-        traffic('score'       , 'gamebus');
-        traffic('achievement' , 'gamebus');
+        traffic(id('public')      , id('gamebus'));
+        traffic(id('gamebus')     , id('score'));
+        traffic(id('gamebus')     , id('achievement'));
+        traffic(id('score')       , id('gamebus'));
+        traffic(id('achievement') , id('gamebus'));
     }
 }
 
 function tickPlayerIDPhase() {
     if (Math.random()*100 < data.state.volume) {
-        traffic('public', 'playerid');
+        traffic(id('public'), id('playerid'));
     }
 }
 
 function tickMechanics() {
     tickMechanics.count = tickMechanics.count ? tickMechanics.count + 1 : 1;
-    if (tickMechanics.count >= 100) {
+    if (tickMechanics.count >= 10) {
         tickMechanics.count = 0;
-        traffic('mechanics', 'gamebus');
+
+        var p = 1; // percentage of traffic going to 'live'
+        if (data.state.active.mechanics === 'canary') {
+            p = 0.9;
+        }
+
+        if (Math.random() < p) {
+            traffic('mechanics-pipeline-live', id('gamebus'));
+        }
+        else {
+            traffic('mechanics-pipeline-canary', id('gamebus'));
+        }
     }
 }
 

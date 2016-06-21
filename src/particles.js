@@ -354,8 +354,8 @@ function animate() {
 // take a {from:0, to:1} JSON object from the remote server and map it to
 // {from:Element,to:Element,fromColor:white,toColor:black}
 function dataMap(data) {
-    var from_sel = '[id="' + data.from + '-pipeline-live"]';
-    var to_sel   = '[id="' + data.to   + '-pipeline-live"]';
+    var from_sel = '[id="' + data.from + '"]';
+    var to_sel   = '[id="' + data.to   + '"]';
     var from = document.querySelector(from_sel);
     var to   = document.querySelector(to_sel);
     return {
