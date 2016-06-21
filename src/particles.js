@@ -1,6 +1,9 @@
 var THREE = require('three');
 var ReconnectingWebSocket = require('reconnectingwebsocket');
 
+var traffic_buffer = [];
+window.traffic_buffer = traffic_buffer;
+
 var PARTICLE_DURATION  = 2.0; // seconds
 var PARTICLE_SIZE      = 20; // seconds
 var MAX_PARTICLE_COUNT = 5000;
@@ -161,7 +164,7 @@ function findAvailableParticle() {
 
 function sendParticle(data) {
 
-    var both_exist = data.to && data.from;
+    var both_exist = data && data.to && data.from;
     if (!both_exist) {
         return;
     }
@@ -210,8 +213,19 @@ function updateParticles() {
     particleGeometry.attributes.startColor.needsUpdate = true;
     particleGeometry.attributes.endColor.needsUpdate = true;
 
+    processTrafficBuffer();
     updateParticleSizes();
     updateParticleTimers();
+}
+
+function processTrafficBuffer() {
+    // process a this fraction of the traffic buffer per frame
+    var amount = traffic_buffer.length / 10;
+
+    var i = Math.floor(amount) + 1;
+    while(i--) {
+        sendParticle(traffic_buffer.pop());
+    }
 }
 
 function updateParticleTimers() {
@@ -366,11 +380,15 @@ function dataMap(data) {
     };
 }
 
+function bufferTraffic(data) {
+    traffic_buffer.push(data);
+}
+
 // set up websocket
-var socket = new ReconnectingWebSocket("ws://localhost:3003/stream");
+var socket = new ReconnectingWebSocket("ws://gamebus-traffic-production.apps-test.redhatkeynote.com/stream");
 socket.onmessage = function onMessage(event) {
     var data = JSON.parse(event.data);
-    data.map(dataMap).forEach(sendParticle);
+    data.map(dataMap).forEach(bufferTraffic);
 };
 
 window.addEventListener('beforeunload', function() {

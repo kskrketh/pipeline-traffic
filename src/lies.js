@@ -1,9 +1,13 @@
+var MECHANICS_TICK_RATE = 40; // how often mechanics -> gamebus traffic is sent
+var TRAFFIC_PER_FRAME = 1;
+
 var Ractive = require('ractive');
 var ReconnectingWebSocket = require('reconnectingwebsocket');
 
 // WebSocket init
 
-var socket = new ReconnectingWebSocket("ws://localhost:3003/record");
+var socket = new ReconnectingWebSocket("ws://gamebus-traffic-production.apps-test.redhatkeynote.com/record");
+
 window.addEventListener('beforeunload', function() {
     socket.close();
 });
@@ -21,9 +25,9 @@ var data = {
     ],
     state: {
         active: {
-            gamebus     : 'blue',
-            score       : 'green',
-            achievement : 'blue',
+            gamebus     : 'live',
+            score       : 'live',
+            achievement : 'live',
             mechanics   : 'live',
         },
         volume: 0,
@@ -58,12 +62,15 @@ function id(name) {
 }
 
 function tickGamePhase() {
-    if (Math.random()*100 < data.state.volume) {
-        traffic(id('public')      , id('gamebus'));
-        traffic(id('gamebus')     , id('score'));
-        traffic(id('gamebus')     , id('achievement'));
-        traffic(id('score')       , id('gamebus'));
-        traffic(id('achievement') , id('gamebus'));
+    var i = TRAFFIC_PER_FRAME;
+    while(i--) {
+        if (Math.random()*100 < data.state.volume) {
+            traffic(id('public')      , id('gamebus'));
+            traffic(id('gamebus')     , id('score'));
+            traffic(id('gamebus')     , id('achievement'));
+            traffic(id('score')       , id('gamebus'));
+            traffic(id('achievement') , id('gamebus'));
+        }
     }
 }
 
@@ -75,7 +82,7 @@ function tickPlayerIDPhase() {
 
 function tickMechanics() {
     tickMechanics.count = tickMechanics.count ? tickMechanics.count + 1 : 1;
-    if (tickMechanics.count >= 10) {
+    if (tickMechanics.count >= MECHANICS_TICK_RATE) {
         tickMechanics.count = 0;
 
         var p = 1; // percentage of traffic going to 'live'
