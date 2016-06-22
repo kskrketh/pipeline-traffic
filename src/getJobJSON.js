@@ -13,7 +13,7 @@ module.exports = function (restURL) {
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {
       if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
-        console.log("xhr succeeded: " + xhr.status + ' results: ' + xhr.responseText);
+        //console.log("xhr succeeded: " + xhr.status + ' results: ' + xhr.responseText);
         return getRunsJSON(restURL + '/runs', JSON.parse(xhr.responseText).name);
       } else {
         console.log("xhr failed: " + xhr.status);

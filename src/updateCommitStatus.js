@@ -15,28 +15,30 @@ module.exports = function (ms, prevMs) {
           // console.log('updateCommitStatus - id: ' + ms.commits[i].id);
           // console.log('updateCommitStatus - ms.commits['+ i +'].status = '+ ms.commits[i].status + ' --- prevMs.commits['+ j +'].status = '+ prevMs.commits[j].status);
           var commitDiv = document.getElementById(ms.commits[i].id);
-          commitDiv.classList.add(ms.commits[i].status);
-          commitDiv.classList.remove(prevMs.commits[j].status);
-          if (ms.commits[i].status === 'success' && (ms.stages.slice(-1)[0].stageID === ms.commits[i].stageID)) {
-            // Either add a new commit div to the prod stage here OR go add a Prod stage to Stages and Commits
+          if (ms.commits[i].currentStage !== 'Production:canary') {
+            commitDiv.classList.add(ms.commits[i].status);
           }
-          var stageName = ms.commits[i].currentStage.split(':');
-          var prodType = stageName[1];
+          commitDiv.classList.remove(prevMs.commits[j].status);
+          // if (ms.commits[i].status === 'success' && (ms.stages.slice(-1)[0].stageID === ms.commits[i].stageID)) {
+          //   // Either add a new commit div to the prod stage here OR go add a Prod stage to Stages and Commits
+          // }
+          // var stageName = ms.commits[i].currentStage.split(':');
+          // var prodType = stageName[1];
           if ((ms.commits[i].status === 'in_progress' && prevMs.commits[i].status === 'paused_pending_input') && (ms.commits[i].currentStage === 'Production:canary')) {
             var prod1Div = document.getElementById(ms.name + '-prod-1');
             var prod2Div = document.getElementById(ms.name + '-prod-2');
             var prod3Div = prod2Div.nextElementSibling;
             prod3Div.classList.add('hidden');
-            prod1Div.style = 'animation-duration: 5000ms;';
-            prod2Div.style = 'animation-duration: 5000ms;';
-            prod1Div.classList.remove('commit-top');
+            // prod1Div.style = 'animation-duration: 5000ms;';
+            // prod2Div.style = 'animation-duration: 5000ms;';
             prod2Div.classList.remove('commit-bottom');
-            prod1Div.classList.remove('commit-canary');
             prod1Div.firstElementChild.id = name + '-live';
             prod2Div.firstElementChild.id = name + '-dead';
-            setTimeout(function(){
-              prod2Div.classList.add('hidden');
-            }, 1000);//commit.duration);
+            prod1Div.classList.remove('commit-top');
+            prod1Div.classList.remove('commit-canary');
+            // setTimeout(function(){
+            //   prod2Div.classList.add('hidden');
+            // }, 4000);//commit.duration);
           }
         }
       }
