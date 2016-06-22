@@ -9,6 +9,7 @@ var removePipeline = require('./removePipeline');
 var expandPipeline = require('./expandPipeline');
 var compressPipeline = require('./compressPipeline');
 var getSupportedPropertyName = require('./getSupportedPropertyName');
+var setUpPipelineElements = require('./setUpPipelineElements');
 
 // var transform = ["transform", "msTransform", "webkitTransform", "mozTransform", "oTransform"];
 var transformProperty = getSupportedPropertyName();
@@ -21,14 +22,16 @@ var jenkinsJobs = [
   // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/score/',
   
   'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/achievement-pipeline/',
-  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/gamebus-pipeline/',
-  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/mechanics-pipeline/',
-  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/playerid-pipeline/',
   'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/score-pipeline/',
+  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/mechanics-pipeline/',
+  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/gamebus-pipeline/',
+  'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/playerid-pipeline/',
   
   // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/test-pipeline/',
   // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/canary-pipeline/',
 ];
+
+var listOfMSNames = setUpPipelineElements(jenkinsJobs);
 
 // This is called from a form in the UI that takes Jenkins URL.
 /*
@@ -714,6 +717,28 @@ function toggleIntervalOn(intervalIsOn) {
   }
 }
 */
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  if(ev.target == ev.currentTarget) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  var movingDiv = document.getElementById(data);
+  var loosingDiv = movingDiv.parentElement;
+  var displacedDiv = ev.target.firstElementChild;
+  loosingDiv.appendChild(displacedDiv);
+  ev.target.removeChild(displacedDiv);
+  ev.target.appendChild(movingDiv);
+}
+
+var msCount = 1;
 
 toggleIntervalOn(true);
 
@@ -722,12 +747,15 @@ module.exports = {
   removePipeline: removePipeline,
   expandPipeline: expandPipeline,
   compressPipeline: compressPipeline,
+  allowDrop: allowDrop,
+  drag: drag,
+  drop: drop,
   microServiceRegistry: microServiceRegistry,
   commitsCount: commitsCount,
   expandedView: expandedView,
   enlargedMS: enlargedMS,
   jenkinsJobs: jenkinsJobs,
-  transformProperty: transformProperty
+  listOfMSNames: listOfMSNames,
+  transformProperty: transformProperty,
+  msCount: msCount
 };
-
-

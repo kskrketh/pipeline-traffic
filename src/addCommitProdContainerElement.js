@@ -30,28 +30,44 @@ module.exports = function (commit, name) {
   var prod1Div = document.getElementById(name + '-prod-1');
   var prod2Div = document.getElementById(name + '-prod-2');
 
-  if (prodType === 'canary') {
+  if (prodType === 'blue') {
+    prod1Div.classList.add('hidden');
+    prod2Div.classList.add('commit-bottom');
+    prod2Div.classList.remove('hidden');
+    prod2Div.classList.remove('active');
+    prod1Div.classList.add('commit-' + prodType, 'commit-top', 'active');
+    prod1Div.firstElementChild.id = name + '-' + prodType;
+  } else if (prodType === 'green') {
+    prod2Div.classList.add('commit-' + prodType, 'commit-bottom', 'active');
+    prod1Div.classList.add('commit-top');
+    prod1Div.classList.remove('active');
+    
+    prod2Div.firstElementChild.id = name + '-' + prodType;
+  } else if (prodType === 'canary') {
     prod1Div.classList.add('hidden');
     prod2Div.classList.add('commit-bottom');
     prod2Div.classList.remove('active');
     prod2Div.classList.remove('hidden');
     prod2Div.firstElementChild.id = name + '-live';
+    prod1Div.classList.add('commit-' + prodType, 'commit-top', 'active');
+  } else {
+    prod1Div.classList.add('active');
+    prod1Div.classList.remove('commit-top');
+    prod1Div.classList.remove('commit-' + prodType);
+    prod2Div.classList.remove('commit-' + prodType);
+    prod1Div.classList.remove('active');
+    prod2Div.classList.add('commit-' + prodType, 'hidden');
+    prod1Div.firstElementChild.id = name + '-live';
+    prod2Div.firstElementChild.id = name + '-dead';
   }
   setTimeout(function(){
     if (prodType === 'blue') {
-      prod1Div.classList.add('commit-' + prodType, 'commit-top', 'active');
-      prod2Div.classList.add('commit-bottom');
-      prod2Div.classList.remove('hidden');
-      prod2Div.classList.remove('active');
+      prod1Div.classList.remove('hidden');
       prod1Div.firstElementChild.id = name + '-' + prodType;
     } else if (prodType === 'green') {
-      prod1Div.classList.add('commit-top');
-      prod2Div.classList.add('commit-' + prodType, 'commit-bottom', 'active');
-      prod1Div.classList.remove('active');
       prod2Div.classList.remove('hidden');
       prod2Div.firstElementChild.id = name + '-' + prodType;
     } else if (prodType === 'canary') {
-      prod1Div.classList.add('commit-' + prodType, 'commit-top', 'active');
       prod1Div.classList.remove('hidden');
       prod1Div.firstElementChild.id = name + '-' + prodType;
     } else {
@@ -59,12 +75,12 @@ module.exports = function (commit, name) {
       prod1Div.classList.remove('commit-top');
       prod1Div.classList.remove('commit-' + prodType);
       prod2Div.classList.remove('commit-' + prodType);
-      prod1Div.classList.remove('active');
-      prod2Div.classList.add('commit-' + prodType, 'hidden');
+      prod2Div.classList.remove('active');
+      prod2Div.classList.add('hidden');
       prod1Div.firstElementChild.id = name + '-live';
       prod2Div.firstElementChild.id = name + '-dead';
     }
-  }, commit.duration + 1000);
+  }, commit.duration);
 
   // Check to see if we are in the expanded view and then start counting
   if(app.expandedView) {

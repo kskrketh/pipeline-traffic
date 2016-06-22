@@ -63,7 +63,7 @@ module.exports = function (runJSON, restURL, msName) {
     commits: commits,
     jobRuns: restURL
   };
-
+  
   if (document.getElementById(msName)) {
     // if this pipeline already exists on the screen then just update it
     updateMicroService(ms);

@@ -5,14 +5,23 @@
  * Called by addMicroServiceToRegistry.js
  */
 module.exports = function (ms) {
+  var app = require('./app');
   var addStagesElement = require('./addStagesElement');
   var addAllCommitElements = require('./addAllCommitElements');
 
   // console.log('addPipelineElement - start');
-  var pipeline = document.getElementById("pipeline-container");
+  
+  for(var i=0; i < app.listOfMSNames.length; i++) {
+    if(app.listOfMSNames[i] === ms.name) {
+      var parentDiv = document.getElementById("microservice-" + i);
+    }
+  }
+  
   var div = document.createElement('div');
   div.id = ms.name;
   div.classList.add('microservice');
+  div.setAttribute('ondragstart', 'app.drag(event)');
+  div.setAttribute('draggable', 'true');
 
   div.innerHTML =`
     <h1>
@@ -35,9 +44,9 @@ module.exports = function (ms) {
         <div id="${ms.name}-dead" class="commit" style="transform: scale3d(1, 1, 1)"></div>
       </div>
     </div><!-- /stage-lg -->
-    `;
+  `;
 
-  pipeline.appendChild(div);
+  parentDiv.appendChild(div);
   addStagesElement(ms);
   addAllCommitElements(ms.commits, ms.stages, ms.name);
   // addStageHeightRowNumberClass(ms.name);
