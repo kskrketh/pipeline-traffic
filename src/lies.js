@@ -1,5 +1,4 @@
 var MECHANICS_TICK_RATE = 40; // how often mechanics -> gamebus traffic is sent
-var TRAFFIC_PER_FRAME = 2;
 
 var Ractive = require('ractive');
 var ReconnectingWebSocket = require('reconnectingwebsocket');
@@ -62,20 +61,11 @@ function id(name) {
 }
 
 function tickGamePhase() {
-    var i = TRAFFIC_PER_FRAME;
-    while(i--) {
-        if (tickGamePhase.count > 100) {
-            tickGamePhase.count = 1;
-        }
-        if (tickGamePhase.count <= data.state.volume) {
-            traffic(id('public')      , id('gamebus'));
-            traffic(id('gamebus')     , id('score'));
-            traffic(id('gamebus')     , id('achievement'));
-            traffic(id('score')       , id('gamebus'));
-            traffic(id('achievement') , id('gamebus'));
-        }
-    }
-    tickGamePhase.count += 1;
+    traffic(id('public')      , id('gamebus'));
+    traffic(id('gamebus')     , id('score'));
+    traffic(id('gamebus')     , id('achievement'));
+    traffic(id('score')       , id('gamebus'));
+    traffic(id('achievement') , id('gamebus'));
 }
 
 function tickPlayerIDPhase() {
