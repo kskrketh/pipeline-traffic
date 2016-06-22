@@ -10,10 +10,11 @@ module.exports = function (ms) {
   var addAllCommitElements = require('./addAllCommitElements');
 
   // console.log('addPipelineElement - start');
-  
-  for(var i=0; i < app.listOfMSNames.length; i++) {
+  var i;
+  for(i=0; i < app.listOfMSNames.length; i++) {
     if(app.listOfMSNames[i] === ms.name) {
       var parentDiv = document.getElementById("microservice-" + i);
+      break;
     }
   }
   
@@ -29,7 +30,7 @@ module.exports = function (ms) {
       <!-- <span>build: ms. </span> -->
     </h1>
     <div class="microservice-actions">
-      <a href="#" onclick="app.removePipeline('pipeline-container', '${ms.name}');return false;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+      <a href="#" onclick="app.removePipeline('pipeline-container', 'microservice-${i}');return false;"><i class="fa fa-trash" aria-hidden="true"></i></a>
       <a href="#" onclick="app.expandPipeline('${ms.name}') ;return false;"><i class="fa fa-expand" aria-hidden="true"></i></a>
       <a href="#" class="hidden" onclick="app.compressPipeline('${ms.name}') ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
     </div>

@@ -14,7 +14,7 @@ module.exports = function () {
   var inputValue = document.getElementById('JenkinsJobURL');
   var jobURL = inputValue.value;
   app.jenkinsJobs.push(jobURL);
-  setUpPipelineElements();
+  app.listOfMSNames = setUpPipelineElements(app.jenkinsJobs);
   toggleIntervalOn(false);
   loadJenkinsJob(jobURL);
 };
