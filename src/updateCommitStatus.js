@@ -32,6 +32,7 @@ module.exports = function (ms, prevMs) {
             // prod1Div.style = 'animation-duration: 5000ms;';
             // prod2Div.style = 'animation-duration: 5000ms;';
             prod2Div.classList.remove('commit-bottom');
+            prod2Div.classList.add('active');
             prod1Div.classList.remove('commit-top');
             // prod1Div.classList.remove('commit-canary');
             // prod1Div.classList.add('hidden');

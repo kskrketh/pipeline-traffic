@@ -42,6 +42,7 @@ module.exports = function (ms) {
     prod1Type = 'commit-live';
     prod2Type = '';
     hidden2 = 'hidden';
+    active1 = 'active';
     top = '';
     bottom = '';
   }
