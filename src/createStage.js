@@ -5,15 +5,17 @@
  * 
  * Called by createListOfStages.js
  */
-module.exports = function (jobName, stageId, stageName, duration) {
+module.exports = function (jobName, stageId, stageName, duration, commitType) {
 
   // console.log('createStage - start');
   // console.log('createStage - jobName=' + jobName + ', stageId=' + stageId + ', stageName=' + stageName);
+  
   return {
     id: jobName + '-' + 'stage' + '-' + stageId,
     stageID: stageId,
     name: stageName,
     msName: jobName,
-    duration: duration
+    duration: duration,
+    commitType: commitType
   };
 };

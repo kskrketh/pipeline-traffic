@@ -32,12 +32,13 @@ module.exports = function (ms, prevMs) {
             // prod1Div.style = 'animation-duration: 5000ms;';
             // prod2Div.style = 'animation-duration: 5000ms;';
             prod2Div.classList.remove('commit-bottom');
-            prod1Div.firstElementChild.id = name + '-live';
-            prod2Div.firstElementChild.id = name + '-dead';
             prod1Div.classList.remove('commit-top');
             prod1Div.classList.remove('commit-canary');
+            prod1Div.classList.add('hidden');
+            prod1Div.firstElementChild.id = ms.name + '-dead';
+            prod2Div.firstElementChild.id = ms.name + '-live';
             // setTimeout(function(){
-            //   prod2Div.classList.add('hidden');
+            //   prod1Div.classList.add('hidden');
             // }, 4000);//commit.duration);
           }
         }

@@ -17,7 +17,7 @@ module.exports = function (jobName, runs, msStages) {
       // console.log('getAllCommits - run status = IN_PROGRESS, PAUSED_PENDING_INPUT, or NOT_EXECUTED');
       stages = runs[i].stages;
       for (j = 0; j < stages.length; j++) {
-        commits.push(createCommit(jobName, runs[i].id, runs[i].name, runs[i].status, stages[j].id, stages[j].name, stages[j].status, msStages[j].duration));
+        commits.push(createCommit(jobName, runs[i].id, runs[i].name, runs[i].status, stages[j].id, stages[j].name, stages[j].status, msStages[j].duration, msStages[j].commitType));
       }
     }
     if (i===0 && (runs[i].status === 'FAILED' || runs[i].status === 'ABORTED')) {
@@ -25,7 +25,7 @@ module.exports = function (jobName, runs, msStages) {
       // console.log('getAllCommits - run status = FAILED or ABORTED');
       stages = runs[i].stages;
       for (j = 0; j < stages.length; j++) {
-        commits.push(createCommit(jobName, runs[i].id, runs[i].name, runs[i].status, stages[j].id, stages[j].name, stages[j].status, msStages[j].duration));
+        commits.push(createCommit(jobName, runs[i].id, runs[i].name, runs[i].status, stages[j].id, stages[j].name, stages[j].status, msStages[j].duration, msStages[j].commitType));
       }
       break;
     }

@@ -9,6 +9,40 @@ module.exports = function (ms) {
   var addStagesElement = require('./addStagesElement');
   var addAllCommitElements = require('./addAllCommitElements');
 
+  var prod1ChildDivID;
+  var prod2ChildDivID;
+  var prod1Type;
+  var prod2Type;
+  var hidden1 = '';
+  var hidden2 = '';
+  var top;
+  var bottom;
+  var prodType = ms.stages[0].commitType;
+  if (prodType === 'canary') {
+    prod1ChildDivID = ms.name + '-canary';
+    prod2ChildDivID = ms.name + '-live';
+    prod1Type = 'commit-canary';
+    prod2Type = 'commit-live';
+    hidden1 = 'hidden';
+    top = '';
+    bottom = '';
+  } else if (prodType === 'blue' || prodType === 'green') {
+    prod1ChildDivID = ms.name + '-blue';
+    prod2ChildDivID = ms.name + '-green';
+    prod1Type = 'commit-blue';
+    prod2Type = 'commit-green';
+    top = 'commit-top';
+    bottom = 'commit-bottom';
+  } else {
+    prod1ChildDivID = ms.name + '-live';
+    prod2ChildDivID = ms.name + '-dead';
+    prod1Type = 'commit-live';
+    prod2Type = '';
+    hidden2 = 'hidden';
+    top = '';
+    bottom = '';
+  }
+
   // console.log('addPipelineElement - start');
   var i;
   for(i=0; i < app.listOfMSNames.length; i++) {
@@ -38,11 +72,11 @@ module.exports = function (ms) {
     </div><!-- /stages -->
     <div id="${ms.stages[ms.stages.length - 1].id}"  class="stage stage-lg">
       <h2>Production</h2>
-      <div id="${ms.name}-prod-1" class="commit-container active">
-        <div id="${ms.name}-live" class="commit" style="transform: scale3d(1, 1, 1)"></div>
+      <div id="${ms.name}-prod-1" class="commit-container active ${hidden1} ${top} ${prod1Type}">
+        <div id="${prod1ChildDivID}" class="commit" style="transform: scale3d(1, 1, 1)"></div>
       </div>
-      <div id="${ms.name}-prod-2" class="commit-container hidden">
-        <div id="${ms.name}-dead" class="commit" style="transform: scale3d(1, 1, 1)"></div>
+      <div id="${ms.name}-prod-2" class="commit-container ${hidden2} ${bottom} ${prod2Type}">
+        <div id="${prod2ChildDivID}" class="commit" style="transform: scale3d(1, 1, 1)"></div>
       </div>
     </div><!-- /stage-lg -->
   `;

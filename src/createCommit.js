@@ -5,7 +5,7 @@
  *
  * Called by getAllCommits.js
  */
-module.exports = function (jobName, runId, runName, runStatus, stageId, stageName, stageStatus, duration) {
+module.exports = function (jobName, runId, runName, runStatus, stageId, stageName, stageStatus, duration, commitType) {
   var stageMovementFactor = 300;
   // console.log('createCommit - id: ' + jobName + '-' + runId + '-' + runName + '-' + stageId);
   // console.log('createCommit - duration: ' + duration);
@@ -18,6 +18,7 @@ module.exports = function (jobName, runId, runName, runStatus, stageId, stageNam
     currentStage: stageName,
     status: stageStatus.toLowerCase(),
     duration: duration,
+    commitType: commitType,
     stageMovementInterval: (stageMovementFactor/duration)*100,
     amountOfStageComplete: 0
   };

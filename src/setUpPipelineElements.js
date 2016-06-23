@@ -3,7 +3,7 @@
 /**
  *
  *
- * Called by app.js
+ * Called by app.js, addNewJenkinsJob.js
  */
 module.exports = function (jenkinsJobs) {
   var app = require('./app');
