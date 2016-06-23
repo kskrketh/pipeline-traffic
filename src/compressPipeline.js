@@ -13,7 +13,7 @@ module.exports = function (parentElementID) {
   parent.classList.remove('microservice-large');
   app.expandedView = false;
   removeLargeStageRowClass(parentElementID);
-  // addStageHeightRowNumberClass(parent);
+  // addStageHeightRowNumberClass(parentElementID, parent);
   var prodDiv = parent.firstElementChild;
   resetProdBall(prodDiv);
   app.commitsCount = 0;

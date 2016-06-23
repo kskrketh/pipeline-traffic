@@ -18,11 +18,14 @@ module.exports = function (ms) {
   var top;
   var bottom;
   var prodType = ms.stages[0].commitType;
+  var active1 = '';
+  var active2 = '';
   if (prodType === 'canary') {
     prod1ChildDivID = ms.name + '-canary';
     prod2ChildDivID = ms.name + '-live';
     prod1Type = 'commit-canary';
     prod2Type = 'commit-live';
+    active2 = 'active';
     hidden1 = 'hidden';
     top = '';
     bottom = '';
@@ -42,7 +45,13 @@ module.exports = function (ms) {
     top = '';
     bottom = '';
   }
-
+  if (prodType === 'blue') {
+    active1 = '';
+    active2 = 'active';
+  } else if (prodType === 'green') {
+    active1 = 'active';
+    active2 = '';
+  }
   // console.log('addPipelineElement - start');
   var i;
   for(i=0; i < app.listOfMSNames.length; i++) {
@@ -72,10 +81,10 @@ module.exports = function (ms) {
     </div><!-- /stages -->
     <div id="${ms.stages[ms.stages.length - 1].id}"  class="stage stage-lg">
       <h2>Production</h2>
-      <div id="${ms.name}-prod-1" class="commit-container active ${hidden1} ${top} ${prod1Type}">
+      <div id="${ms.name}-prod-1" class="commit-container ${hidden1} ${top} ${prod1Type} ${active1}">
         <div id="${prod1ChildDivID}" class="commit" style="transform: scale3d(1, 1, 1)"></div>
       </div>
-      <div id="${ms.name}-prod-2" class="commit-container ${hidden2} ${bottom} ${prod2Type}">
+      <div id="${ms.name}-prod-2" class="commit-container ${hidden2} ${bottom} ${prod2Type} ${active2}">
         <div id="${prod2ChildDivID}" class="commit" style="transform: scale3d(1, 1, 1)"></div>
       </div>
     </div><!-- /stage-lg -->

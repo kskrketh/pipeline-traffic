@@ -3,10 +3,10 @@
 /**
  Called by expandPipeline.js, compressPipeline.js
  */
-module.exports = function (msLarge) {
+module.exports = function (parentElementID, parent) {
 
-  var stagesID = msLarge + '-stages';
+  var stagesID = parentElementID + '-stages';
   var stageHeight = document.getElementById(stagesID).firstElementChild.offsetHeight;
   var stageAmount = Math.floor(stageHeight / 25);
-  msLarge.classList.add('microservice-large-' + stageAmount);
+  parent.classList.add('microservice-large-' + stageAmount);
 };

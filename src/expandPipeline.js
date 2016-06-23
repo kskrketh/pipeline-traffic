@@ -14,7 +14,7 @@ module.exports = function (parentElementID) {
   app.expandedView = true;
   parent.classList.add('microservice-large');
   var prodDiv = parent.firstElementChild;
-  growProdBall(prodDiv);
+  growProdBall(parentElementID);
   // removeLargeStageRowClass(parentElementID);
-  setTimeout(function(){addStageHeightRowNumberClass(parent)}, 250);
+  setTimeout(function(){addStageHeightRowNumberClass(parentElementID, parent)}, 250);
 };

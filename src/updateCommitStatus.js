@@ -33,13 +33,14 @@ module.exports = function (ms, prevMs) {
             // prod2Div.style = 'animation-duration: 5000ms;';
             prod2Div.classList.remove('commit-bottom');
             prod1Div.classList.remove('commit-top');
-            prod1Div.classList.remove('commit-canary');
-            prod1Div.classList.add('hidden');
+            // prod1Div.classList.remove('commit-canary');
+            // prod1Div.classList.add('hidden');
             prod1Div.firstElementChild.id = ms.name + '-dead';
             prod2Div.firstElementChild.id = ms.name + '-live';
-            // setTimeout(function(){
-            //   prod1Div.classList.add('hidden');
-            // }, 4000);//commit.duration);
+            setTimeout(function(){
+              prod1Div.classList.remove('commit-canary');
+              prod1Div.classList.add('hidden');
+            }, 1000);//commit.duration);
           }
         }
       }

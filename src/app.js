@@ -32,6 +32,7 @@ var jenkinsJobs = [
   // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/gamebus-pipeline/',
   // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/playerid-pipeline/',
 
+  // 'http://jenkins-jenkins.apps-test.redhatkeynote.com/job/canary-pipeline/',
   // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/test-pipeline/',
   // 'http://jenkins-jenkins.apps.demo.prod.ose.redhatkeynote.com/job/canary-pipeline/',
 ];
@@ -724,9 +725,11 @@ function toggleIntervalOn(intervalIsOn) {
 */
 function allowDrop(ev) {
   ev.preventDefault();
+  //ev.stopPropagation();
 }
 
 function drag(ev) {
+  //ev.stopPropagation();
   if(ev.target == ev.currentTarget) {
     ev.dataTransfer.setData("text", ev.target.id);
   }
@@ -734,6 +737,7 @@ function drag(ev) {
 
 function drop(ev) {
   ev.preventDefault();
+  //ev.stopPropagation();
   var data = ev.dataTransfer.getData("text");
   var movingDiv = document.getElementById(data);
   var loosingDiv = movingDiv.parentElement;
