@@ -107,6 +107,12 @@ $easeInOutBack: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 }
 
+@keyframes pulse-active{
+  to{
+    box-shadow: 0 0 20px $color-blue;
+  }
+}
+
 html{
   height: 100%;
 }
@@ -498,9 +504,6 @@ a{
       display: block;
     }
   }
-  &:last-of-type .stage-lg h2{
-    display: block;
-  }
   h1{
     position: absolute;
     top:5px;
@@ -515,6 +518,10 @@ a{
       color: rgba(255,255,255,0.7);
     }
   }
+}
+
+div:last-of-type div .stage-lg h2{
+  display: block;
 }
 
 .microservice-actions{
@@ -658,7 +665,7 @@ a{
     animation: pulse-red 1s $easeInOutBack alternate infinite;
   }
   .active &{
-    animation: pulse-red 1.5s ease-in-out alternate infinite;
+    animation: pulse-active 1s $easeInOutBack alternate infinite;
   }
   .paused_pending_input &{
     background-color: $color-teal;
