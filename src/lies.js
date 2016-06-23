@@ -6,7 +6,7 @@ var ReconnectingWebSocket = require('reconnectingwebsocket');
 
 // WebSocket init
 
-var socket = new ReconnectingWebSocket("ws://gamebus-traffic-production.apps-test.redhatkeynote.com/record");
+var socket = new ReconnectingWebSocket("ws://gamebus-traffic-production.apps.redhatkeynote.com/record");
 
 window.addEventListener('beforeunload', function() {
     socket.close();

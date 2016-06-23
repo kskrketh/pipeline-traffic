@@ -384,7 +384,7 @@ function bufferTraffic(data) {
     traffic_buffer.push(data);
 }
 // set up websocket
-var socket = new ReconnectingWebSocket("ws://gamebus-traffic-production.apps-test.redhatkeynote.com/stream");
+var socket = new ReconnectingWebSocket("ws://gamebus-traffic-production.apps.redhatkeynote.com/stream");
 socket.onmessage = function onMessage(event) {
     var data = JSON.parse(event.data);
     data.map(dataMap).forEach(bufferTraffic);
