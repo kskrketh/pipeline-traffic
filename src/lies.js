@@ -25,9 +25,9 @@ var data = {
     ],
     state: {
         active: {
-            gamebus     : 'live',
-            score       : 'live',
-            achievement : 'live',
+            gamebus     : 'blue',
+            score       : 'blue',
+            achievement : 'blue',
             mechanics   : 'live',
         },
         volume: 0,
