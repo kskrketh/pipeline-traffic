@@ -459,6 +459,7 @@ a{
       .commit-container{
 //        animation-direction: reverse; WHY?
 //        animation-play-state: paused; WHY?
+        transition: 2s all ease;
         width: 100%;
         height: 100%!important;
         top: 0!important;
@@ -486,11 +487,11 @@ a{
     .stage{
       height: 115px;
       .commit-container{
-        height: 50%;
-        top: 0;
+//        height: 50%;
+        top: -25%;
         &:nth-child(odd){
-          top: auto;
-          bottom: 0;
+          top: 25%;
+//          bottom: 0;
         }
         &:only-of-type{
           height: 100%;
@@ -587,16 +588,17 @@ div:last-of-type div .stage-lg h2{
     }
     .commit-container{
       animation-name: commit-move-prod;
+      top: 0;
       &.success{
         filter: opacity(1);
       }
       &.commit-top, &.commit-bottom{
-        height: 50%!important;
-        top: 0;
+//        height: 50%!important;
+        top: -25%;
       }
       &.commit-bottom{
-        top: auto;
-        bottom: 0;
+        top: 25%;
+//        bottom: 0;
       }
     }
   }
