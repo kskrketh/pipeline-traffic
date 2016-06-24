@@ -11,10 +11,10 @@ module.exports = function (parentElementID) {
   var parent = document.getElementById(parentElementID);
   app.enlargedMS = parentElementID;
   parent.classList.remove('microservice-large');
+  var prodDiv = document.getElementById(parentElementID + '-live');
+  prodDiv.classList.remove('commit-large');
   app.expandedView = false;
   removeLargeStageRowClass(parentElementID);
-  // addStageHeightRowNumberClass(parentElementID, parent);
-  var prodDiv = parent.firstElementChild;
   resetProdBall(prodDiv);
   app.commitsCount = 0;
 };
