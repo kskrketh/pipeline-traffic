@@ -13,8 +13,11 @@ module.exports = function (parentElementID) {
   // TODO: remove the large class from all nodes.
   app.expandedView = true;
   parent.classList.add('microservice-large');
-  var prodDiv = parent.firstElementChild;
+  var prodDiv = document.getElementById(parentElementID + '-live');
+  prodDiv.classList.add('commit-large');
+  app.fullSizePipelineID = parentElementID;
+  // Set the initial size of the prod ball to small.
   growProdBall(parentElementID);
-  // removeLargeStageRowClass(parentElementID);
+  // wait for the page to load and then get the height so we know how many rows there are to balls in
   setTimeout(function(){addStageHeightRowNumberClass(parentElementID, parent)}, 250);
 };

@@ -2,1533 +2,1533 @@
   {
     "_links": {
       "self": {
-        "href": "/job/canary-pipeline/34/wfapi/describe"
+        "href": "/job/playerid-pipeline/164/wfapi/describe"
       }
     },
-    "id": "34",
-    "name": "#34",
+    "id": "164",
+    "name": "#164",
     "status": "SUCCESS",
-    "startTimeMillis": 1466275868926,
-    "endTimeMillis": 1466275878636,
-    "durationMillis": 9669,
-    "queueDurationMillis": 41,
-    "pauseDurationMillis": 5635,
+    "startTimeMillis": 1466742676182,
+    "endTimeMillis": 1466742680230,
+    "durationMillis": 4018,
+    "queueDurationMillis": 30,
+    "pauseDurationMillis": 0,
     "stages": [
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/34/execution/node/5/wfapi/describe"
+            "href": "/job/playerid-pipeline/164/execution/node/5/wfapi/describe"
           }
         },
         "id": "5",
-        "name": "Build",
+        "name": "Development",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466275868967,
-        "durationMillis": 1014,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/34/execution/node/7/wfapi/describe"
-          }
-        },
-        "id": "7",
-        "name": "QA",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466275869981,
-        "durationMillis": 1004,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/34/execution/node/9/wfapi/describe"
-          }
-        },
-        "id": "9",
-        "name": "Stage",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466275870985,
-        "durationMillis": 1008,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/34/execution/node/11/wfapi/describe"
-          }
-        },
-        "id": "11",
-        "name": "Production:canary",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466275871993,
-        "durationMillis": 6643,
-        "pauseDurationMillis": 5635
-      }
-    ]
-  },
-  {
-    "_links": {
-      "self": {
-        "href": "/job/canary-pipeline/33/wfapi/describe"
-      }
-    },
-    "id": "33",
-    "name": "#33",
-    "status": "SUCCESS",
-    "startTimeMillis": 1466275835419,
-    "endTimeMillis": 1466275848663,
-    "durationMillis": 13204,
-    "queueDurationMillis": 40,
-    "pauseDurationMillis": 9169,
-    "stages": [
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/33/execution/node/5/wfapi/describe"
-          }
-        },
-        "id": "5",
-        "name": "Build",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466275835459,
-        "durationMillis": 1008,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/33/execution/node/7/wfapi/describe"
-          }
-        },
-        "id": "7",
-        "name": "QA",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466275836467,
-        "durationMillis": 1011,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/33/execution/node/9/wfapi/describe"
-          }
-        },
-        "id": "9",
-        "name": "Stage",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466275837478,
-        "durationMillis": 1008,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/33/execution/node/11/wfapi/describe"
-          }
-        },
-        "id": "11",
-        "name": "Production:canary",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466275838486,
-        "durationMillis": 10177,
-        "pauseDurationMillis": 9169
-      }
-    ]
-  },
-  {
-    "_links": {
-      "self": {
-        "href": "/job/canary-pipeline/32/wfapi/describe"
-      }
-    },
-    "id": "32",
-    "name": "#32",
-    "status": "SUCCESS",
-    "startTimeMillis": 1466275802934,
-    "endTimeMillis": 1466275814632,
-    "durationMillis": 11647,
-    "queueDurationMillis": 51,
-    "pauseDurationMillis": 8628,
-    "stages": [
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/32/execution/node/5/wfapi/describe"
-          }
-        },
-        "id": "5",
-        "name": "Build",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466275802985,
-        "durationMillis": 998,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/32/execution/node/7/wfapi/describe"
-          }
-        },
-        "id": "7",
-        "name": "QA",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466275803983,
-        "durationMillis": 1004,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/32/execution/node/9/wfapi/describe"
-          }
-        },
-        "id": "9",
-        "name": "Stage",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466275804987,
-        "durationMillis": 1006,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/32/execution/node/11/wfapi/describe"
-          }
-        },
-        "id": "11",
-        "name": "Production:canary",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466275805993,
-        "durationMillis": 8639,
-        "pauseDurationMillis": 8628
-      }
-    ]
-  },
-  {
-    "_links": {
-      "self": {
-        "href": "/job/canary-pipeline/31/wfapi/describe"
-      }
-    },
-    "id": "31",
-    "name": "#31",
-    "status": "SUCCESS",
-    "startTimeMillis": 1466275557176,
-    "endTimeMillis": 1466275581431,
-    "durationMillis": 24210,
-    "queueDurationMillis": 45,
-    "pauseDurationMillis": 19185,
-    "stages": [
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/31/execution/node/5/wfapi/describe"
-          }
-        },
-        "id": "5",
-        "name": "Build",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466275557221,
-        "durationMillis": 1006,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/31/execution/node/7/wfapi/describe"
-          }
-        },
-        "id": "7",
-        "name": "QA",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466275558227,
-        "durationMillis": 1004,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/31/execution/node/9/wfapi/describe"
-          }
-        },
-        "id": "9",
-        "name": "Stage",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466275559231,
+        "startTimeMillis": 1466742676212,
         "durationMillis": 1007,
         "pauseDurationMillis": 0
       },
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/31/execution/node/11/wfapi/describe"
-          }
-        },
-        "id": "11",
-        "name": "Production:canary",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466275560238,
-        "durationMillis": 21193,
-        "pauseDurationMillis": 19185
-      }
-    ]
-  },
-  {
-    "_links": {
-      "self": {
-        "href": "/job/canary-pipeline/30/wfapi/describe"
-      }
-    },
-    "id": "30",
-    "name": "#30",
-    "status": "SUCCESS",
-    "startTimeMillis": 1466275524339,
-    "endTimeMillis": 1466275550816,
-    "durationMillis": 26443,
-    "queueDurationMillis": 34,
-    "pauseDurationMillis": 9195,
-    "stages": [
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/30/execution/node/5/wfapi/describe"
-          }
-        },
-        "id": "5",
-        "name": "Build",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466275524373,
-        "durationMillis": 1006,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/30/execution/node/7/wfapi/describe"
+            "href": "/job/playerid-pipeline/164/execution/node/7/wfapi/describe"
           }
         },
         "id": "7",
         "name": "QA",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466275525379,
+        "startTimeMillis": 1466742677219,
         "durationMillis": 1004,
         "pauseDurationMillis": 0
       },
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/30/execution/node/9/wfapi/describe"
+            "href": "/job/playerid-pipeline/164/execution/node/9/wfapi/describe"
           }
         },
         "id": "9",
-        "name": "Stage",
+        "name": "Staging",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466275526383,
+        "startTimeMillis": 1466742678223,
         "durationMillis": 1003,
         "pauseDurationMillis": 0
       },
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/30/execution/node/11/wfapi/describe"
+            "href": "/job/playerid-pipeline/164/execution/node/11/wfapi/describe"
           }
         },
         "id": "11",
-        "name": "Production:canary",
+        "name": "Production:live",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466275527386,
-        "durationMillis": 23430,
-        "pauseDurationMillis": 9195
+        "startTimeMillis": 1466742679226,
+        "durationMillis": 1004,
+        "pauseDurationMillis": 0
       }
     ]
   },
   {
     "_links": {
       "self": {
-        "href": "/job/canary-pipeline/29/wfapi/describe"
+        "href": "/job/playerid-pipeline/163/wfapi/describe"
       }
     },
-    "id": "29",
-    "name": "#29",
+    "id": "163",
+    "name": "#163",
     "status": "SUCCESS",
-    "startTimeMillis": 1466275490381,
-    "endTimeMillis": 1466275539605,
-    "durationMillis": 49164,
-    "queueDurationMillis": 60,
-    "pauseDurationMillis": 44134,
+    "startTimeMillis": 1466741686597,
+    "endTimeMillis": 1466741705635,
+    "durationMillis": 4022,
+    "queueDurationMillis": 15016,
+    "pauseDurationMillis": 0,
     "stages": [
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/29/execution/node/5/wfapi/describe"
+            "href": "/job/playerid-pipeline/163/execution/node/5/wfapi/describe"
           }
         },
         "id": "5",
-        "name": "Build",
+        "name": "Development",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466275490441,
+        "startTimeMillis": 1466741701613,
+        "durationMillis": 1007,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/163/execution/node/7/wfapi/describe"
+          }
+        },
+        "id": "7",
+        "name": "QA",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741702620,
+        "durationMillis": 1003,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/163/execution/node/9/wfapi/describe"
+          }
+        },
+        "id": "9",
+        "name": "Staging",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741703623,
+        "durationMillis": 1002,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/163/execution/node/11/wfapi/describe"
+          }
+        },
+        "id": "11",
+        "name": "Production:live",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741704625,
+        "durationMillis": 1010,
+        "pauseDurationMillis": 0
+      }
+    ]
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "/job/playerid-pipeline/162/wfapi/describe"
+      }
+    },
+    "id": "162",
+    "name": "#162",
+    "status": "SUCCESS",
+    "startTimeMillis": 1466741685622,
+    "endTimeMillis": 1466741704628,
+    "durationMillis": 4024,
+    "queueDurationMillis": 14982,
+    "pauseDurationMillis": 0,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/162/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Development",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741700604,
+        "durationMillis": 1007,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/162/execution/node/7/wfapi/describe"
+          }
+        },
+        "id": "7",
+        "name": "QA",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741701611,
+        "durationMillis": 1003,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/162/execution/node/9/wfapi/describe"
+          }
+        },
+        "id": "9",
+        "name": "Staging",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741702614,
+        "durationMillis": 1003,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/162/execution/node/11/wfapi/describe"
+          }
+        },
+        "id": "11",
+        "name": "Production:live",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741703617,
+        "durationMillis": 1011,
+        "pauseDurationMillis": 0
+      }
+    ]
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "/job/playerid-pipeline/161/wfapi/describe"
+      }
+    },
+    "id": "161",
+    "name": "#161",
+    "status": "SUCCESS",
+    "startTimeMillis": 1466741685142,
+    "endTimeMillis": 1466741703622,
+    "durationMillis": 4025,
+    "queueDurationMillis": 14455,
+    "pauseDurationMillis": 0,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/161/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Development",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741699597,
+        "durationMillis": 1004,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/161/execution/node/7/wfapi/describe"
+          }
+        },
+        "id": "7",
+        "name": "QA",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741700601,
         "durationMillis": 1009,
         "pauseDurationMillis": 0
       },
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/29/execution/node/7/wfapi/describe"
+            "href": "/job/playerid-pipeline/161/execution/node/9/wfapi/describe"
           }
         },
-        "id": "7",
-        "name": "QA",
+        "id": "9",
+        "name": "Staging",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466275491450,
+        "startTimeMillis": 1466741701610,
         "durationMillis": 1003,
         "pauseDurationMillis": 0
       },
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/29/execution/node/9/wfapi/describe"
-          }
-        },
-        "id": "9",
-        "name": "Stage",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466275492453,
-        "durationMillis": 1005,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/29/execution/node/11/wfapi/describe"
+            "href": "/job/playerid-pipeline/161/execution/node/11/wfapi/describe"
           }
         },
         "id": "11",
-        "name": "Production:canary",
+        "name": "Production:live",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466275493458,
-        "durationMillis": 46147,
-        "pauseDurationMillis": 44134
+        "startTimeMillis": 1466741702613,
+        "durationMillis": 1009,
+        "pauseDurationMillis": 0
       }
     ]
   },
   {
     "_links": {
       "self": {
-        "href": "/job/canary-pipeline/28/wfapi/describe"
+        "href": "/job/playerid-pipeline/160/wfapi/describe"
       }
     },
-    "id": "28",
-    "name": "#28",
+    "id": "160",
+    "name": "#160",
     "status": "SUCCESS",
-    "startTimeMillis": 1466199309978,
-    "endTimeMillis": 1466204920182,
-    "durationMillis": 5610173,
-    "queueDurationMillis": 31,
-    "pauseDurationMillis": 11398,
+    "startTimeMillis": 1466741684822,
+    "endTimeMillis": 1466741702616,
+    "durationMillis": 4026,
+    "queueDurationMillis": 13768,
+    "pauseDurationMillis": 0,
     "stages": [
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/28/execution/node/5/wfapi/describe"
+            "href": "/job/playerid-pipeline/160/execution/node/5/wfapi/describe"
           }
         },
         "id": "5",
-        "name": "Build",
+        "name": "Development",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466199310009,
-        "durationMillis": 1006,
+        "startTimeMillis": 1466741698590,
+        "durationMillis": 1012,
         "pauseDurationMillis": 0
       },
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/28/execution/node/7/wfapi/describe"
+            "href": "/job/playerid-pipeline/160/execution/node/7/wfapi/describe"
           }
         },
         "id": "7",
         "name": "QA",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466199311015,
+        "startTimeMillis": 1466741699602,
         "durationMillis": 1003,
         "pauseDurationMillis": 0
       },
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/28/execution/node/9/wfapi/describe"
+            "href": "/job/playerid-pipeline/160/execution/node/9/wfapi/describe"
           }
         },
         "id": "9",
-        "name": "Stage",
+        "name": "Staging",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466199312018,
+        "startTimeMillis": 1466741700605,
         "durationMillis": 1003,
         "pauseDurationMillis": 0
       },
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/28/execution/node/11/wfapi/describe"
+            "href": "/job/playerid-pipeline/160/execution/node/11/wfapi/describe"
           }
         },
         "id": "11",
-        "name": "Production:canary",
+        "name": "Production:live",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466199313021,
-        "durationMillis": 5607161,
-        "pauseDurationMillis": 11398
-      }
-    ]
-  },
-  {
-    "_links": {
-      "self": {
-        "href": "/job/canary-pipeline/27/wfapi/describe"
-      }
-    },
-    "id": "27",
-    "name": "#27",
-    "status": "SUCCESS",
-    "startTimeMillis": 1466199302001,
-    "endTimeMillis": 1466204906769,
-    "durationMillis": 5604733,
-    "queueDurationMillis": 35,
-    "pauseDurationMillis": 5599707,
-    "stages": [
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/27/execution/node/5/wfapi/describe"
-          }
-        },
-        "id": "5",
-        "name": "Build",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466199302036,
-        "durationMillis": 1006,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/27/execution/node/7/wfapi/describe"
-          }
-        },
-        "id": "7",
-        "name": "QA",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466199303042,
-        "durationMillis": 1004,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/27/execution/node/9/wfapi/describe"
-          }
-        },
-        "id": "9",
-        "name": "Stage",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466199304046,
-        "durationMillis": 1006,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/27/execution/node/11/wfapi/describe"
-          }
-        },
-        "id": "11",
-        "name": "Production:canary",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466199305052,
-        "durationMillis": 5601717,
-        "pauseDurationMillis": 5599707
-      }
-    ]
-  },
-  {
-    "_links": {
-      "self": {
-        "href": "/job/canary-pipeline/26/wfapi/describe"
-      }
-    },
-    "id": "26",
-    "name": "#26",
-    "status": "SUCCESS",
-    "startTimeMillis": 1466198997517,
-    "endTimeMillis": 1466199021956,
-    "durationMillis": 24401,
-    "queueDurationMillis": 38,
-    "pauseDurationMillis": 19372,
-    "stages": [
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/26/execution/node/5/wfapi/describe"
-          }
-        },
-        "id": "5",
-        "name": "Build",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466198997555,
-        "durationMillis": 1007,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/26/execution/node/7/wfapi/describe"
-          }
-        },
-        "id": "7",
-        "name": "QA",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466198998562,
-        "durationMillis": 1004,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/26/execution/node/9/wfapi/describe"
-          }
-        },
-        "id": "9",
-        "name": "Stage",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466198999566,
-        "durationMillis": 1006,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/26/execution/node/11/wfapi/describe"
-          }
-        },
-        "id": "11",
-        "name": "Production:canary",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466199000572,
-        "durationMillis": 21384,
-        "pauseDurationMillis": 19372
-      }
-    ]
-  },
-  {
-    "_links": {
-      "self": {
-        "href": "/job/canary-pipeline/25/wfapi/describe"
-      }
-    },
-    "id": "25",
-    "name": "#25",
-    "status": "SUCCESS",
-    "startTimeMillis": 1466198980813,
-    "endTimeMillis": 1466198992472,
-    "durationMillis": 11616,
-    "queueDurationMillis": 43,
-    "pauseDurationMillis": 6589,
-    "stages": [
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/25/execution/node/5/wfapi/describe"
-          }
-        },
-        "id": "5",
-        "name": "Build",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466198980856,
-        "durationMillis": 1007,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/25/execution/node/7/wfapi/describe"
-          }
-        },
-        "id": "7",
-        "name": "QA",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466198981863,
-        "durationMillis": 1006,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/25/execution/node/9/wfapi/describe"
-          }
-        },
-        "id": "9",
-        "name": "Stage",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466198982869,
-        "durationMillis": 1007,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/25/execution/node/11/wfapi/describe"
-          }
-        },
-        "id": "11",
-        "name": "Production:canary",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466198983876,
-        "durationMillis": 8596,
-        "pauseDurationMillis": 6589
-      }
-    ]
-  },
-  {
-    "_links": {
-      "self": {
-        "href": "/job/canary-pipeline/24/wfapi/describe"
-      }
-    },
-    "id": "24",
-    "name": "#24",
-    "status": "SUCCESS",
-    "startTimeMillis": 1466198944858,
-    "endTimeMillis": 1466198972637,
-    "durationMillis": 27739,
-    "queueDurationMillis": 40,
-    "pauseDurationMillis": 22708,
-    "stages": [
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/24/execution/node/5/wfapi/describe"
-          }
-        },
-        "id": "5",
-        "name": "Build",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466198944898,
+        "startTimeMillis": 1466741701608,
         "durationMillis": 1008,
         "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/24/execution/node/7/wfapi/describe"
-          }
-        },
-        "id": "7",
-        "name": "QA",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466198945906,
-        "durationMillis": 1006,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/24/execution/node/9/wfapi/describe"
-          }
-        },
-        "id": "9",
-        "name": "Stage",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466198946912,
-        "durationMillis": 1008,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/24/execution/node/11/wfapi/describe"
-          }
-        },
-        "id": "11",
-        "name": "Production:canary",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466198947920,
-        "durationMillis": 24717,
-        "pauseDurationMillis": 22708
       }
     ]
   },
   {
     "_links": {
       "self": {
-        "href": "/job/canary-pipeline/23/wfapi/describe"
+        "href": "/job/playerid-pipeline/159/wfapi/describe"
       }
     },
-    "id": "23",
-    "name": "#23",
+    "id": "159",
+    "name": "#159",
     "status": "SUCCESS",
-    "startTimeMillis": 1466198391924,
-    "endTimeMillis": 1466198436192,
-    "durationMillis": 44234,
-    "queueDurationMillis": 34,
-    "pauseDurationMillis": 39206,
+    "startTimeMillis": 1466741684212,
+    "endTimeMillis": 1466741701609,
+    "durationMillis": 4025,
+    "queueDurationMillis": 13372,
+    "pauseDurationMillis": 0,
     "stages": [
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/23/execution/node/5/wfapi/describe"
+            "href": "/job/playerid-pipeline/159/execution/node/5/wfapi/describe"
           }
         },
         "id": "5",
-        "name": "Build",
+        "name": "Development",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466198391958,
+        "startTimeMillis": 1466741697584,
         "durationMillis": 1007,
         "pauseDurationMillis": 0
       },
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/23/execution/node/7/wfapi/describe"
+            "href": "/job/playerid-pipeline/159/execution/node/7/wfapi/describe"
           }
         },
         "id": "7",
         "name": "QA",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466198392965,
-        "durationMillis": 1005,
+        "startTimeMillis": 1466741698591,
+        "durationMillis": 1003,
         "pauseDurationMillis": 0
       },
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/23/execution/node/9/wfapi/describe"
+            "href": "/job/playerid-pipeline/159/execution/node/9/wfapi/describe"
           }
         },
         "id": "9",
-        "name": "Stage",
+        "name": "Staging",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466198393970,
-        "durationMillis": 1008,
+        "startTimeMillis": 1466741699594,
+        "durationMillis": 1002,
         "pauseDurationMillis": 0
       },
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/23/execution/node/11/wfapi/describe"
+            "href": "/job/playerid-pipeline/159/execution/node/11/wfapi/describe"
           }
         },
         "id": "11",
-        "name": "Production:canary",
+        "name": "Production:live",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466198394978,
-        "durationMillis": 41214,
-        "pauseDurationMillis": 39206
-      }
-    ]
-  },
-  {
-    "_links": {
-      "self": {
-        "href": "/job/canary-pipeline/22/wfapi/describe"
-      }
-    },
-    "id": "22",
-    "name": "#22",
-    "status": "SUCCESS",
-    "startTimeMillis": 1466197935479,
-    "endTimeMillis": 1466197946486,
-    "durationMillis": 10973,
-    "queueDurationMillis": 34,
-    "pauseDurationMillis": 5942,
-    "stages": [
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/22/execution/node/5/wfapi/describe"
-          }
-        },
-        "id": "5",
-        "name": "Build",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466197935513,
-        "durationMillis": 1008,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/22/execution/node/7/wfapi/describe"
-          }
-        },
-        "id": "7",
-        "name": "QA",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466197936521,
-        "durationMillis": 1005,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/22/execution/node/9/wfapi/describe"
-          }
-        },
-        "id": "9",
-        "name": "Stage",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466197937526,
-        "durationMillis": 1006,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/22/execution/node/11/wfapi/describe"
-          }
-        },
-        "id": "11",
-        "name": "Production:canary",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466197938532,
-        "durationMillis": 7954,
-        "pauseDurationMillis": 5942
-      }
-    ]
-  },
-  {
-    "_links": {
-      "self": {
-        "href": "/job/canary-pipeline/21/wfapi/describe"
-      }
-    },
-    "id": "21",
-    "name": "#21",
-    "status": "SUCCESS",
-    "startTimeMillis": 1466197905357,
-    "endTimeMillis": 1466197914459,
-    "durationMillis": 9070,
-    "queueDurationMillis": 32,
-    "pauseDurationMillis": 4044,
-    "stages": [
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/21/execution/node/5/wfapi/describe"
-          }
-        },
-        "id": "5",
-        "name": "Build",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466197905389,
-        "durationMillis": 1007,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/21/execution/node/7/wfapi/describe"
-          }
-        },
-        "id": "7",
-        "name": "QA",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466197906396,
-        "durationMillis": 1004,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/21/execution/node/9/wfapi/describe"
-          }
-        },
-        "id": "9",
-        "name": "Stage",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466197907400,
-        "durationMillis": 1006,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/21/execution/node/11/wfapi/describe"
-          }
-        },
-        "id": "11",
-        "name": "Production:canary",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466197908406,
-        "durationMillis": 6053,
-        "pauseDurationMillis": 4044
-      }
-    ]
-  },
-  {
-    "_links": {
-      "self": {
-        "href": "/job/canary-pipeline/20/wfapi/describe"
-      }
-    },
-    "id": "20",
-    "name": "#20",
-    "status": "SUCCESS",
-    "startTimeMillis": 1466197867758,
-    "endTimeMillis": 1466197880825,
-    "durationMillis": 13029,
-    "queueDurationMillis": 38,
-    "pauseDurationMillis": 7993,
-    "stages": [
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/20/execution/node/5/wfapi/describe"
-          }
-        },
-        "id": "5",
-        "name": "Build",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466197867796,
-        "durationMillis": 1014,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/20/execution/node/7/wfapi/describe"
-          }
-        },
-        "id": "7",
-        "name": "QA",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466197868810,
-        "durationMillis": 1005,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/20/execution/node/9/wfapi/describe"
-          }
-        },
-        "id": "9",
-        "name": "Stage",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466197869815,
-        "durationMillis": 1007,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/20/execution/node/11/wfapi/describe"
-          }
-        },
-        "id": "11",
-        "name": "Production:canary",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466197870822,
-        "durationMillis": 10003,
-        "pauseDurationMillis": 7993
-      }
-    ]
-  },
-  {
-    "_links": {
-      "self": {
-        "href": "/job/canary-pipeline/19/wfapi/describe"
-      }
-    },
-    "id": "19",
-    "name": "#19",
-    "status": "SUCCESS",
-    "startTimeMillis": 1466197442959,
-    "endTimeMillis": 1466197459581,
-    "durationMillis": 16590,
-    "queueDurationMillis": 32,
-    "pauseDurationMillis": 11565,
-    "stages": [
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/19/execution/node/5/wfapi/describe"
-          }
-        },
-        "id": "5",
-        "name": "Build",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466197442991,
-        "durationMillis": 1007,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/19/execution/node/7/wfapi/describe"
-          }
-        },
-        "id": "7",
-        "name": "QA",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466197443998,
-        "durationMillis": 1005,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/19/execution/node/9/wfapi/describe"
-          }
-        },
-        "id": "9",
-        "name": "Stage",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466197445003,
-        "durationMillis": 1006,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/19/execution/node/11/wfapi/describe"
-          }
-        },
-        "id": "11",
-        "name": "Production:canary",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466197446009,
-        "durationMillis": 13572,
-        "pauseDurationMillis": 11565
-      }
-    ]
-  },
-  {
-    "_links": {
-      "self": {
-        "href": "/job/canary-pipeline/18/wfapi/describe"
-      }
-    },
-    "id": "18",
-    "name": "#18",
-    "status": "SUCCESS",
-    "startTimeMillis": 1466196855080,
-    "endTimeMillis": 1466197142660,
-    "durationMillis": 287541,
-    "queueDurationMillis": 39,
-    "pauseDurationMillis": 282511,
-    "stages": [
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/18/execution/node/5/wfapi/describe"
-          }
-        },
-        "id": "5",
-        "name": "Build",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466196855119,
-        "durationMillis": 1008,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/18/execution/node/7/wfapi/describe"
-          }
-        },
-        "id": "7",
-        "name": "QA",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466196856127,
-        "durationMillis": 1005,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/18/execution/node/9/wfapi/describe"
-          }
-        },
-        "id": "9",
-        "name": "Stage",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466196857132,
-        "durationMillis": 1008,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/18/execution/node/11/wfapi/describe"
-          }
-        },
-        "id": "11",
-        "name": "Production:canary",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466196858140,
-        "durationMillis": 284520,
-        "pauseDurationMillis": 282511
-      }
-    ]
-  },
-  {
-    "_links": {
-      "self": {
-        "href": "/job/canary-pipeline/17/wfapi/describe"
-      }
-    },
-    "id": "17",
-    "name": "#17",
-    "status": "SUCCESS",
-    "startTimeMillis": 1466196618183,
-    "endTimeMillis": 1466196635066,
-    "durationMillis": 16851,
-    "queueDurationMillis": 32,
-    "pauseDurationMillis": 11820,
-    "stages": [
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/17/execution/node/5/wfapi/describe"
-          }
-        },
-        "id": "5",
-        "name": "Build",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466196618215,
+        "startTimeMillis": 1466741700596,
         "durationMillis": 1013,
         "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/17/execution/node/7/wfapi/describe"
-          }
-        },
-        "id": "7",
-        "name": "QA",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466196619228,
-        "durationMillis": 1004,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/17/execution/node/9/wfapi/describe"
-          }
-        },
-        "id": "9",
-        "name": "Stage",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466196620232,
-        "durationMillis": 1007,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/17/execution/node/11/wfapi/describe"
-          }
-        },
-        "id": "11",
-        "name": "Production:canary",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466196621239,
-        "durationMillis": 13827,
-        "pauseDurationMillis": 11820
       }
     ]
   },
   {
     "_links": {
       "self": {
-        "href": "/job/canary-pipeline/16/wfapi/describe"
+        "href": "/job/playerid-pipeline/158/wfapi/describe"
       }
     },
-    "id": "16",
-    "name": "#16",
+    "id": "158",
+    "name": "#158",
     "status": "SUCCESS",
-    "startTimeMillis": 1466196585461,
-    "endTimeMillis": 1466196600501,
-    "durationMillis": 15009,
-    "queueDurationMillis": 31,
-    "pauseDurationMillis": 9977,
+    "startTimeMillis": 1466741683931,
+    "endTimeMillis": 1466741700601,
+    "durationMillis": 4024,
+    "queueDurationMillis": 12646,
+    "pauseDurationMillis": 0,
     "stages": [
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/16/execution/node/5/wfapi/describe"
+            "href": "/job/playerid-pipeline/158/execution/node/5/wfapi/describe"
           }
         },
         "id": "5",
-        "name": "Build",
+        "name": "Development",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466196585492,
-        "durationMillis": 1014,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/16/execution/node/7/wfapi/describe"
-          }
-        },
-        "id": "7",
-        "name": "QA",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466196586506,
-        "durationMillis": 1004,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/16/execution/node/9/wfapi/describe"
-          }
-        },
-        "id": "9",
-        "name": "Stage",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466196587510,
-        "durationMillis": 1007,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/16/execution/node/11/wfapi/describe"
-          }
-        },
-        "id": "11",
-        "name": "Production:canary",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466196588517,
-        "durationMillis": 11984,
-        "pauseDurationMillis": 9977
-      }
-    ]
-  },
-  {
-    "_links": {
-      "self": {
-        "href": "/job/canary-pipeline/15/wfapi/describe"
-      }
-    },
-    "id": "15",
-    "name": "#15",
-    "status": "SUCCESS",
-    "startTimeMillis": 1466196303253,
-    "endTimeMillis": 1466196331409,
-    "durationMillis": 28115,
-    "queueDurationMillis": 41,
-    "pauseDurationMillis": 23081,
-    "stages": [
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/15/execution/node/5/wfapi/describe"
-          }
-        },
-        "id": "5",
-        "name": "Build",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466196303294,
-        "durationMillis": 1014,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/15/execution/node/7/wfapi/describe"
-          }
-        },
-        "id": "7",
-        "name": "QA",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466196304308,
-        "durationMillis": 1005,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/15/execution/node/9/wfapi/describe"
-          }
-        },
-        "id": "9",
-        "name": "Stage",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466196305313,
+        "startTimeMillis": 1466741696577,
         "durationMillis": 1006,
         "pauseDurationMillis": 0
       },
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/15/execution/node/11/wfapi/describe"
-          }
-        },
-        "id": "11",
-        "name": "Production:canary",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466196306319,
-        "durationMillis": 25090,
-        "pauseDurationMillis": 23081
-      }
-    ]
-  },
-  {
-    "_links": {
-      "self": {
-        "href": "/job/canary-pipeline/14/wfapi/describe"
-      }
-    },
-    "id": "14",
-    "name": "#14",
-    "status": "SUCCESS",
-    "startTimeMillis": 1466195032474,
-    "endTimeMillis": 1466195067583,
-    "durationMillis": 35076,
-    "queueDurationMillis": 33,
-    "pauseDurationMillis": 8547,
-    "stages": [
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/14/execution/node/5/wfapi/describe"
-          }
-        },
-        "id": "5",
-        "name": "Build",
-        "execNode": "master",
-        "status": "SUCCESS",
-        "startTimeMillis": 1466195032507,
-        "durationMillis": 1006,
-        "pauseDurationMillis": 0
-      },
-      {
-        "_links": {
-          "self": {
-            "href": "/job/canary-pipeline/14/execution/node/7/wfapi/describe"
+            "href": "/job/playerid-pipeline/158/execution/node/7/wfapi/describe"
           }
         },
         "id": "7",
         "name": "QA",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466195033513,
+        "startTimeMillis": 1466741697583,
         "durationMillis": 1003,
         "pauseDurationMillis": 0
       },
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/14/execution/node/9/wfapi/describe"
+            "href": "/job/playerid-pipeline/158/execution/node/9/wfapi/describe"
           }
         },
         "id": "9",
-        "name": "Stage",
+        "name": "Staging",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466195034516,
+        "startTimeMillis": 1466741698586,
+        "durationMillis": 1002,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/158/execution/node/11/wfapi/describe"
+          }
+        },
+        "id": "11",
+        "name": "Production:live",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741699588,
+        "durationMillis": 1013,
+        "pauseDurationMillis": 0
+      }
+    ]
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "/job/playerid-pipeline/157/wfapi/describe"
+      }
+    },
+    "id": "157",
+    "name": "#157",
+    "status": "SUCCESS",
+    "startTimeMillis": 1466741683406,
+    "endTimeMillis": 1466741699595,
+    "durationMillis": 4027,
+    "queueDurationMillis": 12162,
+    "pauseDurationMillis": 0,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/157/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Development",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741695568,
+        "durationMillis": 1007,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/157/execution/node/7/wfapi/describe"
+          }
+        },
+        "id": "7",
+        "name": "QA",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741696575,
+        "durationMillis": 1002,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/157/execution/node/9/wfapi/describe"
+          }
+        },
+        "id": "9",
+        "name": "Staging",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741697577,
         "durationMillis": 1003,
         "pauseDurationMillis": 0
       },
       {
         "_links": {
           "self": {
-            "href": "/job/canary-pipeline/14/execution/node/11/wfapi/describe"
+            "href": "/job/playerid-pipeline/157/execution/node/11/wfapi/describe"
           }
         },
         "id": "11",
-        "name": "Production:canary",
+        "name": "Production:live",
         "execNode": "master",
         "status": "SUCCESS",
-        "startTimeMillis": 1466195035519,
-        "durationMillis": 32064,
-        "pauseDurationMillis": 8547
+        "startTimeMillis": 1466741698580,
+        "durationMillis": 1015,
+        "pauseDurationMillis": 0
+      }
+    ]
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "/job/playerid-pipeline/156/wfapi/describe"
+      }
+    },
+    "id": "156",
+    "name": "#156",
+    "status": "SUCCESS",
+    "startTimeMillis": 1466741683115,
+    "endTimeMillis": 1466741698588,
+    "durationMillis": 4028,
+    "queueDurationMillis": 11445,
+    "pauseDurationMillis": 0,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/156/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Development",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741694560,
+        "durationMillis": 1009,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/156/execution/node/7/wfapi/describe"
+          }
+        },
+        "id": "7",
+        "name": "QA",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741695569,
+        "durationMillis": 1004,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/156/execution/node/9/wfapi/describe"
+          }
+        },
+        "id": "9",
+        "name": "Staging",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741696573,
+        "durationMillis": 1002,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/156/execution/node/11/wfapi/describe"
+          }
+        },
+        "id": "11",
+        "name": "Production:live",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741697575,
+        "durationMillis": 1013,
+        "pauseDurationMillis": 0
+      }
+    ]
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "/job/playerid-pipeline/155/wfapi/describe"
+      }
+    },
+    "id": "155",
+    "name": "#155",
+    "status": "SUCCESS",
+    "startTimeMillis": 1466741682444,
+    "endTimeMillis": 1466741697581,
+    "durationMillis": 4027,
+    "queueDurationMillis": 11110,
+    "pauseDurationMillis": 0,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/155/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Development",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741693554,
+        "durationMillis": 1007,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/155/execution/node/7/wfapi/describe"
+          }
+        },
+        "id": "7",
+        "name": "QA",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741694561,
+        "durationMillis": 1003,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/155/execution/node/9/wfapi/describe"
+          }
+        },
+        "id": "9",
+        "name": "Staging",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741695564,
+        "durationMillis": 1003,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/155/execution/node/11/wfapi/describe"
+          }
+        },
+        "id": "11",
+        "name": "Production:live",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741696567,
+        "durationMillis": 1014,
+        "pauseDurationMillis": 0
+      }
+    ]
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "/job/playerid-pipeline/154/wfapi/describe"
+      }
+    },
+    "id": "154",
+    "name": "#154",
+    "status": "SUCCESS",
+    "startTimeMillis": 1466741682161,
+    "endTimeMillis": 1466741696574,
+    "durationMillis": 4027,
+    "queueDurationMillis": 10386,
+    "pauseDurationMillis": 0,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/154/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Development",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741692547,
+        "durationMillis": 1006,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/154/execution/node/7/wfapi/describe"
+          }
+        },
+        "id": "7",
+        "name": "QA",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741693553,
+        "durationMillis": 1003,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/154/execution/node/9/wfapi/describe"
+          }
+        },
+        "id": "9",
+        "name": "Staging",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741694556,
+        "durationMillis": 1002,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/154/execution/node/11/wfapi/describe"
+          }
+        },
+        "id": "11",
+        "name": "Production:live",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741695558,
+        "durationMillis": 1016,
+        "pauseDurationMillis": 0
+      }
+    ]
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "/job/playerid-pipeline/153/wfapi/describe"
+      }
+    },
+    "id": "153",
+    "name": "#153",
+    "status": "SUCCESS",
+    "startTimeMillis": 1466741681620,
+    "endTimeMillis": 1466741695565,
+    "durationMillis": 4026,
+    "queueDurationMillis": 9919,
+    "pauseDurationMillis": 0,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/153/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Development",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741691539,
+        "durationMillis": 1008,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/153/execution/node/7/wfapi/describe"
+          }
+        },
+        "id": "7",
+        "name": "QA",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741692547,
+        "durationMillis": 1004,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/153/execution/node/9/wfapi/describe"
+          }
+        },
+        "id": "9",
+        "name": "Staging",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741693551,
+        "durationMillis": 1002,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/153/execution/node/11/wfapi/describe"
+          }
+        },
+        "id": "11",
+        "name": "Production:live",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741694553,
+        "durationMillis": 1012,
+        "pauseDurationMillis": 0
+      }
+    ]
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "/job/playerid-pipeline/152/wfapi/describe"
+      }
+    },
+    "id": "152",
+    "name": "#152",
+    "status": "SUCCESS",
+    "startTimeMillis": 1466741681304,
+    "endTimeMillis": 1466741694558,
+    "durationMillis": 4027,
+    "queueDurationMillis": 9227,
+    "pauseDurationMillis": 0,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/152/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Development",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741690531,
+        "durationMillis": 1004,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/152/execution/node/7/wfapi/describe"
+          }
+        },
+        "id": "7",
+        "name": "QA",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741691535,
+        "durationMillis": 1007,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/152/execution/node/9/wfapi/describe"
+          }
+        },
+        "id": "9",
+        "name": "Staging",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741692542,
+        "durationMillis": 1003,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/152/execution/node/11/wfapi/describe"
+          }
+        },
+        "id": "11",
+        "name": "Production:live",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741693545,
+        "durationMillis": 1013,
+        "pauseDurationMillis": 0
+      }
+    ]
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "/job/playerid-pipeline/151/wfapi/describe"
+      }
+    },
+    "id": "151",
+    "name": "#151",
+    "status": "SUCCESS",
+    "startTimeMillis": 1466741680861,
+    "endTimeMillis": 1466741693552,
+    "durationMillis": 4027,
+    "queueDurationMillis": 8664,
+    "pauseDurationMillis": 0,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/151/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Development",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741689525,
+        "durationMillis": 1009,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/151/execution/node/7/wfapi/describe"
+          }
+        },
+        "id": "7",
+        "name": "QA",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741690534,
+        "durationMillis": 1003,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/151/execution/node/9/wfapi/describe"
+          }
+        },
+        "id": "9",
+        "name": "Staging",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741691537,
+        "durationMillis": 1002,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/151/execution/node/11/wfapi/describe"
+          }
+        },
+        "id": "11",
+        "name": "Production:live",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741692539,
+        "durationMillis": 1013,
+        "pauseDurationMillis": 0
+      }
+    ]
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "/job/playerid-pipeline/150/wfapi/describe"
+      }
+    },
+    "id": "150",
+    "name": "#150",
+    "status": "SUCCESS",
+    "startTimeMillis": 1466741680122,
+    "endTimeMillis": 1466741692545,
+    "durationMillis": 4029,
+    "queueDurationMillis": 8394,
+    "pauseDurationMillis": 0,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/150/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Development",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741688516,
+        "durationMillis": 1008,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/150/execution/node/7/wfapi/describe"
+          }
+        },
+        "id": "7",
+        "name": "QA",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741689524,
+        "durationMillis": 1003,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/150/execution/node/9/wfapi/describe"
+          }
+        },
+        "id": "9",
+        "name": "Staging",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741690527,
+        "durationMillis": 1002,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/150/execution/node/11/wfapi/describe"
+          }
+        },
+        "id": "11",
+        "name": "Production:live",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741691529,
+        "durationMillis": 1016,
+        "pauseDurationMillis": 0
+      }
+    ]
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "/job/playerid-pipeline/149/wfapi/describe"
+      }
+    },
+    "id": "149",
+    "name": "#149",
+    "status": "SUCCESS",
+    "startTimeMillis": 1466741679857,
+    "endTimeMillis": 1466741691536,
+    "durationMillis": 4027,
+    "queueDurationMillis": 7652,
+    "pauseDurationMillis": 0,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/149/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Development",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741687509,
+        "durationMillis": 1009,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/149/execution/node/7/wfapi/describe"
+          }
+        },
+        "id": "7",
+        "name": "QA",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741688518,
+        "durationMillis": 1004,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/149/execution/node/9/wfapi/describe"
+          }
+        },
+        "id": "9",
+        "name": "Staging",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741689522,
+        "durationMillis": 1002,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/149/execution/node/11/wfapi/describe"
+          }
+        },
+        "id": "11",
+        "name": "Production:live",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741690524,
+        "durationMillis": 1012,
+        "pauseDurationMillis": 0
+      }
+    ]
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "/job/playerid-pipeline/148/wfapi/describe"
+      }
+    },
+    "id": "148",
+    "name": "#148",
+    "status": "SUCCESS",
+    "startTimeMillis": 1466741678746,
+    "endTimeMillis": 1466741690529,
+    "durationMillis": 4027,
+    "queueDurationMillis": 7756,
+    "pauseDurationMillis": 0,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/148/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Development",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741686502,
+        "durationMillis": 1006,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/148/execution/node/7/wfapi/describe"
+          }
+        },
+        "id": "7",
+        "name": "QA",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741687508,
+        "durationMillis": 1004,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/148/execution/node/9/wfapi/describe"
+          }
+        },
+        "id": "9",
+        "name": "Staging",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741688512,
+        "durationMillis": 1002,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/148/execution/node/11/wfapi/describe"
+          }
+        },
+        "id": "11",
+        "name": "Production:live",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741689514,
+        "durationMillis": 1015,
+        "pauseDurationMillis": 0
+      }
+    ]
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "/job/playerid-pipeline/147/wfapi/describe"
+      }
+    },
+    "id": "147",
+    "name": "#147",
+    "status": "SUCCESS",
+    "startTimeMillis": 1466741678481,
+    "endTimeMillis": 1466741689523,
+    "durationMillis": 4028,
+    "queueDurationMillis": 7014,
+    "pauseDurationMillis": 0,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/147/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Development",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741685495,
+        "durationMillis": 1006,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/147/execution/node/7/wfapi/describe"
+          }
+        },
+        "id": "7",
+        "name": "QA",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741686501,
+        "durationMillis": 1004,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/147/execution/node/9/wfapi/describe"
+          }
+        },
+        "id": "9",
+        "name": "Staging",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741687505,
+        "durationMillis": 1002,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/147/execution/node/11/wfapi/describe"
+          }
+        },
+        "id": "11",
+        "name": "Production:live",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741688507,
+        "durationMillis": 1016,
+        "pauseDurationMillis": 0
+      }
+    ]
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "/job/playerid-pipeline/146/wfapi/describe"
+      }
+    },
+    "id": "146",
+    "name": "#146",
+    "status": "SUCCESS",
+    "startTimeMillis": 1466741675801,
+    "endTimeMillis": 1466741688513,
+    "durationMillis": 4024,
+    "queueDurationMillis": 8688,
+    "pauseDurationMillis": 0,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/146/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Development",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741684489,
+        "durationMillis": 1007,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/146/execution/node/7/wfapi/describe"
+          }
+        },
+        "id": "7",
+        "name": "QA",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741685496,
+        "durationMillis": 1003,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/146/execution/node/9/wfapi/describe"
+          }
+        },
+        "id": "9",
+        "name": "Staging",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741686499,
+        "durationMillis": 1003,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/146/execution/node/11/wfapi/describe"
+          }
+        },
+        "id": "11",
+        "name": "Production:live",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741687502,
+        "durationMillis": 1011,
+        "pauseDurationMillis": 0
+      }
+    ]
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "/job/playerid-pipeline/145/wfapi/describe"
+      }
+    },
+    "id": "145",
+    "name": "#145",
+    "status": "SUCCESS",
+    "startTimeMillis": 1466741675514,
+    "endTimeMillis": 1466741687506,
+    "durationMillis": 4025,
+    "queueDurationMillis": 7967,
+    "pauseDurationMillis": 0,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/145/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Development",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741683481,
+        "durationMillis": 1007,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/145/execution/node/7/wfapi/describe"
+          }
+        },
+        "id": "7",
+        "name": "QA",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741684488,
+        "durationMillis": 1003,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/145/execution/node/9/wfapi/describe"
+          }
+        },
+        "id": "9",
+        "name": "Staging",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741685491,
+        "durationMillis": 1002,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/145/execution/node/11/wfapi/describe"
+          }
+        },
+        "id": "11",
+        "name": "Production:live",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741686493,
+        "durationMillis": 1013,
+        "pauseDurationMillis": 0
+      }
+    ]
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "/job/playerid-pipeline/144/wfapi/describe"
+      }
+    },
+    "id": "144",
+    "name": "#144",
+    "status": "SUCCESS",
+    "startTimeMillis": 1466741674586,
+    "endTimeMillis": 1466741686499,
+    "durationMillis": 4026,
+    "queueDurationMillis": 7887,
+    "pauseDurationMillis": 0,
+    "stages": [
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/144/execution/node/5/wfapi/describe"
+          }
+        },
+        "id": "5",
+        "name": "Development",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741682473,
+        "durationMillis": 1007,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/144/execution/node/7/wfapi/describe"
+          }
+        },
+        "id": "7",
+        "name": "QA",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741683480,
+        "durationMillis": 1003,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/144/execution/node/9/wfapi/describe"
+          }
+        },
+        "id": "9",
+        "name": "Staging",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741684483,
+        "durationMillis": 1003,
+        "pauseDurationMillis": 0
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/job/playerid-pipeline/144/execution/node/11/wfapi/describe"
+          }
+        },
+        "id": "11",
+        "name": "Production:live",
+        "execNode": "master",
+        "status": "SUCCESS",
+        "startTimeMillis": 1466741685486,
+        "durationMillis": 1013,
+        "pauseDurationMillis": 0
       }
     ]
   }

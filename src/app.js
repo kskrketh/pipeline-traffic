@@ -39,6 +39,7 @@ var jenkinsJobs = [
 
 var listOfMSNames = setUpPipelineElements(jenkinsJobs);
 
+var fullSizePipelineID = '';
 // This is called from a form in the UI that takes Jenkins URL.
 /*
 var addNewJenkinsJob = function() {
@@ -766,5 +767,6 @@ module.exports = {
   jenkinsJobs: jenkinsJobs,
   listOfMSNames: listOfMSNames,
   transformProperty: transformProperty,
-  msCount: msCount
+  msCount: msCount,
+  fullSizePipelineID: fullSizePipelineID
 };

@@ -8,6 +8,7 @@
 module.exports = function (commit, name) {
   var app = require('./app');
   var pollJenkins = require('./pollJenkins');
+  var growProdBall = require('./growProdBall');
 
   var stageName = commit.currentStage.split(':');
   var prodType = stageName[1];
@@ -80,6 +81,9 @@ module.exports = function (commit, name) {
       prod2Div.classList.add('hidden');
       prod1Div.firstElementChild.id = name + '-live';
       prod2Div.firstElementChild.id = name + '-dead';
+    }
+    if(app.expandedView) {
+      growProdBall(app.fullSizePipelineID);
     }
   }, commit.duration );
 
