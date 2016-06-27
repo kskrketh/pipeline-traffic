@@ -21,9 +21,9 @@
                 font-size: 2rem;
                 font-weight: bold;
                 text-transform: uppercase;
-                margin: 60px;
+                margin: 0px;
             }
-            fieldset { margin: 50px; }
+            fieldset { margin: 0px; }
             label { clear: both; display: block; }
             label.topspace { margin-top: 40px; }
             input[type=range] {
@@ -63,17 +63,6 @@
 
                 {{#each services:i}}
                 <div class="mui-radio">
-                {{#if services[i] == 'mechanics'}}
-                    <button
-                        on-click="set-active"
-                        id="{{ services[i] }}-live"
-                        class="{{ state.active[services[i]] === 'live' ? '' : 'faded' }} mui-btn mui-btn--primary purple">Live</button>
-                    <button
-                        on-click="set-active"
-                        id="{{ services[i] }}-canary"
-                        class="{{ state.active[services[i]] === 'canary' ? '' : 'faded' }} mui-btn mui-btn--primary yellow">Canary</button>
-                    {{ services[i] }}
-                {{else}}
                     <button
                         on-click="set-active"
                         id="{{ services[i] }}-live"
@@ -87,10 +76,15 @@
                         id="{{ services[i] }}-green"
                         class="{{ state.active[services[i]] === 'green' ? '' : 'faded' }} mui-btn mui-btn--primary green">Green</button>
                     {{ services[i] }}
-                {{/if}}
                 <div>
                 {{/each}}
             </fieldset>
+
+            <fieldset>
+                <legend>Mechanics Canary: {{ state.mechanics_canary }}%</legend>
+                <input on-change="set-mechanics-canary" on-mousemove="set-mechanics-canary" type="range" from="0" to="100" step="1" value="0" id="mechanics-canary" />
+            </fieldset>
+
         </script>
 
         <div id="container"></div>

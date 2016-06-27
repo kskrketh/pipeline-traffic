@@ -1,4 +1,4 @@
-var MECHANICS_TICK_RATE = 4; // how often mechanics -> gamebus traffic is sent
+var MECHANICS_TICK_RATE = 100; // how often mechanics -> gamebus traffic is sent
 var TRAFFIC_PER_FRAME = 2;
 
 var Ractive = require('ractive');
@@ -21,15 +21,15 @@ var data = {
         'gamebus',
         'score',
         'achievement',
-        'mechanics',
     ],
     state: {
         active: {
             gamebus     : 'blue',
             score       : 'blue',
             achievement : 'blue',
-            mechanics   : 'live',
         },
+        x: 42,
+        mechanics_canary: 0,
         volume: 0,
         phase: 'game',
     }
@@ -50,6 +50,7 @@ ractive.on( 'set-active', function ( event ) {
 ractive.on( 'set-phase-game', () => ractive.set('state.phase', 'game'));
 ractive.on( 'set-phase-player-id', () => ractive.set('state.phase', 'player-id'));
 ractive.on( 'set-volume', event => ractive.set('state.volume', event.node.value));
+ractive.on( 'set-mechanics-canary', event => ractive.set('state.mechanics_canary', event.node.value));
 
 window.ractive = ractive;
 
@@ -84,18 +85,15 @@ function tickMechanics() {
     tickMechanics.count = tickMechanics.count ? tickMechanics.count + 1 : 1;
     if (tickMechanics.count >= MECHANICS_TICK_RATE) {
         tickMechanics.count = 0;
+    }
 
-        var p = 1; // percentage of traffic going to 'live'
-        if (data.state.active.mechanics === 'canary') {
-            p = 0.9;
-        }
+    var p = ractive.get('state.mechanics_canary');
 
-        if (Math.random() < p) {
-            traffic('mechanics-pipeline-live', id('gamebus'));
-        }
-        else {
-            traffic('mechanics-pipeline-canary', id('gamebus'));
-        }
+    if (tickMechanics.count < p) {
+        traffic('mechanics-pipeline-live', id('gamebus'));
+    }
+    else {
+        traffic('mechanics-pipeline-canary', id('gamebus'));
     }
 }
 
