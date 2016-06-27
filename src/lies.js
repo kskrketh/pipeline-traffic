@@ -1,4 +1,3 @@
-var MECHANICS_TICK_RATE = 100; // how often mechanics -> gamebus traffic is sent
 var TRAFFIC_PER_FRAME = 2;
 
 var Ractive = require('ractive');
@@ -82,18 +81,13 @@ function tickPlayerIDPhase() {
 }
 
 function tickMechanics() {
-    tickMechanics.count = tickMechanics.count ? tickMechanics.count + 1 : 1;
-    if (tickMechanics.count >= MECHANICS_TICK_RATE) {
-        tickMechanics.count = 0;
-    }
-
     var p = ractive.get('state.mechanics_canary');
 
-    if (tickMechanics.count < p) {
-        traffic('mechanics-pipeline-live', id('gamebus'));
+    if (Math.random()*100 < p) {
+        traffic('mechanics-pipeline-canary', id('gamebus'));
     }
     else {
-        traffic('mechanics-pipeline-canary', id('gamebus'));
+        traffic('mechanics-pipeline-live', id('gamebus'));
     }
 }
 
