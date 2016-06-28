@@ -14,10 +14,11 @@ module.exports = function (ms) {
   for (var i = 0; i < ms.stages.length; i++) {
     // We don't want to create a stage container for Production as it has different properties.
     if (!ms.stages[i].name.startsWith('Prod')) {
-      html +=
-        '<div id="' + ms.stages[i].id + '" class="stage">' +
-        '<h2>' + ms.stages[i].name + '</h2>' +
-        '</div><!-- /stage -->';
+      html +=`
+        <div id="${ms.stages[i].id}" class="stage">
+        <h2>${ms.stages[i].name}</h2>
+        </div><!-- /stage -->
+      `;
     }
   }
 

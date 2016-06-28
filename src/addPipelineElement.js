@@ -73,11 +73,6 @@ module.exports = function (ms) {
       ${ms.name}
       <!-- <span>build: ms. </span> -->
     </h1>
-    <div class="microservice-actions">
-      <a href="#" onclick="app.removePipeline('pipeline-container', 'microservice-${i}');return false;"><i class="fa fa-trash" aria-hidden="true"></i></a>
-      <a href="#" onclick="app.expandPipeline('${ms.name}') ;return false;"><i class="fa fa-expand" aria-hidden="true"></i></a>
-      <a href="#" class="hidden" onclick="app.compressPipeline('${ms.name}') ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
-    </div>
     <div id="${ms.name}-stages" class="stages">
     </div><!-- /stages -->
     <div id="${ms.stages[ms.stages.length - 1].id}"  class="stage stage-lg">
@@ -91,7 +86,16 @@ module.exports = function (ms) {
     </div><!-- /stage-lg -->
   `;
 
-  parentDiv.appendChild(div);
+  // add after the h1 div
+/*
+  <div class="microservice-actions">
+    <a href="#" onclick="app.removePipeline('pipeline-container', 'microservice-${i}');return false;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+    <a href="#" onclick="app.expandPipeline('${ms.name}') ;return false;"><i class="fa fa-expand" aria-hidden="true"></i></a>
+    <a href="#" class="hidden" onclick="app.compressPipeline('${ms.name}') ;return false;"><i class="fa fa-compress" aria-hidden="true"></i></a>
+  </div>
+*/
+
+    parentDiv.appendChild(div);
   addStagesElement(ms);
   addAllCommitElements(ms.commits, ms.stages, ms.name);
   // addStageHeightRowNumberClass(ms.name);
